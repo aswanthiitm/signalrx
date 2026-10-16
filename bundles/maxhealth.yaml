@@ -1,0 +1,130 @@
+# Evidence bundle: Max Healthcare Institute (NSE: MAXHEALTH). Collected 2026-10-16; see drreddy.yaml for conventions.
+
+company:
+  name: "Max Healthcare Institute"
+  symbol: MAXHEALTH
+  ids: {nse: MAXHEALTH, bse: "543220"}
+  as_of: "2026-10-16"
+
+profile_text: >
+  Hospital network operating super-specialty hospitals with operational beds,
+  occupancy and ARPOB as key metrics; payors include cash, insurance,
+  international patients and institutional (CGHS/ECHS) patients; specialties
+  include oncology, cardiac sciences, neurosciences, renal and orthopaedics;
+  brownfield and greenfield bed expansion plus acquisitions.
+
+sources:
+  - {id: M01, type: media, publisher: "Investing.com", published: "2026-08", title: "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion", url: "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"}
+  - {id: M02, type: media, publisher: "GuruFocus via Investing.com", published: "2026-08", title: "Max Healthcare Q1 2027 Earnings Call Highlights", url: "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"}
+  - {id: M03, type: aggregator, publisher: "Kotak Neo", published: "2026-08", title: "Max Healthcare Q1 FY27 Results: Revenue Rises 16%", url: "https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/"}
+  - {id: M04, type: media, publisher: "Healthcare Executive", published: "2026-08", title: "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr", url: "https://www.healthcareexecutive.in/blog/max-healthcare-q1"}
+  - {id: M05, type: aggregator, publisher: "Sahi", published: "2026-08", title: "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore", url: "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR"}
+  - {id: M06, type: aggregator, publisher: "Multibagg", published: "2026-08", title: "Max Healthcare Q1 FY27: network absorbs new beds and acquisitions", url: "https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095"}
+  - {id: M07, type: aggregator, publisher: "Multibagg", published: "2026-05", title: "Max Healthcare Q4 FY26: brownfield expansions ramp up", url: "https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589"}
+  - {id: M08, type: aggregator, publisher: "Investywise", published: "2026-02", title: "Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr", url: "https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/"}
+  - {id: M09, type: broker, publisher: "Axis Direct", published: "2026-02-09", title: "Max Healthcare Q3FY26 Result Update", url: "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental"}
+  - {id: M10, type: transcript, publisher: "Alpha Spread (call transcript)", entity: company, published: "2026-02", title: "MAXHEALTH Q3 FY26 earnings call", url: "https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026"}
+  - {id: M11, type: media, publisher: "ThePrint", published: "2025-01", title: "Govt tightens drug billing norm for CGHS claims; why private hospitals are pushing back", url: "https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/"}
+  - {id: M12, type: media, publisher: "Outlook Money", published: "2025-10", title: "CGHS rates revised: changes effective October 13, 2025", url: "https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025"}
+  - {id: M13, type: media, publisher: "Business Standard", published: "2025-10-05", title: "Centre revises CGHS rates; hospitals welcome tier-based structure", url: "https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html"}
+  - {id: M14, type: broker, publisher: "HDFC Securities", published: "2025-12-29", title: "Max Healthcare Institute company update, Dec 2025", url: "https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf"}
+  - {id: M15, type: media, publisher: "Business Standard", published: "2025-11-21", title: "Max Healthcare builds growth runway with brownfield expansion push", url: "https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html"}
+  - {id: M16, type: media, publisher: "DistilINFO", published: "2026-04-16", title: "Max Healthcare plans 10,000-bed expansion drive", url: "https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/"}
+  - {id: M17, type: aggregator, publisher: "Investywise", published: "2026-08", title: "Max Healthcare Q1 FY27 earnings call transcript summary", url: "https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/"}
+  - {id: M18, type: broker, publisher: "Way2Wealth", published: "2025-05-26", title: "Max Healthcare Institute research report", url: "https://www.way2wealth.com/Reports/RR26052025fa75e.pdf"}
+  - {id: M19, type: media, publisher: "Investing.com", published: "2026-08", title: "Apollo Hospitals Q1 FY27 slides: margins expand, digital losses narrow", url: "https://www.investing.com/news/company-news/apollo-hospitals-q1-fy27-slides-margins-expand-digital-losses-narrow-93CH-4857308"}
+  - {id: M20, type: media, publisher: "Business Standard", published: "2026-02-05", title: "Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression", url: "https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html"}
+  - {id: M21, type: media, publisher: "ad-hoc-news (DSIJ)", published: "2026-08", title: "Max Health stock hits a 52-week low as margins face pressure", url: "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171"}
+  - {id: M22, type: media, publisher: "Business Standard", published: "2026-08-16", title: "Apollo scores over Max with a strong revenue, margin outperformance in Q1", url: "https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html"}
+
+evidence:
+  - {id: H01, source: M01, kind: quote, text: "Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology's share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027."}
+  - {id: H02, source: M02, kind: quote, text: "The company's large CGHS and institutional business made it more exposed than peers to the discontinuation of high-value chemotherapy drugs."}
+  - {id: H03, source: M03, kind: figure, text: "Excluding oncology, gross revenue grew 20% year on year."}
+  - {id: H04, source: M04, kind: figure, text: "Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27."}
+  - {id: H05, source: M05, kind: figure, text: "Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex."}
+  - {id: H06, source: M06, kind: figure, text: "Profit after tax was Rs 357 crore, up 3%."}
+  - {id: H07, source: M07, kind: figure, text: "Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k."}
+  - {id: H08, source: M08, kind: figure, text: "Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year."}
+  - {id: H09, source: M09, kind: quote, text: "Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY."}
+  - {id: H10, source: M10, kind: claim, text: "Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management has been in ongoing discussions with the government over below-cost supply requirements and expects the impact to be structural unless terms improve."}
+  - {id: H11, source: M11, kind: event, text: "The CGHS wing told empanelled hospitals to either accept medicines CGHS supplies or provide a purchase invoice for them (December 2024 order). AHPI planned to ask the government to withdraw the order, saying it squeezes hospital margins, particularly in high-cost cancer treatment."}
+  - {id: H12, source: M12, kind: event, text: "The Ministry of Health and Family Welfare issued the office memorandum on October 3, 2025; revised CGHS package rates for nearly 2,000 procedures took effect October 13, 2025. Cancer surgeries continue under the old rules, but chemotherapy, radiotherapy and related tests now follow the revised rates."}
+  - {id: H13, source: M13, kind: context, text: "Centre revises CGHS rates; first major revamp since 2014; hospitals welcome tier-based structure."}
+  - {id: H14, source: M14, kind: figure, text: "The company is planning to scale up its bed capacity from 5,000 in FY25 to 9,000-9,500 by FY28; on track to add over 3,000 beds between FY26 and FY28 (~2,100 brownfield and 900 greenfield); about 6,769 beds projected at end-FY27."}
+  - {id: H15, source: M15, kind: quote, text: "By 2028, it will go up to about 9,500, said Soi."}
+  - {id: H16, source: M16, kind: claim, text: "Max Healthcare has announced a Rs 6,000 crore plan to add over 10,000 beds across India within two to four years, funded entirely through internal cash."}
+  - {id: H17, source: M17, kind: figure, text: "Project timelines: Max Smart 400-bed tower 50% operational, rest in current quarter; 100 beds Max Lucknow (next two quarters); 500 beds Sector 56 Gurgaon (phased by year-end); 250 beds Bhubaneswar (renovation within 12 months); 100 beds Nagpur (by FY28); 400 beds Zirakpur, Mohali (by FY28)."}
+  - {id: H18, source: M18, kind: event, text: "In Nagpur, a 170-bed expansion is in progress, with 12 beds already commissioned; the remaining beds are pending environmental clearance. The 550-bed Vikrant Saket project is awaiting forest department clearance, with completion expected by FY28."}
+  - {id: H19, source: M19, kind: figure, text: "Apollo Q1 FY27: occupancy rose to 70% from 65%; average revenue per patient rose 8% driven by favorable case mix and specialty growth."}
+  - {id: H20, source: M20, kind: figure, text: "The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%."}
+  - {id: H21, source: M08, kind: figure, text: "PAT increased by 9% to Rs 344 Cr."}
+  - {id: H22, source: M21, kind: headline, text: "Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk."}
+  - {id: H23, source: M22, kind: headline, text: "Apollo scores over Max with a strong revenue, margin outperformance in Q1."}
+  - {id: H24, source: M09, kind: context, text: "Reported PAT of Rs 344 crore included a one-time labour provision of Rs 55 crore; adjusted PAT Rs 399 crore."}
+
+observations:
+  - {metric: beds_operational, period: FY25, value: 4654, unit: beds, evidence: H07}
+  - {metric: beds_operational, period: FY26, value: 4966, unit: beds, evidence: H07}
+  - {metric: beds_operational, period: Q1FY27, value: 5379, unit: beds, evidence: H05}
+  - {metric: beds_operational, period: Q1FY26, value: 4749, unit: beds, evidence: H05, derived: true, note: "5,379 less 630 net additions YoY"}
+  - {metric: beds_target, dims: {by: FY28, bound: low}, period: Q3FY26, value: 9000, unit: beds, evidence: H14}
+  - {metric: beds_target, dims: {by: FY28, bound: high}, period: Q3FY26, value: 9500, unit: beds, evidence: H14}
+  - {metric: occupancy, period: Q3FY26, value: 74, unit: "%", evidence: H08}
+  - {metric: occupancy, period: Q4FY26, value: 75, unit: "%", evidence: H07}
+  - {metric: occupancy, period: Q1FY27, value: 75, unit: "%", evidence: H05}
+  - {metric: arpob, period: Q3FY25, value: 75.9, unit: INR_k, evidence: H08}
+  - {metric: arpob, period: Q3FY26, value: 77.9, unit: INR_k, evidence: H08}
+  - {metric: arpob, period: Q4FY26, value: 77.9, unit: INR_k, evidence: H07}
+  - {metric: arpob, period: Q1FY27, value: 81.9, unit: INR_k, evidence: H05}
+  - {metric: arpob_growth_yoy, period: Q3FY26, value: 2.6, unit: "%", evidence: H09}
+  - {metric: arpob_growth_yoy, period: Q4FY26, value: 0.0, unit: "%", evidence: H07, note: "reported as broadly flat"}
+  - {metric: arpob_growth_yoy, period: Q1FY27, value: 5.0, unit: "%", evidence: H05}
+  - {metric: revenue_growth_yoy, dims: {basis: reported}, period: Q1FY27, value: 16, unit: "%", evidence: H04}
+  - {metric: revenue_growth_yoy, dims: {basis: ex_oncology}, period: Q1FY27, value: 20, unit: "%", evidence: H01}
+  - {metric: revenue_growth_yoy, dims: {basis: ex_oncology}, period: Q1FY27, value: 20, unit: "%", evidence: H03}
+  - {metric: specialty_share_ip, dims: {specialty: oncology}, period: Q1FY26, value: 26, unit: "%", evidence: H01}
+  - {metric: specialty_share_ip, dims: {specialty: oncology}, period: Q1FY27, value: 22, unit: "%", evidence: H01}
+  - {metric: revenue_total, period: Q1FY27, value: 29820, unit: INR_mn, evidence: H04}
+  - {metric: ebitda, period: Q1FY27, value: 7040, unit: INR_mn, evidence: H04}
+  - {metric: net_profit, period: Q1FY27, value: 3570, unit: INR_mn, evidence: H06}
+  - {metric: net_profit, period: Q3FY26, value: 3010, unit: INR_mn, evidence: H20}
+  - {metric: net_profit, period: Q3FY26, value: 3440, unit: INR_mn, evidence: H21}
+  - {metric: ebitda_margin, period: Q3FY26, value: 26.1, unit: "%", evidence: H09}
+  - {metric: ebitda_margin, period: Q3FY25, value: 27.3, unit: "%", evidence: H09}
+  - {metric: policy_benefit_annual, dims: {policy: CGHS tariff revision}, period: FY27, value: 1400, unit: INR_mn, evidence: H09}
+  - {metric: net_debt, period: Q1FY27, value: 23840, unit: INR_mn, evidence: H05}
+  - {entity: "peer:Apollo Hospitals", metric: arpob_growth_yoy, period: Q1FY27, value: 8.0, unit: "%", evidence: H19, note: "revenue per inpatient"}
+  - {entity: "peer:Apollo Hospitals", metric: occupancy, period: Q1FY27, value: 70, unit: "%", evidence: H19}
+
+events:
+  - {date: "2024-12", date_precision: month, kind: policy, actor: CGHS, subject: medicine billing, short: "CGHS drug-billing order", tags: [CGHS, oncology, institutional], title: "CGHS order: empanelled hospitals must accept CGHS-supplied medicines or show purchase invoices; industry warns on cancer-care margins", evidence: [H11]}
+  - {date: "2025-05-26", kind: operations, actor: company, subject: capacity, tags: [capacity, delay], title: "Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)", evidence: [H18]}
+  - {date: "2025-10-13", kind: policy, actor: CGHS, subject: package rates, short: "CGHS package-rate revision", tags: [CGHS, oncology], title: "Revised CGHS package rates take effect (OM of 3-Oct); chemotherapy moves to revised rates", evidence: [H12, H13]}
+  - {date: "2025-11", date_precision: month, kind: operations, actor: company, subject: oncology, tags: [oncology, institutional, CGHS, incident], title: "Stopped administering high-value patented chemotherapy to institutional (CGHS) patients", evidence: [H01, H09, H10]}
+  - {date: "2025-11-21", kind: guidance, actor: company, subject: capacity, tags: [capacity], title: "Chairman: about 9,500 beds by 2028", evidence: [H15]}
+  - {date: "2025-12-29", kind: guidance, actor: broker, subject: capacity, tags: [capacity], title: "Plan restated: 9,000-9,500 beds by FY28 (6,769 by end-FY27)", evidence: [H14]}
+  - {date: "2026-02-05", kind: results, actor: company, tags: [oncology, ARPOB], title: "Q3 FY26: ARPOB +2.6%, occupancy 74%, margin 26.1% (vs 27.3%); oncology drag attributed to CGHS pricing", evidence: [H08, H09, H20]}
+  - {date: "2026-04-16", kind: guidance, actor: company, subject: capacity, tags: [capacity], title: "Target raised again: 10,000+ beds within 2-4 years, Rs 6,000 cr capex", evidence: [H16]}
+  - {date: "2026-05", date_precision: month, kind: results, actor: company, tags: [ARPOB, capacity], title: "Q4 FY26: ARPOB flat at Rs 77.9k; FY26 operational beds 4,966 (+312)", evidence: [H07]}
+  - {date: "2026-08", date_precision: month, kind: results, actor: company, tags: [oncology, ARPOB, CGHS, capacity], title: "Q1 FY27: oncology 22% of IP revenue (26%); ex-oncology growth 20% vs 16%; ARPOB +5% incl. CGHS tariff benefit; beds 5,379", evidence: [H01, H04, H05, H09]}
+  - {date: "2026-12", date_precision: quarter, kind: guidance, actor: company, subject: oncology, tags: [oncology, future], title: "Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27", evidence: [H01]}
+
+links:
+  - {type: payor, a: company, b: CGHS, product: oncology, evidence: [H02, H10], note: "large CGHS / institutional book; high-value chemo for institutional patients discontinued"}
+
+claims:
+  - {speaker: management, topic: oncology, text: "Impact is structural unless CGHS terms improve; in discussion with government on below-cost supply.", evidence: H10}
+  - {speaker: management, topic: oncology, text: "Oncology growth to normalise from Q3 FY27, fully by Q4 FY27.", evidence: H01}
+  - {speaker: broker, topic: cghs, text: "CGHS tariff revision worth ~Rs 140 cr a year, full benefit from Q1 FY27.", evidence: H09}
+  - {speaker: management, topic: capacity, text: "Over 10,000 beds within two to four years, funded from internal cash.", evidence: H16}
+
+search_log:
+  - {q: "Max Healthcare Q1 FY27 results occupancy ARPOB bed additions operational beds", angle: capacity_gap, found: [M01, M02, M04, M05, M06]}
+  - {q: "Max Healthcare bed expansion plan target beds by FY28 versus beds commissioned actual delays", angle: capacity_gap, found: [M14, M15, M16, M17, M18]}
+  - {q: "Max Healthcare Q1 FY27 oncology revenue decline reason excluding oncology growth", angle: payor_policy, found: [M01, M02, M03, M21]}
+  - {q: "Max Healthcare FY26 results operational beds ARPOB occupancy CGHS ECHS institutional revenue share", angle: payor_policy, found: [M07]}
+  - {q: "CGHS discontinued high-value chemotherapy drugs empanelled hospitals order oncology drugs", angle: payor_policy, found: [M11]}
+  - {q: "Max Healthcare Q3 FY26 results ARPOB oncology institutional CGHS impact earnings call", angle: payor_policy, found: [M08, M09, M10, M20]}
+  - {q: "CGHS package rates revised October 2025 effective date", angle: payor_policy, found: [M12, M13]}
+  - {q: "Apollo Hospitals Q1 FY27 results occupancy ARPOB", angle: skeptic:sector_wide, found: [M19, M22]}

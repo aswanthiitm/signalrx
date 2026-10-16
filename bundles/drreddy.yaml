@@ -1,0 +1,176 @@
+# Evidence bundle: Dr. Reddy's Laboratories (NSE: DRREDDY, NYSE: RDY)
+#
+# What this is: the recorded output of SignalRx's harvest + extraction stages,
+# so the downstream pipeline (scan -> hypotheses -> skeptic -> verifier ->
+# scoring -> report) can be replayed offline and audited. Every figure points
+# to an evidence passage, every passage to a URL.
+#
+# How it was collected (2026-10-16): the queries in `search_log` were run through
+# a web-search tool; passages are as reported in the results. Figures marked
+# `derived: true` were back-computed from a reported value and a reported
+# growth rate, and carry a tolerance band.
+
+company:
+  name: "Dr. Reddy's Laboratories"
+  symbol: DRREDDY
+  ids: {nse: DRREDDY, bse: "500124", sec_cik: "1135951"}
+  as_of: "2026-10-16"
+
+profile_text: >
+  Integrated pharmaceutical company. Reports Global Generics by geography
+  (North America, Europe, India, Emerging Markets) plus Pharmaceutical Services
+  & Active Ingredients (PSAI). Portfolio spans US generics, injectables,
+  biosimilars, branded formulations in India and emerging markets, and an OTC /
+  consumer health business including a nicotine replacement therapy (NRT) portfolio.
+
+sources:
+  - {id: S01, type: company_filing, publisher: "SEC EDGAR (Form 6-K)", entity: company, published: "2026-05", title: "Dr. Reddy's Q4 & Full Year FY26 Financial Results (6-K Ex 99.2)", url: "https://www.sec.gov/Archives/edgar/data/1135951/000157587226000301/rdy0894_ex99-2.htm"}
+  - {id: S02, type: company_filing, publisher: "Dr. Reddy's", entity: company, published: "2021-05", title: "Earnings release Q4 FY21", url: "https://www.drreddys.com:443/media/987470/dr-reddys-earnings-release-q4-fy-21.pdf"}
+  - {id: S03, type: company_filing, publisher: "Business Wire", entity: company, published: "2025-05-09", title: "Dr. Reddy's Q4 & Full Year FY25 Financial Results", url: "https://www.businesswire.com/news/home/20250509262055/en/Dr.-Reddys-Q4-Full-Year-FY25-Financial-Results"}
+  - {id: S04, type: company_filing, publisher: "Business Wire", entity: company, published: "2025-07-23", title: "Dr. Reddy's Q1FY26 Financial Results", url: "https://www.businesswire.com/news/home/20250723161792/en/Dr.-Reddy%E2%80%99s-Q1FY26-Financial-Results"}
+  - {id: S05, type: company_filing, publisher: "SEC EDGAR (Form 6-K)", entity: company, published: "2026-07-22", title: "Dr. Reddy's Q1 FY27 results (6-K Ex 99.2)", url: "https://www.sec.gov/Archives/edgar/data/0001135951/000157587226000520/rdy0925_ex99-2.htm"}
+  - {id: S06, type: media, publisher: "Business Standard", published: "2026-07-23", title: "Dr Reddys Labs slides after Q1 PAT plunges 69% YoY to Rs 444 crore", url: "https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html"}
+  - {id: S07, type: media, publisher: "Investing.com", published: "2026-07-22", title: "Dr. Reddy's Q1 FY27 slides show base growth amid semaglutide hit", url: "https://www.investing.com/news/company-news/dr-reddys-q1-fy27-slides-show-base-growth-amid-semaglutide-hit-93CH-4806552"}
+  - {id: S08, type: aggregator, publisher: "StockTitan", published: "2026-07-22", title: "Dr. Reddy's Q1 FY27 profit hit by API charge (6-K summary)", url: "https://www.stocktitan.net/sec-filings/RDY/6-k-dr-reddys-laboratories-ltd-current-report-foreign-issuer-26cbd5f786ff.html"}
+  - {id: S09, type: broker, publisher: "Axis Direct", published: "2026-07-23", title: "Dr Reddys Laboratories Q1FY27 Result Update", url: "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Dr+Reddys+Laboratories+Ltd+-+Q1FY27+Result+Update+-+23072026_23-07-2026_10.pdf/type/fundamental"}
+  - {id: S10, type: media, publisher: "Business Standard", published: "2025-10-30", title: "Canada notice may delay Dr Reddy's semaglutide generic launch", url: "https://www.business-standard.com/companies/news/dr-reddys-labs-semaglutide-generic-canada-approval-delay-125103001103_1.html"}
+  - {id: S11, type: company_filing, publisher: "SEC EDGAR (Form 6-K)", entity: company, published: "2026-05", title: "Dr. Reddy's press release: generic semaglutide launch in Canada (6-K Ex 99.1)", url: "https://www.sec.gov/Archives/edgar/data/0001135951/000157587226000334/rdy0896_ex99-1.htm"}
+  - {id: S12, type: media, publisher: "Indian Pharma Post", published: "2026-04-29", title: "OneSource Pharma, Dr Reddy's secure Health Canada nod for generic Semaglutide", url: "https://www.indianpharmapost.com/drug-approval/onesource-pharma-dr-reddys-secure-health-canada-nod-for-generic-semaglutide-19973"}
+  - {id: S13, type: counterparty, publisher: "Business Standard (OneSource disclosure)", entity: OneSource Specialty Pharma, published: "2026-04-29", title: "OneSource's partner Dr. Reddy's receives Health Canada approval for Semaglutide Injection", url: "https://www.business-standard.com/amp/markets/capital-market-news/onesource-s-partner-dr-reddy-s-receives-health-canada-approval-for-semaglutide-injection-126042900268_1.html"}
+  - {id: S14, type: exchange_filing, publisher: "SEC EDGAR (Form 6-K, Reg 30 intimation)", entity: company, published: "2026-07-09", title: "Intimation to NSE/BSE/NYSE: semaglutide supply delay (6-K Ex 99.1)", url: "https://www.sec.gov/Archives/edgar/data/0001135951/000157587226000489/rdy0917_ex99-1.htm"}
+  - {id: S15, type: media, publisher: "Investing.com", published: "2026-07-09", title: "Dr Reddy's delays semaglutide supply due to API issue; shares slide", url: "https://www.investing.com/news/stock-market-news/dr-reddys-delays-semaglutide-supply-due-to-api-issue-shares-slide-4783003"}
+  - {id: S16, type: aggregator, publisher: "Sahi", published: "2026-07", title: "Dr. Reddy's Expects Strong Q3 And Q4 Performance After Fixing Semaglutide Problems", url: "https://www.sahi.com/news/dr-reddy-s-expects-strong-q3-and-q4-performance-after-fixing-semaglutide-problems-545961-PE1_C"}
+  - {id: S17, type: blog, publisher: "Substack (G. Aiyappa)", published: "2026-07", title: "Semaglutide Update - Dr. Reddy's Laboratories", url: "https://ganapathyaiyappa.substack.com/p/semaglutide-update-dr-reddys-laboratories"}
+  - {id: S18, type: media, publisher: "Value Research", published: "2026", title: "OneSource Specialty Pharma stock: what the FY28 bet rests on", url: "https://www.valueresearchonline.com/stories/229674/onesource-specialty-pharma-stock-fy28-weight-loss-bet/"}
+  - {id: S19, type: blog, publisher: "Substack (R. Vaidyanathan)", published: "2026-08", title: "OneSource Specialty Pharma: Q1FY27 May Have Been the Proof of Concept", url: "https://ramkumarvaidyanathan.substack.com/p/onesource-specialty-pharma-the-3780"}
+  - {id: S20, type: media, publisher: "Chain Drug Review", published: "2024-06", title: "Dr. Reddy's to acquire Nicotinell from Haleon", url: "https://chaindrugreview.com/dr-reddys-to-acquire-nicotinell-from-haelon/"}
+  - {id: S21, type: media, publisher: "BusinessToday", published: "2026-05-12", title: "After Lenalidomide, Dr Reddy's turns to obesity drugs, biosimilars and consumer health", url: "https://www.businesstoday.in/industry/pharma/story/after-lenalidomide-dr-reddys-turns-to-obesity-drugs-biosimilars-and-consumer-health-531160-2026-05-12"}
+  - {id: S22, type: company_filing, publisher: "Business Wire", entity: company, published: "2022-09-07", title: "Dr. Reddy's announces the launch of Lenalidomide Capsules in the U.S.", url: "https://www.businesswire.com/news/home/20220907006110/en/Dr.-Reddys-Laboratories-Announces-the-Launch-of-Lenalidomide-Capsules-in-the-U.S.-With-Two-of-Six-Strengths-Eligible-for-First-to-market-180-day-Exclusivity"}
+  - {id: S23, type: media, publisher: "Yahoo Finance", published: "2026-07-22", title: "Dr. Reddy's Laboratories Q1 Earnings Call Highlights", url: "https://finance.yahoo.com/healthcare/articles/dr-reddys-laboratories-q1-earnings-170617926.html"}
+  - {id: S24, type: media, publisher: "Upstox", published: "2026-07-31", title: "Sun Pharmaceutical Q1 FY27 result: US formulation sales decline to $427 million", url: "https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/"}
+  - {id: S25, type: media, publisher: "Business Standard", published: "2026-07-23", title: "Cipla's Q1 net falls 39% on US business; maintains FY27 margin guidance", url: "https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html"}
+  - {id: S26, type: media, publisher: "Venture Intelligence", published: "2024-06", title: "Dr. Reddy's to acquire nicotine replacement brands from UK-based Haleon for $632 m", url: "https://news.ventureintelligence.com/ma/dr.reddy%E2%80%99s-to-acquire-nicotine-replacement-brands-from-uk-based-haleon-for-%24632-m"}
+
+evidence:
+  - {id: E01, source: S01, kind: figure, text: "FY26 Global Generics by region (Rs million): North America 113,737 (down 22%); Emerging Markets 67,608 (up 23%); India 62,186 (up 16%); Europe 55,501 (up 55%). PSAI 34,774 (up 3%). Revenue Rs 335.9 billion, up 3.2%."}
+  - {id: E02, source: S01, kind: figure, text: "Q4 FY26: consolidated revenue Rs 75,162 million, down 11.6% YoY. North America fell 51% to Rs 17,562 million; Emerging Markets up 29%, India up 20%, Europe up 14%. Excluding the Rs 4.5 billion shelf stock adjustment, FY26 revenue about Rs 340.5 billion."}
+  - {id: E03, source: S01, kind: quote, text: "North America ... declined 22% for the full year ... largely due to lower Lenalidomide sales and a one-time shelf stock adjustment related to the product."}
+  - {id: E04, source: S02, kind: figure, text: "FY21 quarterly segment tables (Rs million) Q1-Q4: North America 17,282 + 18,328 + 17,394 + 17,491; Europe 3,551 + 3,754 + 4,143 + 3,956; India 6,260 + 9,123 + 9,591 + 8,445; Emerging Markets 7,982 + 8,636 + 9,623 + 8,845; PSAI 8,553 + 8,505 + 7,009 + 7,915. North America generics business reached Rs. 70.5 billion for the year, up 9% YoY."}
+  - {id: E05, source: S03, kind: figure, text: "North America: FY25 revenues at Rs 145.2 billion, YoY growth of 12%. The YoY growth was primarily driven by new product launches, increased volumes of select key products, partially offset by price erosion."}
+  - {id: E06, source: S04, kind: figure, text: "Revenues 85,452 Mn [Up: 11% YoY; Flat QoQ]. North America 34,123 for Q1FY26, against 38,462 a year earlier ... decline primarily due to increased price erosion in certain key products including Lenalidomide. Europe Rs 12,744 million vs Rs 5,265 million, up 142%, primarily driven by contributions from the acquired NRT portfolio."}
+  - {id: E07, source: S05, kind: figure, text: "Q1 FY27 (quarter ended 30 June 2026): revenue Rs 80,705 million, down 5.6% YoY. Emerging Markets Rs 18,328 million (up 31%); India Rs 17,177 million (up 17%); Europe Rs 14,440 million (up 13%); PSAI about Rs 852 crore (up about 4%)."}
+  - {id: E08, source: S05, kind: quote, text: "A provision of Rs.2,397 million towards inventory and other associated costs, as certain batches of semaglutide were found to be out of specification due to an issue associated with the API."}
+  - {id: E09, source: S06, kind: figure, text: "Revenue from the North America business fell 35.38% YoY to Rs 2,204.8 crore, mainly due to lower sales of Lenalidomide. Net profit plunged 69% YoY to Rs 444 crore."}
+  - {id: E10, source: S07, kind: figure, text: "Consolidated revenue was about Rs 8,071 crore, up 6% year over year ... North America up 35% year over year on reported revenue."}
+  - {id: E11, source: S07, kind: claim, text: "Management called the quarter an expected transition away from lenalidomide revenue ... Its underlying base business continued to deliver healthy double-digit growth across all key geographies."}
+  - {id: E12, source: S07, kind: figure, text: "The FY27 supply target was cut to 6-7 million pens from 12 million; API testing completion targeted by the third week of September 2026 and commercial supply resumption in November; management put the probability of delivering 6-7 million pens between November and March at 80-90%."}
+  - {id: E13, source: S08, kind: figure, text: "Revenue of Rs 80,705 million, a 6% decline year over year."}
+  - {id: E14, source: S09, kind: figure, text: "Q1FY27 result update (SELL, target price 1,070): Europe Rs 1,444 crore, India Rs 1,718 crore."}
+  - {id: E15, source: S10, kind: event, text: "Health Canada's Pharmaceutical Drugs Directorate issued a notice of non-compliance on the company's abbreviated new drug submission for semaglutide; analysts estimated a delay of at least eight to 12 months; the stock fell more than 4%."}
+  - {id: E16, source: S11, kind: event, text: "Dr. Reddy's announced the launch of its generic semaglutide injection in Canada following a Notice of Compliance from Health Canada dated April 28, 2026."}
+  - {id: E17, source: S12, kind: quote, text: "The active ingredient is made entirely in-house, while the finished product is currently manufactured in collaboration with OneSource."}
+  - {id: E18, source: S13, kind: quote, text: "OneSource said its partner Dr. Reddy's received Health Canada authorization for a generic semaglutide injection; OneSource acts as the contract manufacturer, handling scale-up and commercial production at its US FDA-approved facility in Bengaluru."}
+  - {id: E19, source: S14, kind: quote, text: "Certain batches of semaglutide were found to be out of specification due to an issue associated with the API ... the company is investigating the root cause ... commercial supplies of the product will be delayed for a certain period of time. The issue has no impact on patient safety and does not affect the product's existing global regulatory filings."}
+  - {id: E20, source: S15, kind: headline, text: "Dr Reddy's delays semaglutide supply due to API issue; shares slide. NSE-listed shares dropped as much as 6.5% to 1,261.10 rupees."}
+  - {id: E21, source: S16, kind: claim, text: "The fix is process remediation and does not require regulatory re-approvals; API supply to OneSource to resume by October 2026."}
+  - {id: E22, source: S17, kind: claim, text: "An out-of-specification degradation impurity appeared during scale-up; the API itself met specifications and the impurity formed in the finished formulation."}
+  - {id: E23, source: S18, kind: context, text: "Dr. Reddy's is described as OneSource's anchor customer."}
+  - {id: E24, source: S19, kind: claim, text: "Management indicated that demand from other customers and markets was sufficient to absorb the available capacity."}
+  - {id: E25, source: S20, kind: event, text: "Dr. Reddy's agreed to buy Haleon's non-US NRT brands, including Nicotinell, through a Swiss holding company, Northstar Switzerland SARL, for GBP 500 million (GBP 458 million upfront, up to GBP 42 million performance-based)."}
+  - {id: E26, source: S21, kind: headline, text: "After Lenalidomide, Dr Reddy's turns to obesity drugs, biosimilars and consumer health."}
+  - {id: E27, source: S22, kind: event, text: "Dr. Reddy's is also licensed to sell generic lenalidomide capsules in the U.S. without volume limitation beginning on January 31, 2026."}
+  - {id: E28, source: S23, kind: figure, text: "Excluding the Rs 240 crore semaglutide provision, EBITDA margin would have been 15.4%."}
+  - {id: E29, source: S24, kind: figure, text: "Sun Pharma US formulation sales fell 9.7% to $427 million in Q1 FY27."}
+  - {id: E30, source: S25, kind: figure, text: "Cipla North America business was down 28 per cent year over year in Q1 FY27."}
+  - {id: E31, source: S26, kind: figure, text: "The acquired NRT portfolio generated about GBP 217 million in revenue in CY23."}
+  - {id: E32, source: S06, kind: headline, text: "Dr Reddys Labs slides after Q1 PAT plunges 69% YoY to Rs 444 crore."}
+
+observations:
+  # ---- annual segment revenue (Rs million)
+  - {metric: revenue_segment, dims: {segment: North America}, period: FY21, value: 70500, unit: INR_mn, evidence: E04}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: FY21, value: 15404, unit: INR_mn, evidence: E04, derived: true, tolerance: 0.002, note: "sum of four quarterly segment tables"}
+  - {metric: revenue_segment, dims: {segment: India}, period: FY21, value: 33419, unit: INR_mn, evidence: E04, derived: true, tolerance: 0.002, note: "sum of four quarterly segment tables"}
+  - {metric: revenue_segment, dims: {segment: Emerging Markets}, period: FY21, value: 35086, unit: INR_mn, evidence: E04, derived: true, tolerance: 0.002, note: "sum of four quarterly segment tables"}
+  - {metric: revenue_segment, dims: {segment: PSAI}, period: FY21, value: 31982, unit: INR_mn, evidence: E04, derived: true, tolerance: 0.002, note: "sum of four quarterly segment tables"}
+  - {metric: revenue_segment, dims: {segment: North America}, period: FY25, value: 145200, unit: INR_mn, evidence: E05}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: FY25, value: 35807, unit: INR_mn, evidence: E01, derived: true, tolerance: 0.005, note: "FY26 value / (1 + reported 55% growth)"}
+  - {metric: revenue_segment, dims: {segment: India}, period: FY25, value: 53609, unit: INR_mn, evidence: E01, derived: true, tolerance: 0.005, note: "FY26 value / (1 + reported 16% growth)"}
+  - {metric: revenue_segment, dims: {segment: Emerging Markets}, period: FY25, value: 54966, unit: INR_mn, evidence: E01, derived: true, tolerance: 0.005, note: "FY26 value / (1 + reported 23% growth)"}
+  - {metric: revenue_segment, dims: {segment: PSAI}, period: FY25, value: 33761, unit: INR_mn, evidence: E01, derived: true, tolerance: 0.005, note: "FY26 value / (1 + reported 3% growth)"}
+  - {metric: revenue_segment, dims: {segment: North America}, period: FY26, value: 113737, unit: INR_mn, evidence: E01}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: FY26, value: 55501, unit: INR_mn, evidence: E01}
+  - {metric: revenue_segment, dims: {segment: India}, period: FY26, value: 62186, unit: INR_mn, evidence: E01}
+  - {metric: revenue_segment, dims: {segment: Emerging Markets}, period: FY26, value: 67608, unit: INR_mn, evidence: E01}
+  - {metric: revenue_segment, dims: {segment: PSAI}, period: FY26, value: 34774, unit: INR_mn, evidence: E01}
+  # ---- quarterly segment revenue (Rs million)
+  - {metric: revenue_segment, dims: {segment: North America}, period: Q1FY26, value: 34123, unit: INR_mn, evidence: E06}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: Q1FY26, value: 12744, unit: INR_mn, evidence: E06}
+  - {metric: revenue_segment, dims: {segment: India}, period: Q1FY26, value: 14681, unit: INR_mn, evidence: E07, derived: true, tolerance: 0.005, note: "Q1FY27 value / (1 + reported 17% growth)"}
+  - {metric: revenue_segment, dims: {segment: Emerging Markets}, period: Q1FY26, value: 13991, unit: INR_mn, evidence: E07, derived: true, tolerance: 0.005, note: "Q1FY27 value / (1 + reported 31% growth)"}
+  - {metric: revenue_segment, dims: {segment: PSAI}, period: Q1FY26, value: 8192, unit: INR_mn, evidence: E07, derived: true, tolerance: 0.01, note: "Q1FY27 value / (1 + reported ~4% growth)"}
+  - {metric: revenue_segment, dims: {segment: North America}, period: Q1FY27, value: 22048, unit: INR_mn, evidence: E09}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: Q1FY27, value: 14440, unit: INR_mn, evidence: E07}
+  - {metric: revenue_segment, dims: {segment: Europe}, period: Q1FY27, value: 14440, unit: INR_mn, evidence: E14}
+  - {metric: revenue_segment, dims: {segment: India}, period: Q1FY27, value: 17177, unit: INR_mn, evidence: E07}
+  - {metric: revenue_segment, dims: {segment: India}, period: Q1FY27, value: 17180, unit: INR_mn, evidence: E14}
+  - {metric: revenue_segment, dims: {segment: Emerging Markets}, period: Q1FY27, value: 18328, unit: INR_mn, evidence: E07}
+  - {metric: revenue_segment, dims: {segment: PSAI}, period: Q1FY27, value: 8520, unit: INR_mn, evidence: E07, derived: true, tolerance: 0.006, note: "reported as about Rs 852 crore"}
+  - {metric: revenue_segment, dims: {segment: North America}, period: Q4FY26, value: 17562, unit: INR_mn, evidence: E02}
+  # ---- totals, growth as reported by different outlets (the verifier recomputes these)
+  - {metric: revenue_total, period: Q1FY26, value: 85452, unit: INR_mn, evidence: E06}
+  - {metric: revenue_total, period: Q1FY27, value: 80705, unit: INR_mn, evidence: E07}
+  - {metric: revenue_total, period: Q1FY27, value: 80705, unit: INR_mn, evidence: E13}
+  - {metric: revenue_total, period: FY26, value: 335900, unit: INR_mn, evidence: E01}
+  - {metric: revenue_total, period: Q4FY26, value: 75162, unit: INR_mn, evidence: E02}
+  - {metric: revenue_growth_yoy, dims: {basis: reported}, period: Q1FY27, value: 6.0, unit: "%", evidence: E10, note: "outlet reports +6%"}
+  - {metric: revenue_growth_yoy, dims: {basis: reported}, period: Q1FY27, value: -6.0, unit: "%", evidence: E13}
+  - {metric: revenue_segment_growth_yoy, dims: {segment: North America}, period: Q1FY27, value: 35.0, unit: "%", evidence: E10, note: "outlet reports NA up 35%"}
+  - {metric: revenue_segment_growth_yoy, dims: {segment: North America}, period: Q1FY27, value: -35.38, unit: "%", evidence: E09}
+  - {metric: one_off_adjustment, dims: {segment: North America}, period: FY26, value: 4500, unit: INR_mn, evidence: E02, note: "one-time lenalidomide shelf-stock adjustment"}
+  # ---- product-level items
+  - {metric: provision, dims: {item: semaglutide}, period: Q1FY27, value: 2397, unit: INR_mn, evidence: E08}
+  - {metric: net_profit, period: Q1FY27, value: 4440, unit: INR_mn, evidence: E09}
+  # ---- peers (sector-wide check)
+  - {entity: "peer:Sun Pharma", metric: revenue_segment_growth_yoy, dims: {segment: North America}, period: Q1FY27, value: -9.7, unit: "%", evidence: E29, note: "US formulations, USD"}
+  - {entity: "peer:Cipla", metric: revenue_segment_growth_yoy, dims: {segment: North America}, period: Q1FY27, value: -28.0, unit: "%", evidence: E30}
+
+events:
+  - {date: "2022-09-07", kind: launch, actor: company, subject: lenalidomide, tags: [North America, lenalidomide], title: "US launch of generic lenalidomide (volume-limited); licensed for unlimited volume from 31-Jan-2026", evidence: [E27]}
+  - {date: "2024-06", date_precision: month, kind: acquisition, actor: company, subject: NRT portfolio, tags: [Europe, acquisition], title: "Agrees to buy Haleon's non-US NRT brands (Nicotinell) for GBP 500m; CY23 revenue ~GBP 217m", evidence: [E25, E31]}
+  - {date: "2025-07-23", kind: results, actor: company, tags: [North America, Europe, lenalidomide], title: "Q1 FY26: North America -11% on lenalidomide price erosion; Europe +142% on acquired NRT portfolio", evidence: [E06]}
+  - {date: "2025-10-30", kind: regulatory, actor: Health Canada, subject: semaglutide, tags: [semaglutide, incident, Canada], title: "Health Canada notice of non-compliance on semaglutide submission; analysts see 8-12 month delay", evidence: [E15]}
+  - {date: "2026-01-31", kind: loe, actor: market, subject: lenalidomide, tags: [North America, lenalidomide], title: "US lenalidomide volume limits end: unlimited generic entry", evidence: [E27]}
+  - {date: "2026-04-28", kind: regulatory, actor: Health Canada, subject: semaglutide, tags: [semaglutide, Canada, OneSource Specialty Pharma], title: "Health Canada Notice of Compliance for generic semaglutide; finished product made with OneSource", evidence: [E16, E17, E18]}
+  - {date: "2026-05", date_precision: month, kind: results, actor: company, tags: [North America, lenalidomide], title: "Q4 FY26: North America -51% to Rs 17,562m (lenalidomide + one-time shelf-stock adjustment); FY26 NA -22%", evidence: [E02, E03]}
+  - {date: "2026-05-12", kind: media, actor: BusinessToday, tags: [lenalidomide, semaglutide], title: "Press frames the pivot: 'After lenalidomide, turns to obesity drugs, biosimilars and consumer health'", evidence: [E26]}
+  - {date: "2026-07-09", kind: disclosure, actor: company, subject: semaglutide, tags: [semaglutide, incident, quality], title: "Reg-30 filing: semaglutide batches out of specification (API issue); supplies delayed, no end date", evidence: [E19, E20]}
+  - {date: "2026-07-22", kind: results, actor: company, subject: semaglutide, tags: [semaglutide, North America, incident], title: "Q1 FY27: Rs 2,397m semaglutide provision; NA -35%; FY27 pen plan cut 12M -> 6-7M", evidence: [E07, E08, E09, E12]}
+  - {date: "2026-11", date_precision: month, kind: guidance, actor: company, subject: semaglutide, tags: [semaglutide, future], title: "Targeted resumption of commercial semaglutide supply", evidence: [E12, E21]}
+
+links:
+  - {type: manufacturing_partner, a: company, b: OneSource Specialty Pharma, product: semaglutide, evidence: [E17, E18, E23], note: "finished-dose (pen) contract manufacturer; API in-house"}
+
+claims:
+  - {speaker: management, topic: base_business, text: "Underlying base business delivered healthy double-digit growth across all key geographies.", evidence: E11}
+  - {speaker: management, topic: semaglutide, text: "Fix is process remediation; no regulatory re-approval needed.", evidence: E21}
+  - {speaker: counterparty, topic: semaglutide, text: "Partner says other customers absorbed the idle capacity.", evidence: E24}
+  - {speaker: third_party, topic: semaglutide, text: "Impurity formed in the finished formulation, not the API.", evidence: E22}
+
+guidance:
+  - {metric: semaglutide_pens, subject: semaglutide, period: FY27, before: 12, after: 6.5, label: "6-7", unit: "mn pens", evidence: [E12]}
+
+search_log:
+  - {q: "Dr Reddy's Q1 FY27 results North America revenue decline lenalidomide July 2026", angle: geo_mix_shift, found: [S06, S07, S08, S05]}
+  - {q: "Dr Reddy's FY26 annual results geographic revenue North America Europe India emerging markets share Q4 FY26", angle: geo_mix_shift, found: [S01]}
+  - {q: "Dr Reddy's FY21 revenue by geography North America Europe India Emerging Markets PSAI", angle: geo_mix_shift, found: [S02]}
+  - {q: "Dr Reddy's lenalidomide share of North America revenue FY25", angle: replacement_concentration, found: [S03, S21]}
+  - {q: "Dr Reddy's Q1 FY26 consolidated revenue North America", angle: geo_mix_shift, found: [S04]}
+  - {q: "Dr Reddy's semaglutide Canada Health Canada non-compliance notice launch delay", angle: replacement_concentration, found: [S10, S11]}
+  - {q: "Dr Reddy's semaglutide API issue batches provision Q1 FY27 supplier", angle: replacement_concentration, found: [S05, S16, S17]}
+  - {q: "OneSource Specialty Pharma semaglutide customer concentration Dr Reddy's", angle: counterparty_regulatory, found: [S18, S19, S13]}
+  - {q: "Health Canada notice Dr Reddy's semaglutide OneSource facility dossier", angle: counterparty_regulatory, found: [S12, S13]}
+  - {q: "Dr Reddy's July 9 2026 stock exchange disclosure semaglutide supply pause out of specification", angle: replacement_concentration, found: [S14, S15]}
+  - {q: "Dr Reddy's Haleon nicotine replacement therapy acquisition Europe revenue contribution", angle: geo_mix_shift, found: [S20, S26, S04]}
+  - {q: "Dr Reddy's Q1 FY27 segment revenue Europe India Emerging Markets PSAI", angle: geo_mix_shift, found: [S09, S23]}
+  - {q: "generic Revlimid lenalidomide volume limits end January 31 2026", angle: replacement_concentration, found: [S22]}
+  - {q: "peer US revenue Q1 FY27 Indian pharma North America decline", angle: skeptic:sector_wide, found: [S24, S25]}

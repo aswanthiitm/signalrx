@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignalRx · {{ company.name }}</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --raised: #ffffff;
+  --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --accent: #2a78d6; --accent-wash: rgba(42,120,214,0.08);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-ink: #006300;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+    --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --good-ink: #0ca30c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+  --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+  --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --good-ink: #0ca30c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--ink); }
+body { font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--grid); font-size: 13px; color: var(--ink2); }
+header.top b { color: var(--ink); letter-spacing: .02em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); font-size: 12px; color: var(--ink2); white-space: nowrap; }
+.chip.grade-Strong { border-color: var(--good); color: var(--good-ink); }
+.chip.grade-Moderate { border-color: var(--warn); }
+.chip.grade-Weak { border-color: var(--critical); }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+section { margin-top: 28px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 22px 0 4px; letter-spacing: -.01em; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); margin: 0 0 10px; font-weight: 600; }
+h3 { font-size: 15px; margin: 0 0 6px; }
+.sub { color: var(--ink2); font-size: 14px; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 18px 20px; }
+.discovery { font-size: 20px; line-height: 1.45; font-weight: 500; margin: 6px 0 12px; }
+.disc-meta { font-size: 13px; color: var(--ink2); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 14px 16px; }
+.tile .k { font-size: 12px; color: var(--ink2); }
+.tile .v { font-size: 26px; font-weight: 600; margin: 2px 0; }
+.tile .s { font-size: 12px; color: var(--muted); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 820px) { .two { grid-template-columns: 1fr; } .discovery { font-size: 17px; } }
+ul.why { margin: 0; padding-left: 18px; } ul.why li { margin: 0 0 8px; }
+.counter { border-left: 3px solid var(--serious); }
+.fals { border-left: 3px solid var(--accent); }
+.fals ol { margin: 0; padding-left: 20px; } .fals li { margin-bottom: 8px; }
+.fals .mon { font-size: 12px; color: var(--muted); }
+figure { margin: 0; }
+figcaption { font-size: 13px; color: var(--ink2); margin-bottom: 6px; font-weight: 600; }
+svg.chart { width: 100%; height: auto; display: block; }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .axis, svg .sep { stroke: var(--axis); stroke-width: 1; }
+svg .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg .lab { fill: var(--ink2); font-size: 12px; }
+svg .val { fill: var(--ink); font-size: 11px; font-weight: 600; }
+svg .inlab { fill: #fff; font-size: 11px; font-weight: 600; }
+svg .evline { stroke: var(--axis); stroke-width: 1; }
+svg .evdot { fill: var(--raised); stroke: var(--ink2); stroke-width: 1.5; }
+svg .evnum { fill: var(--ink); font-size: 9px; font-weight: 700; pointer-events: none; }
+svg [data-tip] { cursor: default; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink2); margin: 2px 0 6px; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; } .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+ol.evkey { font-size: 12px; color: var(--ink2); padding-left: 20px; margin: 8px 0 0; columns: 2; column-gap: 24px; }
+@media (max-width: 820px) { ol.evkey { columns: 1; } }
+details.viz-table summary, details.more summary { cursor: pointer; font-size: 12px; color: var(--accent); margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-size: 12px; color: var(--ink2); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll { overflow-x: auto; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--grid); }
+.timeline li { position: relative; margin: 0 0 14px; padding-left: 10px; }
+.timeline li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--raised); border: 2px solid var(--ink2); }
+.timeline li.k-regulatory::before, .timeline li.k-policy::before { border-color: var(--critical); }
+.timeline li.k-disclosure::before { border-color: var(--serious); }
+.timeline li.k-results::before { border-color: var(--accent); }
+.timeline li.k-media::before { border-color: var(--muted); }
+.timeline li.future { opacity: .75; } .timeline li.future::before { border-style: dashed; }
+.timeline .when { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .what { font-size: 14px; }
+.kind { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink2); border: 1px solid var(--grid); border-radius: 4px; padding: 0 5px; margin-left: 6px; }
+.cite { font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none; border: 1px solid var(--grid); border-radius: 4px; padding: 0 4px; margin-left: 3px; white-space: nowrap; }
+.cite:hover { background: var(--accent-wash); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.filters button { font: inherit; font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); color: var(--ink2); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--accent-wash); border-color: var(--accent); color: var(--ink); }
+.ev { border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: var(--surface); scroll-margin-top: 16px; }
+.ev.flash { outline: 2px solid var(--accent); }
+.ev .h { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; font-size: 12px; color: var(--ink2); }
+.ev .id { font-weight: 700; color: var(--ink); }
+.ev .txt { font-size: 14px; margin: 4px 0 2px; }
+.ev .src { font-size: 12px; }
+.stance { font-size: 11px; font-weight: 700; padding: 0 6px; border-radius: 4px; }
+.stance.supports { color: var(--good-ink); border: 1px solid var(--good); }
+.stance.opposes { color: var(--ink); border: 1px solid var(--serious); }
+.stance.context { color: var(--ink2); border: 1px solid var(--grid); }
+.note { font-size: 12px; color: var(--ink2); background: var(--accent-wash); border-radius: 6px; padding: 2px 6px; display: inline-block; margin-top: 4px; }
+.verdict { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--grid); white-space: nowrap; }
+.verdict.survives { color: var(--good-ink); border-color: var(--good); }
+.verdict.weakens { border-color: var(--serious); }
+.verdict.refutes { border-color: var(--critical); color: var(--critical); }
+.verdict.inconclusive { color: var(--muted); }
+.bars .row { display: grid; grid-template-columns: 110px 1fr 46px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
+.bars .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.bars .fill { height: 100%; background: var(--s1); border-radius: 4px; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.trace li { margin-bottom: 4px; font-size: 13px; }
+.trace .stage { display: inline-block; min-width: 90px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.hyp td:first-child { white-space: nowrap; }
+.secondary .discovery { font-size: 16px; }
+#tip { position: fixed; pointer-events: none; z-index: 10; max-width: 320px; background: var(--raised); color: var(--ink); border: 1px solid var(--ring); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 6px 9px; font-size: 12px; display: none; }
+footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 12px; }
+@media print {
+  body { font-size: 11px; } .wrap { max-width: none; padding: 0 0 20px; }
+  .filters, details.viz-table, #tip, .no-print { display: none !important; }
+  details.more { display: block; } details.more > summary { display: none; } details.more[open], details.more { }
+  .card, .tile, .ev { break-inside: avoid; }
+  section { margin-top: 16px; }
+  a { color: inherit; text-decoration: underline; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><b>SignalRx</b> · autonomous research agent · Track D: Pharma &amp; Healthcare</div>
+  <div class="chips">
+    <span class="chip">run {{ run.started[:16].replace('T',' ') }} UTC</span>
+    <span class="chip">mode: {{ run.mode }}</span>
+    <span class="chip">evidence as of {{ company.as_of }}</span>
+  </div>
+</header>
+
+<h1>{{ company.name }} <span class="sub">({{ company.symbol }})</span></h1>
+<div class="chips" style="margin-top:6px">
+  <span class="chip">archetype: {{ profile.archetype }}</span>
+  <span class="chip">brief question {{ d.brief_question }}: {{ d.brief_text }}</span>
+  <span class="chip grade-{{ d.strength.grade }}"><span class="dot" style="background: var(--{{ 'good' if d.strength.grade=='Strong' else ('warn' if d.strength.grade=='Moderate' else 'critical') }})"></span>Evidence strength: {{ d.strength.grade }}</span>
+  <span class="chip">{{ d.verification.citations_checked }} citations · {{ n_families }} source families</span>
+  <span class="chip">verifier: {{ 'passed' if d.verification.passed else 'FAILED' }} ({{ d.verification.numbers_checked }} numbers traced)</span>
+</div>
+
+<section>
+  <h2>The discovery</h2>
+  <div class="card">
+    <h3>{{ d.title }}</h3>
+    <p class="discovery">{{ d.discovery }}</p>
+    <div class="disc-meta">Backed by:
+      {% for e in disc_cites %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Numbers that substantiate it</h2>
+  <div class="tiles">
+    {% for k in d.key_numbers %}
+    <div class="tile"><div class="k">{{ k.label }}</div><div class="v">{{ k.value }}</div><div class="s">{{ k.sub }}</div></div>
+    {% endfor %}
+  </div>
+</section>
+
+{% if chart %}
+<section>
+  <div class="card">{{ chart | safe }}</div>
+</section>
+{% endif %}
+
+<section class="two">
+  <div class="card">
+    <h2>Why it matters</h2>
+    <ul class="why">{% for w in d.why_it_matters %}<li>{{ w }}</li>{% endfor %}</ul>
+  </div>
+  <div>
+    <div class="card counter">
+      <h2>Strongest counterargument</h2>
+      <p style="margin:0 0 6px">{{ d.counterargument.text }}</p>
+      <div>{% for e in d.counterargument.evidence %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}</div>
+    </div>
+    <div class="card fals" style="margin-top:16px">
+      <h2>Falsification conditions</h2>
+      <ol>{% for f in d.falsification %}<li>{{ f.condition }}<div class="mon">Watch: {{ f.monitor }}{% for e in f.evidence %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}</div></li>{% endfor %}</ol>
+    </div>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Timeline: when the story changed</h2>
+    <ul class="timeline">
+      {% for t in d.timeline %}
+      <li class="k-{{ t.kind }}{{ ' future' if t.future else '' }}">
+        <div class="when">{{ t.label }}<span class="kind">{{ t.kind }}</span>{% if t.actor and t.actor not in ('company','market') %}<span class="kind">{{ t.actor }}</span>{% endif %}</div>
+        <div class="what">{{ t.title }}{% for e in t.evidence %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Evidence strength: {{ d.strength.grade }}</h2>
+    <ul class="why">{% for r in d.strength.reasons %}<li>{{ r }}</li>{% endfor %}</ul>
+    <h2 style="margin-top:14px">Ranking scores</h2>
+    <div class="bars">
+      {% for k in ['novelty','evidence','materiality','robustness','total'] %}
+      <div class="row"><span>{{ k }}</span><div class="track"><div class="fill" style="width: {{ (d.scores[k]*100)|round(0) }}%"></div></div><span class="mono">{{ '%.2f'|format(d.scores[k]) }}</span></div>
+      {% endfor %}
+    </div>
+    <p class="sub" style="font-size:12px;margin:8px 0 0">Novelty: {{ d.novelty_why | join('; ') }}.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Skeptic: alternative explanations tested</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Test</th><th>Question</th><th>Verdict</th><th>Result</th></tr></thead>
+      <tbody>
+      {% for c in d.checks %}
+      <tr><td class="mono">{{ c.name }}</td><td>{{ c.question }}</td><td><span class="verdict {{ c.verdict }}">{{ c.verdict }}</span></td>
+      <td>{{ c.detail }} {% for e in c.evidence[:4] %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Evidence trail ({{ d.evidence_trail|length }} passages, {{ n_families }} independent families)</h2>
+  <div class="filters" role="group" aria-label="Filter evidence">
+    <button data-f="all" aria-pressed="true">All</button>
+    <button data-f="supports" aria-pressed="false">Supports</button>
+    <button data-f="opposes" aria-pressed="false">Opposes</button>
+    <button data-f="context" aria-pressed="false">Context</button>
+    {% for t in trail_types %}<button data-f="type:{{ t }}" aria-pressed="false">{{ t.replace('_',' ') }}</button>{% endfor %}
+  </div>
+  <div id="trail">
+  {% for it in d.evidence_trail %}
+    <div class="ev" id="ev-{{ it.evidence[0] }}" data-stance="{{ it.stance }}" data-type="{{ it.type }}">
+      <div class="h"><span class="id">{{ it.evidence[0] }}</span><span class="stance {{ it.stance }}">{{ it.stance }}</span>
+        <span>{{ it.type.replace('_',' ') }}</span><span>{{ it.publisher }}</span><span>{{ it.date or 'n.d.' }}</span><span class="mono">{{ it.family }}</span></div>
+      <div class="txt">“{{ it.text }}”</div>
+      <div class="src"><a href="{{ it.url }}" target="_blank" rel="noopener">{{ it.source }}</a></div>
+      {% if it.note %}<div class="note">verifier: {{ it.note }}</div>{% endif %}
+    </div>
+  {% endfor %}
+  </div>
+</section>
+
+<section>
+  <h2>Calculations (every derived number, with inputs)</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>#</th><th>Metric</th><th>Value</th><th>Formula</th><th>Inputs</th><th>Evidence</th></tr></thead>
+      <tbody>
+      {% for n in d.numbers %}
+      <tr><td class="mono">{{ n.id }}</td><td>{{ n.name }}</td><td class="num">{{ '%.1f'|format(n.value) }} {{ n.unit }}</td><td class="mono">{{ n.formula }}</td>
+      <td class="mono" style="font-size:11px">{{ n.inputs | join(', ') }}</td><td>{% for e in n.evidence %}<a class="cite" href="#ev-{{ e }}" data-cite="{{ e }}">{{ e }}</a>{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% for s in secondaries %}
+<section class="secondary">
+  <h2>Secondary discovery</h2>
+  <div class="card">
+    <h3>{{ s.d.title }} <span class="chip grade-{{ s.d.strength.grade }}">{{ s.d.strength.grade }}</span></h3>
+    <p class="discovery">{{ s.d.discovery }}</p>
+    {% if s.chart %}{{ s.chart | safe }}{% endif %}
+    <div class="two" style="margin-top:12px">
+      <div><h2>Why it matters</h2><ul class="why">{% for w in s.d.why_it_matters %}<li>{{ w }}</li>{% endfor %}</ul></div>
+      <div><h2>Counterargument</h2><p>{{ s.d.counterargument.text }}</p>
+        <h2>Falsification</h2><ol>{% for f in s.d.falsification %}<li>{{ f.condition }}</li>{% endfor %}</ol></div>
+    </div>
+    <details class="more"><summary>Evidence for the secondary discovery ({{ s.d.evidence_trail|length }})</summary>
+      {% for it in s.d.evidence_trail %}<div class="ev"><div class="h"><span class="id">{{ it.evidence[0] }}</span><span class="stance {{ it.stance }}">{{ it.stance }}</span><span>{{ it.publisher }}</span><span>{{ it.date or 'n.d.' }}</span></div>
+      <div class="txt">“{{ it.text }}”</div><div class="src"><a href="{{ it.url }}" target="_blank" rel="noopener">{{ it.source }}</a></div></div>{% endfor %}
+    </details>
+  </div>
+</section>
+{% endfor %}
+
+<section>
+  <h2>Hypothesis board: everything the agent tested</h2>
+  <div class="card scroll">
+    <table class="hyp">
+      <thead><tr><th>ID</th><th>Angle</th><th>Status</th><th>Hypothesis</th><th>Total</th><th>Grade</th></tr></thead>
+      <tbody>
+      {% for h in hypotheses %}
+      <tr><td class="mono">{{ h.id }}</td><td class="mono">{{ h.angle }}</td><td>{{ h.status }}</td><td>{{ h.statement }}</td><td class="num">{{ '%.2f'|format(h.scores.total) }}</td><td>{{ h.facts.strength.grade }}</td></tr>
+      {% endfor %}
+      {% for t in untested %}
+      <tr><td class="mono">–</td><td class="mono">{{ t.angle }}</td><td>planned · no hypothesis</td><td>{{ t.note }}</td><td></td><td></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Quantitative scan (what moved)</h2>
+    <ul class="why">{% for a in anomalies %}<li><span class="mono">{{ a.type }}</span>: {{ a.description }}</li>{% endfor %}</ul>
+  </div>
+  <div class="card">
+    <h2>Research plan (angles chosen)</h2>
+    <ul class="why">{% for t in plan %}<li><b>{{ t.angle }}</b> <span class="sub">[{{ t.brief }}] priority {{ t.priority }}</span><br><span class="sub">{{ t.question }}</span></li>{% endfor %}</ul>
+  </div>
+</section>
+
+<section>
+  <h2>Audit log: source conflicts and dropped reports</h2>
+  <div class="card">
+    <ul class="why">
+      {% for n in audit %}<li>{{ n }}</li>{% endfor %}
+      {% if not audit %}<li>No conflicting figures.</li>{% endif %}
+    </ul>
+  </div>
+</section>
+
+<section class="no-print">
+  <details class="more"><summary>Agent trace ({{ trace|length }} steps): searches, scan, skeptic, verifier</summary>
+    <div class="card" style="margin-top:8px">
+      <ol class="trace">{% for s in trace %}<li><span class="stage">{{ s.stage }}</span><span class="mono">{{ s.action }}</span> — {{ s.detail }}</li>{% endfor %}</ol>
+    </div>
+  </details>
+  <details class="more"><summary>Searches executed ({{ searches|length }})</summary>
+    <div class="card scroll" style="margin-top:8px"><table><thead><tr><th>Angle</th><th>Query</th><th>Sources returned</th></tr></thead><tbody>
+    {% for s in searches %}<tr><td class="mono">{{ s.angle }}</td><td>{{ s.query }}</td><td>{% for r in s.results %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.publisher }}</a>{{ ', ' if not loop.last }}{% endfor %}{% if not s.results %}<span class="sub">none</span>{% endif %}</td></tr>{% endfor %}
+    </tbody></table></div>
+  </details>
+</section>
+
+<footer>
+  Generated by SignalRx from {{ n_sources }} public sources. Not investment advice; no recommendation is made.
+  Every figure links to a passage; every passage links to its source. Passages in replay mode are as retrieved by the search tool on {{ company.as_of }}.
+</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-tip]') : null;
+    if (!t) { tip.style.display = 'none'; return; }
+    tip.textContent = t.getAttribute('data-tip');
+    tip.style.display = 'block';
+    var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+  });
+  window.addEventListener('scroll', function () { tip.style.display = 'none'; }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest ? e.target.closest('a.cite') : null;
+    if (!c) return;
+    var el = document.getElementById('ev-' + c.getAttribute('data-cite'));
+    if (!el) return;
+    e.preventDefault();
+    showAll();
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1600);
+  });
+  var buttons = document.querySelectorAll('.filters button');
+  function apply(f) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+    document.querySelectorAll('#trail .ev').forEach(function (el) {
+      var ok = f === 'all' || el.getAttribute('data-stance') === f || ('type:' + el.getAttribute('data-type')) === f;
+      el.style.display = ok ? '' : 'none';
+    });
+    try { localStorage.setItem('signalrx-filter', f); } catch (err) {}
+  }
+  function showAll() { apply('all'); }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.getAttribute('data-f')); }); });
+  try { var saved = localStorage.getItem('signalrx-filter'); if (saved) apply(saved); } catch (err) {}
+})();
+</script>
+</body>
+</html>

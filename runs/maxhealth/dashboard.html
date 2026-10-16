@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignalRx · Max Healthcare Institute</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --raised: #ffffff;
+  --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --accent: #2a78d6; --accent-wash: rgba(42,120,214,0.08);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-ink: #006300;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+    --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --good-ink: #0ca30c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+  --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+  --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --good-ink: #0ca30c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--ink); }
+body { font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--grid); font-size: 13px; color: var(--ink2); }
+header.top b { color: var(--ink); letter-spacing: .02em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); font-size: 12px; color: var(--ink2); white-space: nowrap; }
+.chip.grade-Strong { border-color: var(--good); color: var(--good-ink); }
+.chip.grade-Moderate { border-color: var(--warn); }
+.chip.grade-Weak { border-color: var(--critical); }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+section { margin-top: 28px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 22px 0 4px; letter-spacing: -.01em; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); margin: 0 0 10px; font-weight: 600; }
+h3 { font-size: 15px; margin: 0 0 6px; }
+.sub { color: var(--ink2); font-size: 14px; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 18px 20px; }
+.discovery { font-size: 20px; line-height: 1.45; font-weight: 500; margin: 6px 0 12px; }
+.disc-meta { font-size: 13px; color: var(--ink2); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 14px 16px; }
+.tile .k { font-size: 12px; color: var(--ink2); }
+.tile .v { font-size: 26px; font-weight: 600; margin: 2px 0; }
+.tile .s { font-size: 12px; color: var(--muted); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 820px) { .two { grid-template-columns: 1fr; } .discovery { font-size: 17px; } }
+ul.why { margin: 0; padding-left: 18px; } ul.why li { margin: 0 0 8px; }
+.counter { border-left: 3px solid var(--serious); }
+.fals { border-left: 3px solid var(--accent); }
+.fals ol { margin: 0; padding-left: 20px; } .fals li { margin-bottom: 8px; }
+.fals .mon { font-size: 12px; color: var(--muted); }
+figure { margin: 0; }
+figcaption { font-size: 13px; color: var(--ink2); margin-bottom: 6px; font-weight: 600; }
+svg.chart { width: 100%; height: auto; display: block; }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .axis, svg .sep { stroke: var(--axis); stroke-width: 1; }
+svg .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg .lab { fill: var(--ink2); font-size: 12px; }
+svg .val { fill: var(--ink); font-size: 11px; font-weight: 600; }
+svg .inlab { fill: #fff; font-size: 11px; font-weight: 600; }
+svg .evline { stroke: var(--axis); stroke-width: 1; }
+svg .evdot { fill: var(--raised); stroke: var(--ink2); stroke-width: 1.5; }
+svg .evnum { fill: var(--ink); font-size: 9px; font-weight: 700; pointer-events: none; }
+svg [data-tip] { cursor: default; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink2); margin: 2px 0 6px; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; } .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+ol.evkey { font-size: 12px; color: var(--ink2); padding-left: 20px; margin: 8px 0 0; columns: 2; column-gap: 24px; }
+@media (max-width: 820px) { ol.evkey { columns: 1; } }
+details.viz-table summary, details.more summary { cursor: pointer; font-size: 12px; color: var(--accent); margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-size: 12px; color: var(--ink2); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll { overflow-x: auto; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--grid); }
+.timeline li { position: relative; margin: 0 0 14px; padding-left: 10px; }
+.timeline li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--raised); border: 2px solid var(--ink2); }
+.timeline li.k-regulatory::before, .timeline li.k-policy::before { border-color: var(--critical); }
+.timeline li.k-disclosure::before { border-color: var(--serious); }
+.timeline li.k-results::before { border-color: var(--accent); }
+.timeline li.k-media::before { border-color: var(--muted); }
+.timeline li.future { opacity: .75; } .timeline li.future::before { border-style: dashed; }
+.timeline .when { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .what { font-size: 14px; }
+.kind { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink2); border: 1px solid var(--grid); border-radius: 4px; padding: 0 5px; margin-left: 6px; }
+.cite { font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none; border: 1px solid var(--grid); border-radius: 4px; padding: 0 4px; margin-left: 3px; white-space: nowrap; }
+.cite:hover { background: var(--accent-wash); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.filters button { font: inherit; font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); color: var(--ink2); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--accent-wash); border-color: var(--accent); color: var(--ink); }
+.ev { border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: var(--surface); scroll-margin-top: 16px; }
+.ev.flash { outline: 2px solid var(--accent); }
+.ev .h { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; font-size: 12px; color: var(--ink2); }
+.ev .id { font-weight: 700; color: var(--ink); }
+.ev .txt { font-size: 14px; margin: 4px 0 2px; }
+.ev .src { font-size: 12px; }
+.stance { font-size: 11px; font-weight: 700; padding: 0 6px; border-radius: 4px; }
+.stance.supports { color: var(--good-ink); border: 1px solid var(--good); }
+.stance.opposes { color: var(--ink); border: 1px solid var(--serious); }
+.stance.context { color: var(--ink2); border: 1px solid var(--grid); }
+.note { font-size: 12px; color: var(--ink2); background: var(--accent-wash); border-radius: 6px; padding: 2px 6px; display: inline-block; margin-top: 4px; }
+.verdict { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--grid); white-space: nowrap; }
+.verdict.survives { color: var(--good-ink); border-color: var(--good); }
+.verdict.weakens { border-color: var(--serious); }
+.verdict.refutes { border-color: var(--critical); color: var(--critical); }
+.verdict.inconclusive { color: var(--muted); }
+.bars .row { display: grid; grid-template-columns: 110px 1fr 46px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
+.bars .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.bars .fill { height: 100%; background: var(--s1); border-radius: 4px; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.trace li { margin-bottom: 4px; font-size: 13px; }
+.trace .stage { display: inline-block; min-width: 90px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.hyp td:first-child { white-space: nowrap; }
+.secondary .discovery { font-size: 16px; }
+#tip { position: fixed; pointer-events: none; z-index: 10; max-width: 320px; background: var(--raised); color: var(--ink); border: 1px solid var(--ring); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 6px 9px; font-size: 12px; display: none; }
+footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 12px; }
+@media print {
+  body { font-size: 11px; } .wrap { max-width: none; padding: 0 0 20px; }
+  .filters, details.viz-table, #tip, .no-print { display: none !important; }
+  details.more { display: block; } details.more > summary { display: none; } details.more[open], details.more { }
+  .card, .tile, .ev { break-inside: avoid; }
+  section { margin-top: 16px; }
+  a { color: inherit; text-decoration: underline; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><b>SignalRx</b> · autonomous research agent · Track D: Pharma &amp; Healthcare</div>
+  <div class="chips">
+    <span class="chip">run 2026-10-16 15:34 UTC</span>
+    <span class="chip">mode: replay</span>
+    <span class="chip">evidence as of 2026-10-16</span>
+  </div>
+</header>
+
+<h1>Max Healthcare Institute <span class="sub">(MAXHEALTH)</span></h1>
+<div class="chips" style="margin-top:6px">
+  <span class="chip">archetype: hospital</span>
+  <span class="chip">brief question D2: Has a regulatory or compliance development hit its financials before mainstream coverage?</span>
+  <span class="chip grade-Moderate"><span class="dot" style="background: var(--warn)"></span>Evidence strength: Moderate</span>
+  <span class="chip">15 citations · 12 source families</span>
+  <span class="chip">verifier: passed (28 numbers traced)</span>
+</div>
+
+<section>
+  <h2>The discovery</h2>
+  <div class="card">
+    <h3>A government payor rule, not demand, is behind the oncology drag</h3>
+    <p class="discovery">Max Healthcare Institute&#39;s ARPOB stall (+2.6% in Q3FY26, +0.0% in Q4FY26) was a payor-policy shock, not weak demand: after the CGHS drug-billing order (Dec 2024) and CGHS package-rate revision (13 Oct 2025), it stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025, cutting oncology from 26% to 22% of inpatient revenue — so reported growth (16%) understates the rest of the business (20%), and the Q1FY27 ARPOB rebound (+5%) owes about 1.2pp to the CGHS tariff revision.</p>
+    <div class="disc-meta">Backed by:
+      <a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H02" data-cite="H02">H02</a><a class="cite" href="#ev-H04" data-cite="H04">H04</a><a class="cite" href="#ev-H05" data-cite="H05">H05</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a><a class="cite" href="#ev-H10" data-cite="H10">H10</a><a class="cite" href="#ev-H11" data-cite="H11">H11</a><a class="cite" href="#ev-H12" data-cite="H12">H12</a><a class="cite" href="#ev-H13" data-cite="H13">H13</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Numbers that substantiate it</h2>
+  <div class="tiles">
+    
+    <div class="tile"><div class="k">Oncology share of IP revenue</div><div class="v">26% → 22%</div><div class="s">Q1FY26 → Q1FY27</div></div>
+    
+    <div class="tile"><div class="k">Growth: reported vs ex-oncology</div><div class="v">16% vs 20%</div><div class="s">Q1FY27</div></div>
+    
+    <div class="tile"><div class="k">ARPOB growth Q1FY27</div><div class="v">+5%</div><div class="s">~1.2pp from tariff revision; core ~3.8%</div></div>
+    
+    <div class="tile"><div class="k">Payor rule → company action</div><div class="v">11 months</div><div class="s">effect quantified two quarters later</div></div>
+    
+  </div>
+</section>
+
+
+<section>
+  <div class="card"><figure><figcaption>ARPOB growth, year on year (last quarter split: core vs policy tariff benefit)</figcaption><div class="legend"><span class="key"><i style="background:var(--s1)"></i>Core growth</span><span class="key"><i style="background:var(--s2)"></i>Policy tariff benefit</span><span class="key"><i style="background:var(--muted)"></i>Peer (same quarter)</span></div><svg viewBox="0 0 1040 260" role="img" aria-label="ARPOB growth, year on year (last quarter split: core vs policy tariff benefit)" class="chart"><line x1="48" y1="220.0" x2="1024" y2="220.0" class="grid"/><text x="42" y="224.0" class="tick" text-anchor="end">0%</text><line x1="48" y1="172.0" x2="1024" y2="172.0" class="grid"/><text x="42" y="176.0" class="tick" text-anchor="end">2.5%</text><line x1="48" y1="124.0" x2="1024" y2="124.0" class="grid"/><text x="42" y="128.0" class="tick" text-anchor="end">5%</text><line x1="48" y1="76.0" x2="1024" y2="76.0" class="grid"/><text x="42" y="80.0" class="tick" text-anchor="end">7.5%</text><line x1="48" y1="28.0" x2="1024" y2="28.0" class="grid"/><text x="42" y="32.0" class="tick" text-anchor="end">10%</text><line x1="48" y1="220" x2="1024" y2="220" class="axis"/><path d="M156.0,220 V174.1 q0,-4 4,-4 H180.0 q4,0 4,4 V220 Z" fill="var(--s1)" data-tip="Q3FY26: +2.6%"><title>Q3FY26: +2.6%</title></path><text x="170.0" y="164.1" class="val" text-anchor="middle">+2.6%</text><text x="170.0" y="236" class="tick" text-anchor="middle">Q3FY26</text><path d="M400.0,220 V218.5  H428.0  V220 Z" fill="var(--s1)" data-tip="Q4FY26: +0.0%"><title>Q4FY26: +0.0%</title></path><text x="414.0" y="214.0" class="val" text-anchor="middle">+0.0%</text><text x="414.0" y="236" class="tick" text-anchor="middle">Q4FY26</text><rect x="644.0" y="146.5" width="28" height="73.5" fill="var(--s1)" data-tip="Q1FY27 core: +3.8%"><title>Q1FY27 core: +3.8%</title></rect><path d="M644.0,144.5 V128.0 q0,-4 4,-4 H668.0 q4,0 4,4 V144.5 Z" fill="var(--s2)" data-tip="Q1FY27 policy tariff benefit: +1.2pp"><title>Q1FY27 policy tariff benefit: +1.2pp</title></path><text x="658.0" y="118.0" class="val" text-anchor="middle">+5.0%</text><text x="658.0" y="236" class="tick" text-anchor="middle">Q1FY27</text><path d="M890.0,220 V70.4 q0,-4 4,-4 H910.0 q4,0 4,4 V220 Z" fill="var(--muted)" data-tip="Peer Apollo Hospitals: +8.0%"><title>Peer Apollo Hospitals: +8.0%</title></path><text x="902.0" y="60.4" class="val" text-anchor="middle">+8%</text><text x="902.0" y="236" class="tick" text-anchor="middle">Apollo Hospitals (peer)</text></svg><details class="viz-table"><summary>Data table</summary><table><thead><tr><th>Quarter</th><th>YoY</th><th>note</th></tr></thead><tbody><tr><td>Q3FY26</td><td>+2.6%</td><td></td></tr><tr><td>Q4FY26</td><td>+0.0%</td><td></td></tr><tr><td>Q1FY27</td><td>+5.0%</td><td>core +3.8% + benefit 1.2pp</td></tr><tr><td>peer: Apollo Hospitals</td><td>+8.0%</td><td>same quarter</td></tr></tbody></table></details></figure></div>
+</section>
+
+
+<section class="two">
+  <div class="card">
+    <h2>Why it matters</h2>
+    <ul class="why"><li>The drag is policy-made, so it reverses on policy, not on demand: management calls it structural unless the payor&#39;s terms improve.</li><li>Headline growth understates core growth by 4pp. Cross-check: the share shift alone implies oncology revenue growth of -1.8% and non-oncology growth of 22.3%, close to the reported 20%.</li><li>Read the &#39;normalisation&#39; guidance carefully: it falls 13 months after the change, i.e. when the base effect laps. Year-on-year growth normalises, but the lost oncology revenue does not come back unless terms change.</li><li>ARPOB optics: of the +5% in Q1FY27, about 1.2pp is the tariff revision (~₹140 cr a year), leaving core ARPOB growth near 3.8%.</li><li>Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%). The exposure comes from the payor relationship on record: CGHS (large CGHS / institutional book; high-value chemo for institutional patients discontinued).</li></ul>
+  </div>
+  <div>
+    <div class="card counter">
+      <h2>Strongest counterargument</h2>
+      <p style="margin:0 0 6px">Management has a dated fix: &#39;Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27&#39; (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test. Also: The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. New-capacity costs are a second, smaller drag on margins cited in the same note. Management&#39;s position: &#34;Impact is structural unless CGHS terms improve; in discussion with government on below-cost supply.&#34; &#34;Oncology growth to normalise from Q3 FY27, fully by Q4 FY27.&#34;</p>
+      <div><a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a><a class="cite" href="#ev-H10" data-cite="H10">H10</a></div>
+    </div>
+    <div class="card fals" style="margin-top:16px">
+      <h2>Falsification conditions</h2>
+      <ol><li>Oncology back to ≥26% of inpatient revenue by Dec 2026 (management&#39;s own normalisation date) without a change in payor terms: that would point to case-mix, not policy.<div class="mon">Watch: quarterly investor presentation (specialty mix)<a class="cite" href="#ev-H01" data-cite="H01">H01</a></div></li><li>The payor relaxes its terms (a new order or memorandum) and the specialty share recovers: confirms the mechanism but ends the drag.<div class="mon">Watch: CGHS orders and memoranda</div></li><li>Ex-oncology growth converges to reported growth (gap under one percentage point) for two quarters: the policy effect has washed out of the base.<div class="mon">Watch: quarterly results</div></li></ol>
+    </div>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Timeline: when the story changed</h2>
+    <ul class="timeline">
+      
+      <li class="k-policy">
+        <div class="when">Dec 2024<span class="kind">policy</span><span class="kind">CGHS</span></div>
+        <div class="what">CGHS order: empanelled hospitals must accept CGHS-supplied medicines or show purchase invoices; industry warns on cancer-care margins<a class="cite" href="#ev-H11" data-cite="H11">H11</a></div>
+      </li>
+      
+      <li class="k-policy">
+        <div class="when">13 Oct 2025<span class="kind">policy</span><span class="kind">CGHS</span></div>
+        <div class="what">Revised CGHS package rates take effect (OM of 3-Oct); chemotherapy moves to revised rates<a class="cite" href="#ev-H12" data-cite="H12">H12</a><a class="cite" href="#ev-H13" data-cite="H13">H13</a></div>
+      </li>
+      
+      <li class="k-operations">
+        <div class="when">Nov 2025<span class="kind">operations</span></div>
+        <div class="what">Stopped administering high-value patented chemotherapy to institutional (CGHS) patients<a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a><a class="cite" href="#ev-H10" data-cite="H10">H10</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">5 Feb 2026<span class="kind">results</span></div>
+        <div class="what">Q3 FY26: ARPOB +2.6%, occupancy 74%, margin 26.1% (vs 27.3%); oncology drag attributed to CGHS pricing<a class="cite" href="#ev-H08" data-cite="H08">H08</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a><a class="cite" href="#ev-H20" data-cite="H20">H20</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">May 2026<span class="kind">results</span></div>
+        <div class="what">Q4 FY26: ARPOB flat at Rs 77.9k; FY26 operational beds 4,966 (+312)<a class="cite" href="#ev-H07" data-cite="H07">H07</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">Aug 2026<span class="kind">results</span></div>
+        <div class="what">Q1 FY27: oncology 22% of IP revenue (26%); ex-oncology growth 20% vs 16%; ARPOB +5% incl. CGHS tariff benefit; beds 5,379<a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H04" data-cite="H04">H04</a><a class="cite" href="#ev-H05" data-cite="H05">H05</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a></div>
+      </li>
+      
+      <li class="k-guidance future">
+        <div class="when">Dec 2026<span class="kind">guidance</span></div>
+        <div class="what">Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27<a class="cite" href="#ev-H01" data-cite="H01">H01</a></div>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Evidence strength: Moderate</h2>
+    <ul class="why"><li>9 sources across 9 independent families (aggregator:sahi, broker:axis direct, company, media:business standard, media:gurufocus via investing.com, media:healthcare executive, media:investing.com, media:outlook money, media:theprint).</li><li>No primary filing in the support set: grade capped.</li><li>No regulator or counterparty document of its own in the support set (third-party facts arrive via press).</li><li>Skeptic: 4 checks survived, 3 weakened (temporary, low_margin, new_capacity), 0 refuted.</li><li>1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).</li><li>1 source conflict(s) resolved by hierarchy; see audit log.</li></ul>
+    <h2 style="margin-top:14px">Ranking scores</h2>
+    <div class="bars">
+      
+      <div class="row"><span>novelty</span><div class="track"><div class="fill" style="width: 95.0%"></div></div><span class="mono">0.95</span></div>
+      
+      <div class="row"><span>evidence</span><div class="track"><div class="fill" style="width: 61.0%"></div></div><span class="mono">0.61</span></div>
+      
+      <div class="row"><span>materiality</span><div class="track"><div class="fill" style="width: 70.0%"></div></div><span class="mono">0.70</span></div>
+      
+      <div class="row"><span>robustness</span><div class="track"><div class="fill" style="width: 64.0%"></div></div><span class="mono">0.64</span></div>
+      
+      <div class="row"><span>total</span><div class="track"><div class="fill" style="width: 75.0%"></div></div><span class="mono">0.75</span></div>
+      
+    </div>
+    <p class="sub" style="font-size:12px;margin:8px 0 0">Novelty: joins 8 non-company source families to the company&#39;s own disclosures; a third-party record leads the company&#39;s own disclosure by 417 days; rests on 6 derived calculations no single source states.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Skeptic: alternative explanations tested</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Test</th><th>Question</th><th>Verdict</th><th>Result</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">sector_wide</td><td>Is this a sector story? Do peers show the same move in the same period?</td><td><span class="verdict survives">survives</span></td>
+      <td>Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%). <a class="cite" href="#ev-H19" data-cite="H19">H19</a></td></tr>
+      
+      <tr><td class="mono">one_off</td><td>Is the driver labelled one-time (shelf-stock adjustment, provision, settlement) so it reverses next year?</td><td><span class="verdict survives">survives</span></td>
+      <td>No one-time item is attached to the figures behind this hypothesis. </td></tr>
+      
+      <tr><td class="mono">temporary</td><td>Has management given a dated remediation / resupply plan that would reverse the effect?</td><td><span class="verdict weakens">weakens</span></td>
+      <td>Management has a dated fix: &#39;Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27&#39; (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test. <a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H10" data-cite="H10">H10</a><a class="cite" href="#ev-H01" data-cite="H01">H01</a></td></tr>
+      
+      <tr><td class="mono">already_mainstream</td><td>Would a reader of headlines already know this? (novelty test)</td><td><span class="verdict survives">survives</span></td>
+      <td>None of 2 headlines in the ledger connects these facts (oncology, cghs, arpob). <a class="cite" href="#ev-H22" data-cite="H22">H22</a><a class="cite" href="#ev-H23" data-cite="H23">H23</a></td></tr>
+      
+      <tr><td class="mono">low_margin</td><td>Does the revenue effect overstate the profit effect?</td><td><span class="verdict weakens">weakens</span></td>
+      <td>The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. Source: &#34;Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management h...&#34; <a class="cite" href="#ev-H10" data-cite="H10">H10</a></td></tr>
+      
+      <tr><td class="mono">occupancy</td><td>Is it an occupancy / volume effect rather than a price or payor effect?</td><td><span class="verdict survives">survives</span></td>
+      <td>Occupancy held in a 74-75% band across Q3FY26-Q1FY27; a volume collapse does not explain the unit-price stall. <a class="cite" href="#ev-H08" data-cite="H08">H08</a><a class="cite" href="#ev-H07" data-cite="H07">H07</a><a class="cite" href="#ev-H05" data-cite="H05">H05</a></td></tr>
+      
+      <tr><td class="mono">new_capacity</td><td>Is it dilution from newly commissioned (low-occupancy) capacity?</td><td><span class="verdict weakens">weakens</span></td>
+      <td>New-capacity costs are a second, smaller drag on margins cited in the same note. Source: Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after re... <a class="cite" href="#ev-H09" data-cite="H09">H09</a></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Evidence trail (15 passages, 12 independent families)</h2>
+  <div class="filters" role="group" aria-label="Filter evidence">
+    <button data-f="all" aria-pressed="true">All</button>
+    <button data-f="supports" aria-pressed="false">Supports</button>
+    <button data-f="opposes" aria-pressed="false">Opposes</button>
+    <button data-f="context" aria-pressed="false">Context</button>
+    <button data-f="type:aggregator" aria-pressed="false">aggregator</button><button data-f="type:broker" aria-pressed="false">broker</button><button data-f="type:media" aria-pressed="false">media</button><button data-f="type:transcript" aria-pressed="false">transcript</button>
+  </div>
+  <div id="trail">
+  
+    <div class="ev" id="ev-H10" data-stance="supports" data-type="transcript">
+      <div class="h"><span class="id">H10</span><span class="stance supports">supports</span>
+        <span>transcript</span><span>Alpha Spread (call transcript)</span><span>2026-02</span><span class="mono">company</span></div>
+      <div class="txt">“Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management has been in ongoing discussions with the government over below-cost supply requirements and expects the impact to be structural unless terms improve.”</div>
+      <div class="src"><a href="https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026" target="_blank" rel="noopener">MAXHEALTH Q3 FY26 earnings call</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H09" data-stance="supports" data-type="broker">
+      <div class="h"><span class="id">H09</span><span class="stance supports">supports</span>
+        <span>broker</span><span>Axis Direct</span><span>2026-02-09</span><span class="mono">broker:axis direct</span></div>
+      <div class="txt">“Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY.”</div>
+      <div class="src"><a href="https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental" target="_blank" rel="noopener">Max Healthcare Q3FY26 Result Update</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H11" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H11</span><span class="stance supports">supports</span>
+        <span>media</span><span>ThePrint</span><span>2025-01</span><span class="mono">media:theprint</span></div>
+      <div class="txt">“The CGHS wing told empanelled hospitals to either accept medicines CGHS supplies or provide a purchase invoice for them (December 2024 order). AHPI planned to ask the government to withdraw the order, saying it squeezes hospital margins, particularly in high-cost cancer treatment.”</div>
+      <div class="src"><a href="https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/" target="_blank" rel="noopener">Govt tightens drug billing norm for CGHS claims; why private hospitals are pushing back</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H13" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H13</span><span class="stance supports">supports</span>
+        <span>media</span><span>Business Standard</span><span>2025-10-05</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“Centre revises CGHS rates; first major revamp since 2014; hospitals welcome tier-based structure.”</div>
+      <div class="src"><a href="https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html" target="_blank" rel="noopener">Centre revises CGHS rates; hospitals welcome tier-based structure</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H12" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H12</span><span class="stance supports">supports</span>
+        <span>media</span><span>Outlook Money</span><span>2025-10</span><span class="mono">media:outlook money</span></div>
+      <div class="txt">“The Ministry of Health and Family Welfare issued the office memorandum on October 3, 2025; revised CGHS package rates for nearly 2,000 procedures took effect October 13, 2025. Cancer surgeries continue under the old rules, but chemotherapy, radiotherapy and related tests now follow the revised rates.”</div>
+      <div class="src"><a href="https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025" target="_blank" rel="noopener">CGHS rates revised: changes effective October 13, 2025</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H01" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H01</span><span class="stance supports">supports</span>
+        <span>media</span><span>Investing.com</span><span>2026-08</span><span class="mono">media:investing.com</span></div>
+      <div class="txt">“Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology&#39;s share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027.”</div>
+      <div class="src"><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H02" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H02</span><span class="stance supports">supports</span>
+        <span>media</span><span>GuruFocus via Investing.com</span><span>2026-08</span><span class="mono">media:gurufocus via investing.com</span></div>
+      <div class="txt">“The company&#39;s large CGHS and institutional business made it more exposed than peers to the discontinuation of high-value chemotherapy drugs.”</div>
+      <div class="src"><a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">Max Healthcare Q1 2027 Earnings Call Highlights</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H04" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">H04</span><span class="stance supports">supports</span>
+        <span>media</span><span>Healthcare Executive</span><span>2026-08</span><span class="mono">media:healthcare executive</span></div>
+      <div class="txt">“Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27.”</div>
+      <div class="src"><a href="https://www.healthcareexecutive.in/blog/max-healthcare-q1" target="_blank" rel="noopener">Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H05" data-stance="supports" data-type="aggregator">
+      <div class="h"><span class="id">H05</span><span class="stance supports">supports</span>
+        <span>aggregator</span><span>Sahi</span><span>2026-08</span><span class="mono">aggregator:sahi</span></div>
+      <div class="txt">“Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex.”</div>
+      <div class="src"><a href="https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR" target="_blank" rel="noopener">Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H07" data-stance="context" data-type="aggregator">
+      <div class="h"><span class="id">H07</span><span class="stance context">context</span>
+        <span>aggregator</span><span>Multibagg</span><span>2026-05</span><span class="mono">aggregator:multibagg</span></div>
+      <div class="txt">“Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k.”</div>
+      <div class="src"><a href="https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589" target="_blank" rel="noopener">Max Healthcare Q4 FY26: brownfield expansions ramp up</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H08" data-stance="context" data-type="aggregator">
+      <div class="h"><span class="id">H08</span><span class="stance context">context</span>
+        <span>aggregator</span><span>Investywise</span><span>2026-02</span><span class="mono">aggregator:investywise</span></div>
+      <div class="txt">“Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year.”</div>
+      <div class="src"><a href="https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/" target="_blank" rel="noopener">Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H19" data-stance="context" data-type="media">
+      <div class="h"><span class="id">H19</span><span class="stance context">context</span>
+        <span>media</span><span>Investing.com</span><span>2026-08</span><span class="mono">media:investing.com</span></div>
+      <div class="txt">“Apollo Q1 FY27: occupancy rose to 70% from 65%; average revenue per patient rose 8% driven by favorable case mix and specialty growth.”</div>
+      <div class="src"><a href="https://www.investing.com/news/company-news/apollo-hospitals-q1-fy27-slides-margins-expand-digital-losses-narrow-93CH-4857308" target="_blank" rel="noopener">Apollo Hospitals Q1 FY27 slides: margins expand, digital losses narrow</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H20" data-stance="context" data-type="media">
+      <div class="h"><span class="id">H20</span><span class="stance context">context</span>
+        <span>media</span><span>Business Standard</span><span>2026-02-05</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html" target="_blank" rel="noopener">Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H22" data-stance="context" data-type="media">
+      <div class="h"><span class="id">H22</span><span class="stance context">context</span>
+        <span>media</span><span>ad-hoc-news (DSIJ)</span><span>2026-08</span><span class="mono">media:ad-hoc-news (dsij)</span></div>
+      <div class="txt">“Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk.”</div>
+      <div class="src"><a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171" target="_blank" rel="noopener">Max Health stock hits a 52-week low as margins face pressure</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-H23" data-stance="context" data-type="media">
+      <div class="h"><span class="id">H23</span><span class="stance context">context</span>
+        <span>media</span><span>Business Standard</span><span>2026-08-16</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“Apollo scores over Max with a strong revenue, margin outperformance in Q1.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html" target="_blank" rel="noopener">Apollo scores over Max with a strong revenue, margin outperformance in Q1</a></div>
+      
+    </div>
+  
+  </div>
+</section>
+
+<section>
+  <h2>Calculations (every derived number, with inputs)</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>#</th><th>Metric</th><th>Value</th><th>Formula</th><th>Inputs</th><th>Evidence</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">C1</td><td>Growth gap ex_oncology vs reported, Q1FY27</td><td class="num">4.0 pp</td><td class="mono">growth[ex_oncology] - growth[reported]</td>
+      <td class="mono" style="font-size:11px">revenue_growth_yoy[ex_oncology]@Q1FY27, revenue_growth_yoy[reported]@Q1FY27</td><td><a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H04" data-cite="H04">H04</a></td></tr>
+      
+      <tr><td class="mono">C2</td><td>oncology share change Q1FY26-&gt;Q1FY27</td><td class="num">-4.0 pp</td><td class="mono">share[t] - share[t0]</td>
+      <td class="mono" style="font-size:11px">specialty_share_ip[oncology]@Q1FY27, specialty_share_ip[oncology]@Q1FY26</td><td><a class="cite" href="#ev-H01" data-cite="H01">H01</a></td></tr>
+      
+      <tr><td class="mono">C8</td><td>Implied oncology revenue growth, Q1FY27</td><td class="num">-1.8 %</td><td class="mono">(share1 / share0) x (1 + g) - 1</td>
+      <td class="mono" style="font-size:11px">specialty_share_ip[oncology]@Q1FY26, specialty_share_ip[oncology]@Q1FY27, revenue_growth_yoy[reported]@Q1FY27</td><td><a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H04" data-cite="H04">H04</a></td></tr>
+      
+      <tr><td class="mono">C9</td><td>Implied non-oncology revenue growth, Q1FY27</td><td class="num">22.3 %</td><td class="mono">((1 - share1) / (1 - share0)) x (1 + g) - 1</td>
+      <td class="mono" style="font-size:11px">specialty_share_ip[oncology]@Q1FY26, specialty_share_ip[oncology]@Q1FY27, revenue_growth_yoy[reported]@Q1FY27</td><td><a class="cite" href="#ev-H01" data-cite="H01">H01</a><a class="cite" href="#ev-H04" data-cite="H04">H04</a></td></tr>
+      
+      <tr><td class="mono">C10</td><td>Policy tariff benefit as % of quarterly revenue</td><td class="num">1.2 %</td><td class="mono">(annual benefit / 4) / quarterly revenue x 100</td>
+      <td class="mono" style="font-size:11px">policy_benefit_annual[CGHS tariff revision]@FY27, revenue_total[]@Q1FY27</td><td><a class="cite" href="#ev-H04" data-cite="H04">H04</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a></td></tr>
+      
+      <tr><td class="mono">C11</td><td>ARPOB growth excluding the tariff benefit, Q1FY27</td><td class="num">3.8 pp</td><td class="mono">ARPOB growth - benefit % (approx.)</td>
+      <td class="mono" style="font-size:11px">arpob_growth_yoy[]@Q1FY27, policy_benefit_pct[]@Q1FY27</td><td><a class="cite" href="#ev-H05" data-cite="H05">H05</a><a class="cite" href="#ev-H09" data-cite="H09">H09</a></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<section class="secondary">
+  <h2>Secondary discovery</h2>
+  <div class="card">
+    <h3>Announced capacity is running well ahead of commissioned capacity <span class="chip grade-Moderate">Moderate</span></h3>
+    <p class="discovery">Max Healthcare Institute&#39;s bed plan is running far ahead of its builds: operational beds rose 630 in the year to Q1FY27 (to 5,379), but the 9,000–9,500 target for FY28 needs 2,066–2,351 a year, 3.3–3.7x the current pace, and the target has been restated 3 times.</p>
+    <figure><figcaption>Operational beds vs the stated target</figcaption><div class="legend"><span class="key"><i style="background:var(--s1)"></i>Operational beds (actual, then trailing pace)</span><span class="key"><i style="background:var(--s2)"></i>Path to stated target range</span></div><svg viewBox="0 0 1040 300" role="img" aria-label="Operational beds vs the stated target" class="chart"><line x1="64" y1="260.0" x2="890" y2="260.0" class="grid"/><text x="58" y="264.0" class="tick" text-anchor="end">4.0K</text><line x1="64" y1="200.0" x2="890" y2="200.0" class="grid"/><text x="58" y="204.0" class="tick" text-anchor="end">5.5K</text><line x1="64" y1="140.0" x2="890" y2="140.0" class="grid"/><text x="58" y="144.0" class="tick" text-anchor="end">7.0K</text><line x1="64" y1="80.0" x2="890" y2="80.0" class="grid"/><text x="58" y="84.0" class="tick" text-anchor="end">8.5K</text><line x1="64" y1="20.0" x2="890" y2="20.0" class="grid"/><text x="58" y="24.0" class="tick" text-anchor="end">10.0K</text><path d="M414.3,204.8 L875.6,40.0 L875.6,60.0 Z" fill="var(--s2)" opacity="0.12"/><line x1="414.3" y1="204.8" x2="875.6" y2="60.0" stroke="var(--s2)" stroke-width="2" stroke-linecap="round"/><circle cx="875.6" cy="60.0" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2" data-tip="Target (low) by FY28: 9,000 beds"><title>Target (low) by FY28: 9,000</title></circle><text x="884.6" y="64.0" class="lab">9,000</text><line x1="414.3" y1="204.8" x2="875.6" y2="40.0" stroke="var(--s2)" stroke-width="2" stroke-linecap="round"/><circle cx="875.6" cy="40.0" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2" data-tip="Target (high) by FY28: 9,500 beds"><title>Target (high) by FY28: 9,500</title></circle><text x="884.6" y="44.0" class="lab">9,500</text><line x1="414.3" y1="204.8" x2="875.6" y2="160.7" stroke="var(--s1)" stroke-width="2" stroke-opacity="0.45" stroke-linecap="round"/><text x="884.6" y="164.7" class="lab">6,483 at current pace</text><path d="M85.6,233.8 L151.2,230.0 L348.7,221.4 L414.3,204.8" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="85.6" cy="233.8" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2" data-tip="FY25: 4,654 operational beds"><title>FY25: 4,654 operational beds</title></circle><text x="85.6" y="276" class="tick" text-anchor="middle">FY25</text><circle cx="151.2" cy="230.0" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2" data-tip="Q1FY26: 4,749 operational beds (derived)"><title>Q1FY26: 4,749 operational beds (derived)</title></circle><text x="151.2" y="276" class="tick" text-anchor="middle">Q1FY26</text><circle cx="348.7" cy="221.4" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2" data-tip="FY26: 4,966 operational beds"><title>FY26: 4,966 operational beds</title></circle><text x="348.7" y="276" class="tick" text-anchor="middle">FY26</text><circle cx="414.3" cy="204.8" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2" data-tip="Q1FY27: 5,379 operational beds"><title>Q1FY27: 5,379 operational beds</title></circle><text x="414.3" y="276" class="tick" text-anchor="middle">Q1FY27</text><text x="875.6" y="276" class="tick" text-anchor="middle">FY28</text><line x1="64" y1="260" x2="890" y2="260" class="axis"/></svg><details class="viz-table"><summary>Data table</summary><table><thead><tr><th>Period</th><th>Beds</th><th>basis</th></tr></thead><tbody><tr><td>FY25</td><td>4,654</td><td>reported</td></tr><tr><td>Q1FY26</td><td>4,749</td><td>derived</td></tr><tr><td>FY26</td><td>4,966</td><td>reported</td></tr><tr><td>Q1FY27</td><td>5,379</td><td>reported</td></tr><tr><td>FY28</td><td>9,000–9,500</td><td>target</td></tr><tr><td>FY28</td><td>6,483</td><td>at trailing pace</td></tr></tbody></table></details></figure>
+    <div class="two" style="margin-top:12px">
+      <div><h2>Why it matters</h2><ul class="why"><li>Hospital earnings follow commissioned beds, not announced ones; consensus built on the headline target overstates the near-term run-rate.</li><li>The gap leaves 21 months to add 3,621–4,121 beds.</li><li>Dated delays (clearances) are on record, so part of the gap is execution, not just phasing.</li><li>New beds start at low occupancy and carry pre-commissioning costs, so an accelerated build would dilute margins first.</li></ul></div>
+      <div><h2>Counterargument</h2><p>No alternative explanation weakened the finding.</p>
+        <h2>Falsification</h2><ol><li>Operational beds reach 6,928 within 9 months (the run-rate the low target requires).</li><li>Management formally phases the target out beyond the stated year (which resolves the gap by moving the goalpost).</li></ol></div>
+    </div>
+    <details class="more"><summary>Evidence for the secondary discovery (14)</summary>
+      <div class="ev"><div class="h"><span class="id">H18</span><span class="stance supports">supports</span><span>Way2Wealth</span><span>2025-05-26</span></div>
+      <div class="txt">“In Nagpur, a 170-bed expansion is in progress, with 12 beds already commissioned; the remaining beds are pending environmental clearance. The 550-bed Vikrant Saket project is awaiting forest department clearance, with completion expected by FY28.”</div><div class="src"><a href="https://www.way2wealth.com/Reports/RR26052025fa75e.pdf" target="_blank" rel="noopener">Max Healthcare Institute research report</a></div></div><div class="ev"><div class="h"><span class="id">H14</span><span class="stance supports">supports</span><span>HDFC Securities</span><span>2025-12-29</span></div>
+      <div class="txt">“The company is planning to scale up its bed capacity from 5,000 in FY25 to 9,000-9,500 by FY28; on track to add over 3,000 beds between FY26 and FY28 (~2,100 brownfield and 900 greenfield); about 6,769 beds projected at end-FY27.”</div><div class="src"><a href="https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf" target="_blank" rel="noopener">Max Healthcare Institute company update, Dec 2025</a></div></div><div class="ev"><div class="h"><span class="id">H15</span><span class="stance supports">supports</span><span>Business Standard</span><span>2025-11-21</span></div>
+      <div class="txt">“By 2028, it will go up to about 9,500, said Soi.”</div><div class="src"><a href="https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html" target="_blank" rel="noopener">Max Healthcare builds growth runway with brownfield expansion push</a></div></div><div class="ev"><div class="h"><span class="id">H16</span><span class="stance supports">supports</span><span>DistilINFO</span><span>2026-04-16</span></div>
+      <div class="txt">“Max Healthcare has announced a Rs 6,000 crore plan to add over 10,000 beds across India within two to four years, funded entirely through internal cash.”</div><div class="src"><a href="https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/" target="_blank" rel="noopener">Max Healthcare plans 10,000-bed expansion drive</a></div></div><div class="ev"><div class="h"><span class="id">H05</span><span class="stance supports">supports</span><span>Sahi</span><span>2026-08</span></div>
+      <div class="txt">“Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex.”</div><div class="src"><a href="https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR" target="_blank" rel="noopener">Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore</a></div></div><div class="ev"><div class="h"><span class="id">H01</span><span class="stance context">context</span><span>Investing.com</span><span>2026-08</span></div>
+      <div class="txt">“Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology&#39;s share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027.”</div><div class="src"><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion</a></div></div><div class="ev"><div class="h"><span class="id">H04</span><span class="stance context">context</span><span>Healthcare Executive</span><span>2026-08</span></div>
+      <div class="txt">“Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27.”</div><div class="src"><a href="https://www.healthcareexecutive.in/blog/max-healthcare-q1" target="_blank" rel="noopener">Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr</a></div></div><div class="ev"><div class="h"><span class="id">H07</span><span class="stance context">context</span><span>Multibagg</span><span>2026-05</span></div>
+      <div class="txt">“Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k.”</div><div class="src"><a href="https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589" target="_blank" rel="noopener">Max Healthcare Q4 FY26: brownfield expansions ramp up</a></div></div><div class="ev"><div class="h"><span class="id">H08</span><span class="stance context">context</span><span>Investywise</span><span>2026-02</span></div>
+      <div class="txt">“Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year.”</div><div class="src"><a href="https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/" target="_blank" rel="noopener">Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr</a></div></div><div class="ev"><div class="h"><span class="id">H09</span><span class="stance context">context</span><span>Axis Direct</span><span>2026-02-09</span></div>
+      <div class="txt">“Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY.”</div><div class="src"><a href="https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental" target="_blank" rel="noopener">Max Healthcare Q3FY26 Result Update</a></div></div><div class="ev"><div class="h"><span class="id">H17</span><span class="stance context">context</span><span>Investywise</span><span>2026-08</span></div>
+      <div class="txt">“Project timelines: Max Smart 400-bed tower 50% operational, rest in current quarter; 100 beds Max Lucknow (next two quarters); 500 beds Sector 56 Gurgaon (phased by year-end); 250 beds Bhubaneswar (renovation within 12 months); 100 beds Nagpur (by FY28); 400 beds Zirakpur, Mohali (by FY28).”</div><div class="src"><a href="https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/" target="_blank" rel="noopener">Max Healthcare Q1 FY27 earnings call transcript summary</a></div></div><div class="ev"><div class="h"><span class="id">H20</span><span class="stance context">context</span><span>Business Standard</span><span>2026-02-05</span></div>
+      <div class="txt">“The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%.”</div><div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html" target="_blank" rel="noopener">Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression</a></div></div><div class="ev"><div class="h"><span class="id">H22</span><span class="stance context">context</span><span>ad-hoc-news (DSIJ)</span><span>2026-08</span></div>
+      <div class="txt">“Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk.”</div><div class="src"><a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171" target="_blank" rel="noopener">Max Health stock hits a 52-week low as margins face pressure</a></div></div><div class="ev"><div class="h"><span class="id">H23</span><span class="stance context">context</span><span>Business Standard</span><span>2026-08-16</span></div>
+      <div class="txt">“Apollo scores over Max with a strong revenue, margin outperformance in Q1.”</div><div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html" target="_blank" rel="noopener">Apollo scores over Max with a strong revenue, margin outperformance in Q1</a></div></div>
+    </details>
+  </div>
+</section>
+
+
+<section>
+  <h2>Hypothesis board: everything the agent tested</h2>
+  <div class="card scroll">
+    <table class="hyp">
+      <thead><tr><th>ID</th><th>Angle</th><th>Status</th><th>Hypothesis</th><th>Total</th><th>Grade</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">H1</td><td class="mono">payor_policy</td><td>selected</td><td>ARPOB growth slid to +2.6% (Q3FY26), +0.0% (Q4FY26), +5.0% (Q1FY27); the cause is a payor-policy change, not demand: after the CGHS order (Dec 2024), the company stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025; oncology fell from 26% to 22% of inpatient revenue, so reported growth (16%) understates the rest of the business (20%).</td><td class="num">0.75</td><td>Moderate</td></tr>
+      
+      <tr><td class="mono">H2</td><td class="mono">capacity_gap</td><td>supporting</td><td>Operational beds rose by 630 in the 12 months to Q1FY27 (to 5,379); reaching the 9,000–9,500 target by FY28 needs 2,066–2,351 beds a year, 3.3–3.7x the current pace, while the headline target has been restated 3 times.</td><td class="num">0.73</td><td>Moderate</td></tr>
+      
+      
+      <tr><td class="mono">–</td><td class="mono">narrative_gap</td><td>planned · no hypothesis</td><td>no deterministic template; LLM mode only</td><td></td><td></td></tr>
+      
+      <tr><td class="mono">–</td><td class="mono">working_capital_divergence</td><td>planned · no hypothesis</td><td>no deterministic template; LLM mode only</td><td></td><td></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Quantitative scan (what moved)</h2>
+    <ul class="why"><li><span class="mono">growth_gap</span>: Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)</li><li><span class="mono">specialty_share_shift</span>: oncology share of specialty share ip moved 26% -&gt; 22% (Q1FY26 -&gt; Q1FY27)</li><li><span class="mono">unit_price_stall</span>: ARPOB growth fell to +0.0% YoY in Q4FY26 (series: Q3FY26 +2.6%, Q4FY26 +0.0%, Q1FY27 +5.0%)</li><li><span class="mono">capacity_gap</span>: Target 9,000 beds by FY28 needs 2,066/yr vs 630 added in the last 12 months (3.3x acceleration)</li><li><span class="mono">capacity_gap</span>: Target 9,500 beds by FY28 needs 2,351/yr vs 630 added in the last 12 months (3.7x acceleration)</li></ul>
+  </div>
+  <div class="card">
+    <h2>Research plan (angles chosen)</h2>
+    <ul class="why"><li><b>payor_policy</b> <span class="sub">[D2] priority 1.0</span><br><span class="sub">Did a government payor or price-control change (CGHS/ECHS, PM-JAY, NPPA caps, drug-billing rules) hit revenue per bed or a specialty before coverage connected the two?</span></li><li><b>capacity_gap</b> <span class="sub">[X] priority 1.0</span><br><span class="sub">Do announced capacity additions (beds, reactors, sites) differ materially from what is actually commissioned, and what run-rate would the target require?</span></li><li><b>narrative_gap</b> <span class="sub">[X] priority 0.58</span><br><span class="sub">Is reported growth driven by something different from what management emphasises?</span></li><li><b>working_capital_divergence</b> <span class="sub">[X] priority 0.4</span><br><span class="sub">Do receivable / inventory trends tell a different story from revenue growth?</span></li></ul>
+  </div>
+</section>
+
+<section>
+  <h2>Audit log: source conflicts and dropped reports</h2>
+  <div class="card">
+    <ul class="why">
+      <li>kept 3010 from Business Standard (media, rank 3); dropped 3440 from Investywise (aggregator)</li>
+      
+    </ul>
+  </div>
+</section>
+
+<section class="no-print">
+  <details class="more"><summary>Agent trace (41 steps): searches, scan, skeptic, verifier</summary>
+    <div class="card" style="margin-top:8px">
+      <ol class="trace"><li><span class="stage">harvest</span><span class="mono">bundle-loaded</span> — 22 sources, 24 passages, 32 figures, 11 dated events from maxhealth.yaml</li><li><span class="stage">verify</span><span class="mono">conflict-resolved</span> — kept 3010 from Business Standard (media, rank 3); dropped 3440 from Investywise (aggregator)</li><li><span class="stage">profile</span><span class="mono">archetype</span> — hospital (scores {&#39;hospital&#39;: 0.868, &#39;formulations&#39;: 0.132, &#39;api_cdmo&#39;: 0.0, &#39;diagnostics&#39;: 0.0}); segments -; counterparties [&#39;CGHS&#39;]; peers [&#39;Apollo Hospitals&#39;]</li><li><span class="stage">scan</span><span class="mono">anomaly:growth_gap</span> — Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)</li><li><span class="stage">scan</span><span class="mono">anomaly:specialty_share_shift</span> — oncology share of specialty share ip moved 26% -&gt; 22% (Q1FY26 -&gt; Q1FY27)</li><li><span class="stage">scan</span><span class="mono">anomaly:unit_price_stall</span> — ARPOB growth fell to +0.0% YoY in Q4FY26 (series: Q3FY26 +2.6%, Q4FY26 +0.0%, Q1FY27 +5.0%)</li><li><span class="stage">scan</span><span class="mono">anomaly:capacity_gap</span> — Target 9,000 beds by FY28 needs 2,066/yr vs 630 added in the last 12 months (3.3x acceleration)</li><li><span class="stage">scan</span><span class="mono">anomaly:capacity_gap</span> — Target 9,500 beds by FY28 needs 2,351/yr vs 630 added in the last 12 months (3.7x acceleration)</li><li><span class="stage">plan</span><span class="mono">angle:payor_policy</span> — priority 1.0 [D2] Did a government payor or price-control change (CGHS/ECHS, PM-JAY, NPPA caps, drug-billing rules) hit revenue per bed or a specialty before coverage connected the two?</li><li><span class="stage">plan</span><span class="mono">angle:capacity_gap</span> — priority 1.0 [X] Do announced capacity additions (beds, reactors, sites) differ materially from what is actually commissioned, and what run-rate would the target require?</li><li><span class="stage">plan</span><span class="mono">angle:narrative_gap</span> — priority 0.58 [X] Is reported growth driven by something different from what management emphasises?</li><li><span class="stage">plan</span><span class="mono">angle:working_capital_divergence</span> — priority 0.4 [X] Do receivable / inventory trends tell a different story from revenue growth?</li><li><span class="stage">investigate</span><span class="mono">search:payor_policy</span> — &#34;Max Healthcare Institute ARPOB decline reason institutional patients&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:payor_policy</span> — &#34;Max Healthcare Institute oncology revenue decline reason&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:payor_policy</span> — &#34;CGHS order empanelled hospitals medicines billing&#34; -&gt; 1 sources</li><li><span class="stage">investigate</span><span class="mono">search:payor_policy</span> — &#34;CGHS package rates revision effective date&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:payor_policy</span> — &#34;Max Healthcare Institute institutional CGHS ECHS revenue share&#34; -&gt; 1 sources</li><li><span class="stage">investigate</span><span class="mono">search:capacity_gap</span> — &#34;Max Healthcare Institute bed expansion plan target beds by FY29&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:capacity_gap</span> — &#34;Max Healthcare Institute operational beds Q1FY27&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:capacity_gap</span> — &#34;Max Healthcare Institute project delay clearance commissioning&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:narrative_gap</span> — &#34;Max Healthcare Institute earnings call transcript Q1FY27 management commentary&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:working_capital_divergence</span> — &#34;Max Healthcare Institute trade receivables inventory annual report&#34; -&gt; 4 sources</li><li><span class="stage">hypothesis</span><span class="mono">proposed:H1</span> — [payor_policy] ARPOB growth slid to +2.6% (Q3FY26), +0.0% (Q4FY26), +5.0% (Q1FY27); the cause is a payor-policy change, not demand: after the CGHS order (Dec 2024), the company stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025; oncology fell from 26% to 22% of inpatient revenue, so reported growth (16%) understates the rest of the business (20%).</li><li><span class="stage">hypothesis</span><span class="mono">proposed:H2</span> — [capacity_gap] Operational beds rose by 630 in the 12 months to Q1FY27 (to 5,379); reaching the 9,000–9,500 target by FY28 needs 2,066–2,351 beds a year, 3.3–3.7x the current pace, while the headline target has been restated 3 times.</li><li><span class="stage">hypothesis</span><span class="mono">skip:narrative_gap</span> — no deterministic template; LLM mode only</li><li><span class="stage">hypothesis</span><span class="mono">skip:working_capital_divergence</span> — no deterministic template; LLM mode only</li><li><span class="stage">skeptic</span><span class="mono">H1:sector_wide</span> — SURVIVES - Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%).</li><li><span class="stage">skeptic</span><span class="mono">H1:one_off</span> — SURVIVES - No one-time item is attached to the figures behind this hypothesis.</li><li><span class="stage">skeptic</span><span class="mono">H1:temporary</span> — WEAKENS - Management has a dated fix: &#39;Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27&#39; (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test.</li><li><span class="stage">skeptic</span><span class="mono">H1:already_mainstream</span> — SURVIVES - None of 2 headlines in the ledger connects these facts (oncology, cghs, arpob).</li><li><span class="stage">skeptic</span><span class="mono">H1:low_margin</span> — WEAKENS - The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. Source: &#34;Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management h...&#34;</li><li><span class="stage">skeptic</span><span class="mono">H1:occupancy</span> — SURVIVES - Occupancy held in a 74-75% band across Q3FY26-Q1FY27; a volume collapse does not explain the unit-price stall.</li><li><span class="stage">skeptic</span><span class="mono">H1:new_capacity</span> — WEAKENS - New-capacity costs are a second, smaller drag on margins cited in the same note. Source: Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after re...</li><li><span class="stage">score</span><span class="mono">H1</span> — total 0.753 (novelty 0.95, evidence 0.614 [Moderate], materiality 0.70, robustness 0.64)</li><li><span class="stage">skeptic</span><span class="mono">H2:inorganic</span> — SURVIVES - No acquisition or divestment in the ledger for the relevant segments.</li><li><span class="stage">skeptic</span><span class="mono">H2:already_mainstream</span> — SURVIVES - None of 2 headlines in the ledger connects these facts (beds, target, capacity).</li><li><span class="stage">skeptic</span><span class="mono">H2:phasing</span> — SURVIVES - Some of the gap is published phasing (4 project schedules), but 1 dated delay(s) are on record: Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)</li><li><span class="stage">score</span><span class="mono">H2</span> — total 0.734 (novelty 0.8, evidence 0.633 [Moderate], materiality 0.57, robustness 1.00)</li><li><span class="stage">verify</span><span class="mono">discovery</span> — numbers 28 checked, unmatched none; citations 15, broken none; families [&#39;aggregator:sahi&#39;, &#39;broker:axis direct&#39;, &#39;company&#39;, &#39;media:business standard&#39;, &#39;media:gurufocus via investing.com&#39;, &#39;media:healthcare executive&#39;, &#39;media:investing.com&#39;, &#39;media:outlook money&#39;, &#39;media:theprint&#39;]</li><li><span class="stage">verify</span><span class="mono">discovery</span> — numbers 15 checked, unmatched none; citations 14, broken none; families [&#39;aggregator:sahi&#39;, &#39;broker:hdfc securities&#39;, &#39;broker:way2wealth&#39;, &#39;media:business standard&#39;, &#39;media:distilinfo&#39;]</li><li><span class="stage">select</span><span class="mono">done</span> — 2 discoveries from 2 hypotheses</li></ol>
+    </div>
+  </details>
+  <details class="more"><summary>Searches executed (10)</summary>
+    <div class="card scroll" style="margin-top:8px"><table><thead><tr><th>Angle</th><th>Query</th><th>Sources returned</th></tr></thead><tbody>
+    <tr><td class="mono">payor_policy</td><td>Max Healthcare Institute ARPOB decline reason institutional patients</td><td><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Investing.com</a>, <a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">GuruFocus via Investing.com</a>, <a href="https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/" target="_blank" rel="noopener">Kotak Neo</a>, <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171" target="_blank" rel="noopener">ad-hoc-news (DSIJ)</a></td></tr><tr><td class="mono">payor_policy</td><td>Max Healthcare Institute oncology revenue decline reason</td><td><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Investing.com</a>, <a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">GuruFocus via Investing.com</a>, <a href="https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/" target="_blank" rel="noopener">Kotak Neo</a>, <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171" target="_blank" rel="noopener">ad-hoc-news (DSIJ)</a></td></tr><tr><td class="mono">payor_policy</td><td>CGHS order empanelled hospitals medicines billing</td><td><a href="https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/" target="_blank" rel="noopener">ThePrint</a></td></tr><tr><td class="mono">payor_policy</td><td>CGHS package rates revision effective date</td><td><a href="https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025" target="_blank" rel="noopener">Outlook Money</a>, <a href="https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html" target="_blank" rel="noopener">Business Standard</a></td></tr><tr><td class="mono">payor_policy</td><td>Max Healthcare Institute institutional CGHS ECHS revenue share</td><td><a href="https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589" target="_blank" rel="noopener">Multibagg</a></td></tr><tr><td class="mono">capacity_gap</td><td>Max Healthcare Institute bed expansion plan target beds by FY29</td><td><a href="https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf" target="_blank" rel="noopener">HDFC Securities</a>, <a href="https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/" target="_blank" rel="noopener">DistilINFO</a>, <a href="https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/" target="_blank" rel="noopener">Investywise</a>, <a href="https://www.way2wealth.com/Reports/RR26052025fa75e.pdf" target="_blank" rel="noopener">Way2Wealth</a></td></tr><tr><td class="mono">capacity_gap</td><td>Max Healthcare Institute operational beds Q1FY27</td><td><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Investing.com</a>, <a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">GuruFocus via Investing.com</a>, <a href="https://www.healthcareexecutive.in/blog/max-healthcare-q1" target="_blank" rel="noopener">Healthcare Executive</a>, <a href="https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR" target="_blank" rel="noopener">Sahi</a>, <a href="https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095" target="_blank" rel="noopener">Multibagg</a></td></tr><tr><td class="mono">capacity_gap</td><td>Max Healthcare Institute project delay clearance commissioning</td><td><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Investing.com</a>, <a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">GuruFocus via Investing.com</a>, <a href="https://www.healthcareexecutive.in/blog/max-healthcare-q1" target="_blank" rel="noopener">Healthcare Executive</a>, <a href="https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR" target="_blank" rel="noopener">Sahi</a>, <a href="https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095" target="_blank" rel="noopener">Multibagg</a></td></tr><tr><td class="mono">narrative_gap</td><td>Max Healthcare Institute earnings call transcript Q1FY27 management commentary</td><td><a href="https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/" target="_blank" rel="noopener">Investywise</a>, <a href="https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental" target="_blank" rel="noopener">Axis Direct</a>, <a href="https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026" target="_blank" rel="noopener">Alpha Spread (call transcript)</a>, <a href="https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html" target="_blank" rel="noopener">Business Standard</a></td></tr><tr><td class="mono">working_capital_divergence</td><td>Max Healthcare Institute trade receivables inventory annual report</td><td><a href="https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836" target="_blank" rel="noopener">Investing.com</a>, <a href="https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246" target="_blank" rel="noopener">GuruFocus via Investing.com</a>, <a href="https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/" target="_blank" rel="noopener">Kotak Neo</a>, <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171" target="_blank" rel="noopener">ad-hoc-news (DSIJ)</a></td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+
+<footer>
+  Generated by SignalRx from 22 public sources. Not investment advice; no recommendation is made.
+  Every figure links to a passage; every passage links to its source. Passages in replay mode are as retrieved by the search tool on 2026-10-16.
+</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-tip]') : null;
+    if (!t) { tip.style.display = 'none'; return; }
+    tip.textContent = t.getAttribute('data-tip');
+    tip.style.display = 'block';
+    var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+  });
+  window.addEventListener('scroll', function () { tip.style.display = 'none'; }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest ? e.target.closest('a.cite') : null;
+    if (!c) return;
+    var el = document.getElementById('ev-' + c.getAttribute('data-cite'));
+    if (!el) return;
+    e.preventDefault();
+    showAll();
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1600);
+  });
+  var buttons = document.querySelectorAll('.filters button');
+  function apply(f) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+    document.querySelectorAll('#trail .ev').forEach(function (el) {
+      var ok = f === 'all' || el.getAttribute('data-stance') === f || ('type:' + el.getAttribute('data-type')) === f;
+      el.style.display = ok ? '' : 'none';
+    });
+    try { localStorage.setItem('signalrx-filter', f); } catch (err) {}
+  }
+  function showAll() { apply('all'); }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.getAttribute('data-f')); }); });
+  try { var saved = localStorage.getItem('signalrx-filter'); if (saved) apply(saved); } catch (err) {}
+})();
+</script>
+</body>
+</html>

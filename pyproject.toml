@@ -1,0 +1,25 @@
+[project]
+name = "signalrx"
+version = "0.9.0"
+description = "Autonomous financial research agent for Indian pharma & healthcare (ATMOS 2026 'Finding the Next Signal', Track D)"
+requires-python = ">=3.10"
+dependencies = [
+  "anthropic>=1.15",
+  "requests>=2.31",
+  "beautifulsoup4>=4.12",
+  "lxml>=5.0",
+  "pypdf>=4.0",
+  "rank-bm25>=0.2.2",
+  "jinja2>=3.1",
+  "pyyaml>=6.0",
+  "playwright>=1.45",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+signalrx = "signalrx.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

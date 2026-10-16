@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignalRx · Cipla</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --raised: #ffffff;
+  --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --accent: #2a78d6; --accent-wash: rgba(42,120,214,0.08);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-ink: #006300;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+    --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --good-ink: #0ca30c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #222220;
+  --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+  --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --good-ink: #0ca30c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--page); color: var(--ink); }
+body { font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--grid); font-size: 13px; color: var(--ink2); }
+header.top b { color: var(--ink); letter-spacing: .02em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); font-size: 12px; color: var(--ink2); white-space: nowrap; }
+.chip.grade-Strong { border-color: var(--good); color: var(--good-ink); }
+.chip.grade-Moderate { border-color: var(--warn); }
+.chip.grade-Weak { border-color: var(--critical); }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+section { margin-top: 28px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 22px 0 4px; letter-spacing: -.01em; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink2); margin: 0 0 10px; font-weight: 600; }
+h3 { font-size: 15px; margin: 0 0 6px; }
+.sub { color: var(--ink2); font-size: 14px; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 18px 20px; }
+.discovery { font-size: 20px; line-height: 1.45; font-weight: 500; margin: 6px 0 12px; }
+.disc-meta { font-size: 13px; color: var(--ink2); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 14px 16px; }
+.tile .k { font-size: 12px; color: var(--ink2); }
+.tile .v { font-size: 26px; font-weight: 600; margin: 2px 0; }
+.tile .s { font-size: 12px; color: var(--muted); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 820px) { .two { grid-template-columns: 1fr; } .discovery { font-size: 17px; } }
+ul.why { margin: 0; padding-left: 18px; } ul.why li { margin: 0 0 8px; }
+.counter { border-left: 3px solid var(--serious); }
+.fals { border-left: 3px solid var(--accent); }
+.fals ol { margin: 0; padding-left: 20px; } .fals li { margin-bottom: 8px; }
+.fals .mon { font-size: 12px; color: var(--muted); }
+figure { margin: 0; }
+figcaption { font-size: 13px; color: var(--ink2); margin-bottom: 6px; font-weight: 600; }
+svg.chart { width: 100%; height: auto; display: block; }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .axis, svg .sep { stroke: var(--axis); stroke-width: 1; }
+svg .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg .lab { fill: var(--ink2); font-size: 12px; }
+svg .val { fill: var(--ink); font-size: 11px; font-weight: 600; }
+svg .inlab { fill: #fff; font-size: 11px; font-weight: 600; }
+svg .evline { stroke: var(--axis); stroke-width: 1; }
+svg .evdot { fill: var(--raised); stroke: var(--ink2); stroke-width: 1.5; }
+svg .evnum { fill: var(--ink); font-size: 9px; font-weight: 700; pointer-events: none; }
+svg [data-tip] { cursor: default; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink2); margin: 2px 0 6px; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; } .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+ol.evkey { font-size: 12px; color: var(--ink2); padding-left: 20px; margin: 8px 0 0; columns: 2; column-gap: 24px; }
+@media (max-width: 820px) { ol.evkey { columns: 1; } }
+details.viz-table summary, details.more summary { cursor: pointer; font-size: 12px; color: var(--accent); margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-size: 12px; color: var(--ink2); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll { overflow-x: auto; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--grid); }
+.timeline li { position: relative; margin: 0 0 14px; padding-left: 10px; }
+.timeline li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--raised); border: 2px solid var(--ink2); }
+.timeline li.k-regulatory::before, .timeline li.k-policy::before { border-color: var(--critical); }
+.timeline li.k-disclosure::before { border-color: var(--serious); }
+.timeline li.k-results::before { border-color: var(--accent); }
+.timeline li.k-media::before { border-color: var(--muted); }
+.timeline li.future { opacity: .75; } .timeline li.future::before { border-style: dashed; }
+.timeline .when { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .what { font-size: 14px; }
+.kind { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink2); border: 1px solid var(--grid); border-radius: 4px; padding: 0 5px; margin-left: 6px; }
+.cite { font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none; border: 1px solid var(--grid); border-radius: 4px; padding: 0 4px; margin-left: 3px; white-space: nowrap; }
+.cite:hover { background: var(--accent-wash); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.filters button { font: inherit; font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--grid); background: var(--surface); color: var(--ink2); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--accent-wash); border-color: var(--accent); color: var(--ink); }
+.ev { border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: var(--surface); scroll-margin-top: 16px; }
+.ev.flash { outline: 2px solid var(--accent); }
+.ev .h { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; font-size: 12px; color: var(--ink2); }
+.ev .id { font-weight: 700; color: var(--ink); }
+.ev .txt { font-size: 14px; margin: 4px 0 2px; }
+.ev .src { font-size: 12px; }
+.stance { font-size: 11px; font-weight: 700; padding: 0 6px; border-radius: 4px; }
+.stance.supports { color: var(--good-ink); border: 1px solid var(--good); }
+.stance.opposes { color: var(--ink); border: 1px solid var(--serious); }
+.stance.context { color: var(--ink2); border: 1px solid var(--grid); }
+.note { font-size: 12px; color: var(--ink2); background: var(--accent-wash); border-radius: 6px; padding: 2px 6px; display: inline-block; margin-top: 4px; }
+.verdict { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--grid); white-space: nowrap; }
+.verdict.survives { color: var(--good-ink); border-color: var(--good); }
+.verdict.weakens { border-color: var(--serious); }
+.verdict.refutes { border-color: var(--critical); color: var(--critical); }
+.verdict.inconclusive { color: var(--muted); }
+.bars .row { display: grid; grid-template-columns: 110px 1fr 46px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
+.bars .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.bars .fill { height: 100%; background: var(--s1); border-radius: 4px; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.trace li { margin-bottom: 4px; font-size: 13px; }
+.trace .stage { display: inline-block; min-width: 90px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.hyp td:first-child { white-space: nowrap; }
+.secondary .discovery { font-size: 16px; }
+#tip { position: fixed; pointer-events: none; z-index: 10; max-width: 320px; background: var(--raised); color: var(--ink); border: 1px solid var(--ring); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 6px 9px; font-size: 12px; display: none; }
+footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 12px; }
+@media print {
+  body { font-size: 11px; } .wrap { max-width: none; padding: 0 0 20px; }
+  .filters, details.viz-table, #tip, .no-print { display: none !important; }
+  details.more { display: block; } details.more > summary { display: none; } details.more[open], details.more { }
+  .card, .tile, .ev { break-inside: avoid; }
+  section { margin-top: 16px; }
+  a { color: inherit; text-decoration: underline; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><b>SignalRx</b> · autonomous research agent · Track D: Pharma &amp; Healthcare</div>
+  <div class="chips">
+    <span class="chip">run 2026-10-16 15:34 UTC</span>
+    <span class="chip">mode: replay</span>
+    <span class="chip">evidence as of 2026-10-16</span>
+  </div>
+</header>
+
+<h1>Cipla <span class="sub">(CIPLA)</span></h1>
+<div class="chips" style="margin-top:6px">
+  <span class="chip">archetype: formulations</span>
+  <span class="chip">brief question D2: Has a regulatory or compliance development hit its financials before mainstream coverage?</span>
+  <span class="chip grade-Strong"><span class="dot" style="background: var(--good)"></span>Evidence strength: Strong</span>
+  <span class="chip">17 citations · 10 source families</span>
+  <span class="chip">verifier: passed (28 numbers traced)</span>
+</div>
+
+<section>
+  <h2>The discovery</h2>
+  <div class="card">
+    <h3>Third-party plant (Pharmathen) behind the North America decline</h3>
+    <p class="discovery">Cipla&#39;s sharpest North America decline came from a plant it does not own: Pharmathen, the exclusive maker of lanreotide (~15% of US sales in FY25, broker estimate), closed an FDA inspection with observations on 21 Nov 2025; North America revenue then fell 28% quarter-on-quarter in Q3FY26 ($233M → $167M), a quarter that ended 14 days before the company disclosed the problem, and has stayed at $155M–$167M a quarter since — with FY27 guidance now assuming zero lanreotide, the $1.0bn exit run-rate target needs 54% more than the latest quarter.</p>
+    <div class="disc-meta">Backed by:
+      <a class="cite" href="#ev-F01" data-cite="F01">F01</a><a class="cite" href="#ev-F02" data-cite="F02">F02</a><a class="cite" href="#ev-F03" data-cite="F03">F03</a><a class="cite" href="#ev-F04" data-cite="F04">F04</a><a class="cite" href="#ev-F05" data-cite="F05">F05</a><a class="cite" href="#ev-F06" data-cite="F06">F06</a><a class="cite" href="#ev-F07" data-cite="F07">F07</a><a class="cite" href="#ev-F08" data-cite="F08">F08</a><a class="cite" href="#ev-F09" data-cite="F09">F09</a><a class="cite" href="#ev-F10" data-cite="F10">F10</a><a class="cite" href="#ev-F12" data-cite="F12">F12</a><a class="cite" href="#ev-F14" data-cite="F14">F14</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Numbers that substantiate it</h2>
+  <div class="tiles">
+    
+    <div class="tile"><div class="k">North America quarterly revenue</div><div class="v">$233M → $167M</div><div class="s">-28% QoQ in Q3FY26</div></div>
+    
+    <div class="tile"><div class="k">Inspection → disclosure</div><div class="v">54 days</div><div class="s">quarter closed 14 days before disclosure</div></div>
+    
+    <div class="tile"><div class="k">Step-down explained by lanreotide</div><div class="v">~51%</div><div class="s">if fully lost; rest is other drivers</div></div>
+    
+    <div class="tile"><div class="k">Uplift needed to target</div><div class="v">+54%</div><div class="s">$1.0bn exit run-rate</div></div>
+    
+  </div>
+</section>
+
+
+<section>
+  <div class="card"><figure><figcaption>North America quarterly revenue with dated events</figcaption><svg viewBox="0 0 1040 320" role="img" aria-label="North America quarterly revenue with dated events" class="chart"><line x1="64" y1="270.0" x2="1024" y2="270.0" class="grid"/><text x="58" y="274.0" class="tick" text-anchor="end">$0M</text><line x1="64" y1="221.5" x2="1024" y2="221.5" class="grid"/><text x="58" y="225.5" class="tick" text-anchor="end">$75M</text><line x1="64" y1="173.0" x2="1024" y2="173.0" class="grid"/><text x="58" y="177.0" class="tick" text-anchor="end">$150M</text><line x1="64" y1="124.5" x2="1024" y2="124.5" class="grid"/><text x="58" y="128.5" class="tick" text-anchor="end">$225M</text><line x1="64" y1="76.0" x2="1024" y2="76.0" class="grid"/><text x="58" y="80.0" class="tick" text-anchor="end">$300M</text><line x1="64" y1="270" x2="1024" y2="270" class="axis"/><path d="M141.3,270 V128.5 q0,-4 4,-4 H161.3 q4,0 4,4 V270 Z" fill="var(--s1)" data-tip="North America Q1FY26: $225M (derived)"><title>North America Q1FY26: $225M (derived)</title></path><text x="153.3" y="118.5" class="val" text-anchor="middle">$225M</text><text x="153.3" y="286" class="tick" text-anchor="middle">Q1FY26</text><path d="M317.9,270 V123.3 q0,-4 4,-4 H337.9 q4,0 4,4 V270 Z" fill="var(--s1)" data-tip="North America Q2FY26: $233M"><title>North America Q2FY26: $233M</title></path><text x="329.9" y="113.3" class="val" text-anchor="middle">$233M</text><text x="329.9" y="286" class="tick" text-anchor="middle">Q2FY26</text><path d="M494.6,270 V166.0 q0,-4 4,-4 H514.6 q4,0 4,4 V270 Z" fill="var(--s1)" data-tip="North America Q3FY26: $167M"><title>North America Q3FY26: $167M</title></path><text x="506.6" y="156.0" class="val" text-anchor="middle">$167M</text><text x="506.6" y="286" class="tick" text-anchor="middle">Q3FY26</text><path d="M667.4,270 V173.8 q0,-4 4,-4 H687.4 q4,0 4,4 V270 Z" fill="var(--s1)" data-tip="North America Q4FY26: $155M"><title>North America Q4FY26: $155M</title></path><text x="679.4" y="163.8" class="val" text-anchor="middle">$155M</text><text x="679.4" y="286" class="tick" text-anchor="middle">Q4FY26</text><path d="M842.1,270 V169.2 q0,-4 4,-4 H862.1 q4,0 4,4 V270 Z" fill="var(--s1)" data-tip="North America Q1FY27: $162M"><title>North America Q1FY27: $162M</title></path><text x="854.1" y="159.2" class="val" text-anchor="middle">$162M</text><text x="854.1" y="286" class="tick" text-anchor="middle">Q1FY27</text><line x1="517.1" y1="32" x2="517.1" y2="270" class="evline"/><circle cx="517.1" cy="26" r="7" class="evdot" data-tip="21 Nov 2025: FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)"><title>21 Nov 2025: FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)</title></circle><text x="517.1" y="30" class="evnum" text-anchor="middle">1</text><line x1="607.4" y1="50" x2="607.4" y2="270" class="evline"/><circle cx="607.4" cy="44" r="7" class="evdot" data-tip="7 Jan 2026: Redacted Form 483 becomes public"><title>7 Jan 2026: Redacted Form 483 becomes public</title></circle><text x="607.4" y="48" class="evnum" text-anchor="middle">2</text><line x1="620.8" y1="68" x2="620.8" y2="270" class="evline"/><circle cx="620.8" cy="62" r="7" class="evdot" data-tip="14 Jan 2026: Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production"><title>14 Jan 2026: Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production</title></circle><text x="620.8" y="66" class="evnum" text-anchor="middle">3</text><line x1="624.6" y1="32" x2="624.6" y2="270" class="evline"/><circle cx="624.6" cy="26" r="7" class="evdot" data-tip="16 Jan 2026: Mainstream coverage: &#x27;FDA observation to hit Lanreotide supply&#x27;; stock falls ~5%"><title>16 Jan 2026: Mainstream coverage: &#x27;FDA observation to hit Lanreotide supply&#x27;; stock falls ~5%</title></circle><text x="624.6" y="30" class="evnum" text-anchor="middle">4</text><line x1="638.1" y1="50" x2="638.1" y2="270" class="evline"/><circle cx="638.1" cy="44" r="7" class="evdot" data-tip="23 Jan 2026: Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%"><title>23 Jan 2026: Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%</title></circle><text x="638.1" y="48" class="evnum" text-anchor="middle">5</text><line x1="653.4" y1="68" x2="653.4" y2="270" class="evline"/><circle cx="653.4" cy="62" r="7" class="evdot" data-tip="31 Jan 2026: US lenalidomide volume limits end: unlimited generic entry"><title>31 Jan 2026: US lenalidomide volume limits end: unlimited generic entry</title></circle><text x="653.4" y="66" class="evnum" text-anchor="middle">6</text><line x1="732.2" y1="32" x2="732.2" y2="270" class="evline"/><circle cx="732.2" cy="26" r="7" class="evdot" data-tip="13 Mar 2026: Class II recall of lanreotide syringes (sterility assurance at contract site)"><title>13 Mar 2026: Class II recall of lanreotide syringes (sterility assurance at contract site)</title></circle><text x="732.2" y="30" class="evnum" text-anchor="middle">7</text><line x1="849.3" y1="50" x2="849.3" y2="270" class="evline"/><circle cx="849.3" cy="44" r="7" class="evdot" data-tip="13 May 2026: Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide"><title>13 May 2026: Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide</title></circle><text x="849.3" y="48" class="evnum" text-anchor="middle">8</text><line x1="985.6" y1="68" x2="985.6" y2="270" class="evline"/><circle cx="985.6" cy="62" r="7" class="evdot" data-tip="23 Jul 2026: Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target"><title>23 Jul 2026: Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target</title></circle><text x="985.6" y="66" class="evnum" text-anchor="middle">9</text></svg><ol class="evkey"><li><b>21 Nov 2025</b> FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)</li><li><b>7 Jan 2026</b> Redacted Form 483 becomes public</li><li><b>14 Jan 2026</b> Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production</li><li><b>16 Jan 2026</b> Mainstream coverage: &#x27;FDA observation to hit Lanreotide supply&#x27;; stock falls ~5%</li><li><b>23 Jan 2026</b> Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%</li><li><b>31 Jan 2026</b> US lenalidomide volume limits end: unlimited generic entry</li><li><b>13 Mar 2026</b> Class II recall of lanreotide syringes (sterility assurance at contract site)</li><li><b>13 May 2026</b> Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide</li><li><b>23 Jul 2026</b> Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target</li></ol><details class="viz-table"><summary>Data table</summary><table><thead><tr><th>Quarter</th><th>North America</th><th>basis</th></tr></thead><tbody><tr><td>Q1FY26</td><td>$225M</td><td>derived</td></tr><tr><td>Q2FY26</td><td>$233M</td><td>reported</td></tr><tr><td>Q3FY26</td><td>$167M</td><td>reported</td></tr><tr><td>Q4FY26</td><td>$155M</td><td>reported</td></tr><tr><td>Q1FY27</td><td>$162M</td><td>reported</td></tr></tbody></table></details></figure></div>
+</section>
+
+
+<section class="two">
+  <div class="card">
+    <h2>Why it matters</h2>
+    <ul class="why"><li>Third-party plant risk sits outside the company&#39;s own site list and FDA status: it appears first in the partner&#39;s inspection record, which is why a dashboard built on the company&#39;s filings misses it.</li><li>Timing: the inspection closed 21 Nov 2025; the hit landed inside the Q3FY26 quarter; the company disclosed on 14 Jan 2026 (54 days after the inspection) and mainstream coverage followed on 16 Jan 2026.</li><li>Sizing: a full loss of lanreotide (~$34M a quarter) explains about 51% of the Q3FY26 step-down; a second driver accounts for the rest (see counterargument).</li><li>Escalation went the wrong way after the inspection: 21 Nov 2025: FDA inspection at Pharmathen, Rodopi → 7 Jan 2026: Redacted Form 483 becomes public → 13 Mar 2026: Class II recall of lanreotide syringes.</li><li>Management has stopped counting on a fix: &#34;FY27 guidance includes no lanreotide contribution.&#34; — recovery now depends entirely on new launches.</li></ul>
+  </div>
+  <div>
+    <div class="card counter">
+      <h2>Strongest counterargument</h2>
+      <p style="margin:0 0 6px">A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion). Also: A headline already carries the core terms: &#34;Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.&#34;. Management&#39;s position: &#34;Compare the decline sequentially, not YoY (high base).&#34; &#34;Target a $1 billion North America exit run-rate.&#34;</p>
+      <div><a class="cite" href="#ev-F07" data-cite="F07">F07</a><a class="cite" href="#ev-F08" data-cite="F08">F08</a><a class="cite" href="#ev-F17" data-cite="F17">F17</a></div>
+    </div>
+    <div class="card fals" style="margin-top:16px">
+      <h2>Falsification conditions</h2>
+      <ol><li>Pharmathen&#39;s site is cleared (OAI lifted / re-inspection without observations) or an alternate site is approved, and lanreotide supply restarts.<div class="mon">Watch: FDA Data Dashboard classification; company Reg-30 filings</div></li><li>North America quarterly revenue returns above $233M (the pre-step level) within FY27 without lanreotide, which would show the business has outgrown the dependency.<div class="mon">Watch: quarterly results</div></li><li>Product-level data showing lanreotide still shipped normally during Q3FY26, which would move the step-down to the other driver and break the causal link.<div class="mon">Watch: earnings-call disclosures, IQVIA-type data cited in press</div></li></ol>
+    </div>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Timeline: when the story changed</h2>
+    <ul class="timeline">
+      
+      <li class="k-regulatory">
+        <div class="when">21 Nov 2025<span class="kind">regulatory</span><span class="kind">US FDA</span></div>
+        <div class="what">FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)<a class="cite" href="#ev-F09" data-cite="F09">F09</a></div>
+      </li>
+      
+      <li class="k-regulatory">
+        <div class="when">7 Jan 2026<span class="kind">regulatory</span><span class="kind">US FDA</span></div>
+        <div class="what">Redacted Form 483 becomes public<a class="cite" href="#ev-F09" data-cite="F09">F09</a></div>
+      </li>
+      
+      <li class="k-disclosure">
+        <div class="when">14 Jan 2026<span class="kind">disclosure</span></div>
+        <div class="what">Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production<a class="cite" href="#ev-F09" data-cite="F09">F09</a><a class="cite" href="#ev-F10" data-cite="F10">F10</a><a class="cite" href="#ev-F14" data-cite="F14">F14</a></div>
+      </li>
+      
+      <li class="k-media">
+        <div class="when">16 Jan 2026<span class="kind">media</span><span class="kind">press</span></div>
+        <div class="what">Mainstream coverage: &#39;FDA observation to hit Lanreotide supply&#39;; stock falls ~5%<a class="cite" href="#ev-F11" data-cite="F11">F11</a><a class="cite" href="#ev-F18" data-cite="F18">F18</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">23 Jan 2026<span class="kind">results</span></div>
+        <div class="what">Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%<a class="cite" href="#ev-F02" data-cite="F02">F02</a><a class="cite" href="#ev-F03" data-cite="F03">F03</a></div>
+      </li>
+      
+      <li class="k-loe">
+        <div class="when">31 Jan 2026<span class="kind">loe</span></div>
+        <div class="what">US lenalidomide volume limits end: unlimited generic entry<a class="cite" href="#ev-F17" data-cite="F17">F17</a></div>
+      </li>
+      
+      <li class="k-regulatory">
+        <div class="when">13 Mar 2026<span class="kind">regulatory</span><span class="kind">US FDA</span></div>
+        <div class="what">Class II recall of lanreotide syringes (sterility assurance at contract site)<a class="cite" href="#ev-F12" data-cite="F12">F12</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">13 May 2026<span class="kind">results</span></div>
+        <div class="what">Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide<a class="cite" href="#ev-F04" data-cite="F04">F04</a><a class="cite" href="#ev-F05" data-cite="F05">F05</a></div>
+      </li>
+      
+      <li class="k-results">
+        <div class="when">23 Jul 2026<span class="kind">results</span></div>
+        <div class="what">Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target<a class="cite" href="#ev-F06" data-cite="F06">F06</a><a class="cite" href="#ev-F07" data-cite="F07">F07</a><a class="cite" href="#ev-F08" data-cite="F08">F08</a></div>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Evidence strength: Strong</h2>
+    <ul class="why"><li>12 sources across 7 independent families (aggregator:scanx, aggregator:tipranks, company, media:business standard, media:hmp global learning network, media:investing.com, media:medical dialogues).</li><li>2 primary documents (company filings / exchange filings / regulator).</li><li>No regulator or counterparty document of its own in the support set (third-party facts arrive via press).</li><li>Skeptic: 2 checks survived, 2 weakened (already_mainstream, other_driver), 0 refuted.</li><li>1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).</li></ul>
+    <h2 style="margin-top:14px">Ranking scores</h2>
+    <div class="bars">
+      
+      <div class="row"><span>novelty</span><div class="track"><div class="fill" style="width: 80.0%"></div></div><span class="mono">0.80</span></div>
+      
+      <div class="row"><span>evidence</span><div class="track"><div class="fill" style="width: 80.0%"></div></div><span class="mono">0.80</span></div>
+      
+      <div class="row"><span>materiality</span><div class="track"><div class="fill" style="width: 81.0%"></div></div><span class="mono">0.81</span></div>
+      
+      <div class="row"><span>robustness</span><div class="track"><div class="fill" style="width: 76.0%"></div></div><span class="mono">0.76</span></div>
+      
+      <div class="row"><span>total</span><div class="track"><div class="fill" style="width: 80.0%"></div></div><span class="mono">0.80</span></div>
+      
+    </div>
+    <p class="sub" style="font-size:12px;margin:8px 0 0">Novelty: joins 6 non-company source families to the company&#39;s own disclosures; a third-party record leads the company&#39;s own disclosure by 54 days; links 4 separately reported incidents into one pattern; rests on 6 derived calculations no single source states; partly visible in headlines (penalised).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Skeptic: alternative explanations tested</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Test</th><th>Question</th><th>Verdict</th><th>Result</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">sector_wide</td><td>Is this a sector story? Do peers show the same move in the same period?</td><td><span class="verdict survives">survives</span></td>
+      <td>North America Q1FY27: company -28.0% vs Dr. Reddy&#39;s -35.4%, Sun Pharma -9.7%. The decline itself is partly a sector-wide cliff, but the hypothesis rests on incidents tied to the company&#39;s own product / partner, which peers do not share. <a class="cite" href="#ev-F15" data-cite="F15">F15</a><a class="cite" href="#ev-F16" data-cite="F16">F16</a></td></tr>
+      
+      <tr><td class="mono">temporary</td><td>Has management given a dated remediation / resupply plan that would reverse the effect?</td><td><span class="verdict survives">survives</span></td>
+      <td>Management itself now treats it as lasting: &#39;FY27 guidance includes no lanreotide contribution.&#39; <a class="cite" href="#ev-F05" data-cite="F05">F05</a></td></tr>
+      
+      <tr><td class="mono">already_mainstream</td><td>Would a reader of headlines already know this? (novelty test)</td><td><span class="verdict weakens">weakens</span></td>
+      <td>A headline already carries the core terms: &#34;Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.&#34;. The finding must add something the headline lacks (timing, sizing or a cross-source link). <a class="cite" href="#ev-F14" data-cite="F14">F14</a></td></tr>
+      
+      <tr><td class="mono">other_driver</td><td>Is there a second driver (e.g. a product cliff) that explains part of the same move?</td><td><span class="verdict weakens">weakens</span></td>
+      <td>A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion). <a class="cite" href="#ev-F17" data-cite="F17">F17</a></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Evidence trail (17 passages, 10 independent families)</h2>
+  <div class="filters" role="group" aria-label="Filter evidence">
+    <button data-f="all" aria-pressed="true">All</button>
+    <button data-f="supports" aria-pressed="false">Supports</button>
+    <button data-f="opposes" aria-pressed="false">Opposes</button>
+    <button data-f="context" aria-pressed="false">Context</button>
+    <button data-f="type:aggregator" aria-pressed="false">aggregator</button><button data-f="type:company_filing" aria-pressed="false">company filing</button><button data-f="type:media" aria-pressed="false">media</button><button data-f="type:transcript" aria-pressed="false">transcript</button>
+  </div>
+  <div id="trail">
+  
+    <div class="ev" id="ev-F01" data-stance="supports" data-type="company_filing">
+      <div class="h"><span class="id">F01</span><span class="stance supports">supports</span>
+        <span>company filing</span><span>Cipla</span><span>2025-11</span><span class="mono">company</span></div>
+      <div class="txt">“North America quarterly revenue of $ 233 Mn supported by traction in differentiated assets.”</div>
+      <div class="src"><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla Q2 FY26 press release</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F04" data-stance="supports" data-type="company_filing">
+      <div class="h"><span class="id">F04</span><span class="stance supports">supports</span>
+        <span>company filing</span><span>Cipla</span><span>2026-05-13</span><span class="mono">company</span></div>
+      <div class="txt">“North America revenue of $ 155 Mn supported by demand in differentiated portfolio ... North America delivered an annual revenue of $ 780 Mn.”</div>
+      <div class="src"><a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla Q4 FY26 results press release</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F02" data-stance="supports" data-type="transcript">
+      <div class="h"><span class="id">F02</span><span class="stance supports">supports</span>
+        <span>transcript</span><span>Cipla</span><span>2026-01-23</span><span class="mono">company</span></div>
+      <div class="txt">“North America revenue of $167 million for the quarter, which included a small contribution from Lenalidomide.”</div>
+      <div class="src"><a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla Q3 FY26 earnings conference call transcript</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F05" data-stance="supports" data-type="transcript">
+      <div class="h"><span class="id">F05</span><span class="stance supports">supports</span>
+        <span>transcript</span><span>Cipla</span><span>2026-05-13</span><span class="mono">company</span></div>
+      <div class="txt">“Guidance does not include any contribution from Lanreotide in FY &#39;27. Lenalidomide revenues will continue to taper off, but this would be offset by new launches.”</div>
+      <div class="src"><a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla Q4 FY26 earnings conference call transcript</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F09" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F09</span><span class="stance supports">supports</span>
+        <span>media</span><span>Medical Dialogues</span><span>2026-01-14</span><span class="mono">media:medical dialogues</span></div>
+      <div class="txt">“The US drug regulator conducted an inspection at Pharmathen&#39;s Rodopi manufacturing facility in Greece between November 10 and 21, 2025, and issued nine inspectional observations in a Form 483. A redacted version of the form became public on 7 January. Cipla&#39;s Regulation 30 update dated 14 January 2026 said Lanreotide supply in the US will stay temporarily limited.”</div>
+      <div class="src"><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Cipla&#39;s Lanreotide supply in US hit after USFDA observations at Pharmathen facility</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F10" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F10</span><span class="stance supports">supports</span>
+        <span>media</span><span>Business Standard</span><span>2026-01-16</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“Supply of its key US drug Lanreotide injection will remain constrained in the near term after its exclusive manufacturing partner Pharmathen International S.A. temporarily paused production. Lanreotide injection contributed about $135 million, accounting for roughly 15 per cent, to Cipla&#39;s US sales in 2024-25 (JPMorgan estimate); among the top three products in the US basket with ~22% market share; a worst-case import alert could impact FY27-FY28 earnings by 4-6 per cent.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html" target="_blank" rel="noopener">FDA observation to hit Lanreotide supply; Cipla may face earnings risk</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F03" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F03</span><span class="stance supports">supports</span>
+        <span>media</span><span>Business Standard</span><span>2026-01-23</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“North America revenue Rs 1,485 crore, declining 22 per cent year-on-year due to ongoing lanreotide supply chain issues. Net profit slumps 57% to Rs 675 crore.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F12" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F12</span><span class="stance supports">supports</span>
+        <span>media</span><span>HMP Global Learning Network</span><span>2026-03</span><span class="mono">media:hmp global learning network</span></div>
+      <div class="txt">“Class II FDA recall of Cipla&#39;s lanreotide syringes, initiated 13 March 2026, over lack of sterility assurance at the contract site.”</div>
+      <div class="src"><a href="https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance" target="_blank" rel="noopener">Cipla lanreotide injection recalled for lack of sterility assurance</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F06" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F06</span><span class="stance supports">supports</span>
+        <span>media</span><span>Business Standard</span><span>2026-07-23</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“The North America business was down 28 per cent year over year. Net profit fell 39% to Rs 789 crore; EBITDA margin 16.7% versus 25.6% a year earlier; FY27 EBITDA margin guidance of 18.5-20% maintained.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html" target="_blank" rel="noopener">Cipla&#39;s Q1 net falls 39% on US business; maintains FY27 margin guidance</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F07" data-stance="supports" data-type="media">
+      <div class="h"><span class="id">F07</span><span class="stance supports">supports</span>
+        <span>media</span><span>Investing.com</span><span>2026-07-23</span><span class="mono">media:investing.com</span></div>
+      <div class="txt">“North America revenue $162 million, below market expectations of $173 million. The company had lost its lanreotide product due to quality issues and lost exclusivity on lenalidomide in the previous quarter (Q4FY26); management asked that the decline be compared sequentially.”</div>
+      <div class="src"><a href="https://www.investing.com/news/company-news/cipla-q1-fy27-slides-record-revenue-margins-under-pressure-93CH-4808629" target="_blank" rel="noopener">Cipla Q1 FY27 slides: record revenue, margins under pressure</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F14" data-stance="supports" data-type="aggregator">
+      <div class="h"><span class="id">F14</span><span class="stance supports">supports</span>
+        <span>aggregator</span><span>TipRanks</span><span>2026-01-14</span><span class="mono">aggregator:tipranks</span></div>
+      <div class="txt">“Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.”</div>
+      <div class="src"><a href="https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier" target="_blank" rel="noopener">Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F08" data-stance="supports" data-type="aggregator">
+      <div class="h"><span class="id">F08</span><span class="stance supports">supports</span>
+        <span>aggregator</span><span>ScanX</span><span>2026-07-23</span><span class="mono">aggregator:scanx</span></div>
+      <div class="txt">“Management expects significant movement in North America revenue in the coming quarters, with a target of a $1 billion exit run rate for the region.”</div>
+      <div class="src"><a href="https://scanx.trade/stock-market-news/companies/cipla-reports-record-q1-fy27-revenue-of-inr-7-100-crore-targets-1-billion-north-america-run-rate-by-fy27/46408065" target="_blank" rel="noopener">Cipla posts record Q1FY27 revenue; targets $1 billion North America run-rate</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F17" data-stance="opposes" data-type="media">
+      <div class="h"><span class="id">F17</span><span class="stance opposes">opposes</span>
+        <span>media</span><span>Fierce Pharma</span><span>2015-12</span><span class="mono">media:fierce pharma</span></div>
+      <div class="txt">“Settlements allowed volume-limited generic lenalidomide entry before unlimited entry on January 31, 2026.”</div>
+      <div class="src"><a href="https://www.fiercepharma.com/pharma/celgene-settles-revlimid-patent-litigation" target="_blank" rel="noopener">Celgene settles REVLIMID patent litigation</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F11" data-stance="context" data-type="media">
+      <div class="h"><span class="id">F11</span><span class="stance context">context</span>
+        <span>media</span><span>BusinessToday</span><span>2026-01-16</span><span class="mono">media:businesstoday</span></div>
+      <div class="txt">“Cipla shares tank 5% after temporary halt of key drug production; resupply expected in the first half of FY2026-27.”</div>
+      <div class="src"><a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">Cipla shares tank 5% after temporary halt of key drug production</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F15" data-stance="context" data-type="media">
+      <div class="h"><span class="id">F15</span><span class="stance context">context</span>
+        <span>media</span><span>Business Standard</span><span>2026-07-23</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“Dr Reddy&#39;s North America revenue fell 35.38% YoY in Q1 FY27, mainly due to lower sales of Lenalidomide.”</div>
+      <div class="src"><a href="https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html" target="_blank" rel="noopener">Dr Reddys Labs slides after Q1 PAT plunges 69% YoY</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F16" data-stance="context" data-type="media">
+      <div class="h"><span class="id">F16</span><span class="stance context">context</span>
+        <span>media</span><span>Upstox</span><span>2026-07-31</span><span class="mono">media:upstox</span></div>
+      <div class="txt">“Sun Pharma US formulation sales fell 9.7% to $427 million in Q1 FY27.”</div>
+      <div class="src"><a href="https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/" target="_blank" rel="noopener">Sun Pharmaceutical Q1 FY27 result: US formulation sales decline to $427 million</a></div>
+      
+    </div>
+  
+    <div class="ev" id="ev-F18" data-stance="context" data-type="media">
+      <div class="h"><span class="id">F18</span><span class="stance context">context</span>
+        <span>media</span><span>Business Standard</span><span>2026-01-16</span><span class="mono">media:business standard</span></div>
+      <div class="txt">“FDA observation to hit Lanreotide supply; Cipla may face earnings risk.”</div>
+      <div class="src"><a href="https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html" target="_blank" rel="noopener">FDA observation to hit Lanreotide supply; Cipla may face earnings risk</a></div>
+      
+    </div>
+  
+  </div>
+</section>
+
+<section>
+  <h2>Calculations (every derived number, with inputs)</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>#</th><th>Metric</th><th>Value</th><th>Formula</th><th>Inputs</th><th>Evidence</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">C2</td><td>North America sequential change, Q2FY26-&gt;Q3FY26</td><td class="num">-28.3 %</td><td class="mono">(Qt / Qt-1 - 1) x 100</td>
+      <td class="mono" style="font-size:11px">revenue_segment[North America]@Q3FY26, revenue_segment[North America]@Q2FY26</td><td><a class="cite" href="#ev-F01" data-cite="F01">F01</a><a class="cite" href="#ev-F02" data-cite="F02">F02</a></td></tr>
+      
+      <tr><td class="mono">C3</td><td>lanreotide quarterly run-rate (FY25 estimate / 4)</td><td class="num">33.8 USD_mn</td><td class="mono">annual / 4</td>
+      <td class="mono" style="font-size:11px">product_revenue[lanreotide]@FY25</td><td><a class="cite" href="#ev-F10" data-cite="F10">F10</a></td></tr>
+      
+      <tr><td class="mono">C4</td><td>North America step-down Q2FY26-&gt;Q3FY26</td><td class="num">66.0 USD_mn</td><td class="mono">before - after</td>
+      <td class="mono" style="font-size:11px">revenue_segment[North America]@Q2FY26, revenue_segment[North America]@Q3FY26</td><td><a class="cite" href="#ev-F01" data-cite="F01">F01</a><a class="cite" href="#ev-F02" data-cite="F02">F02</a></td></tr>
+      
+      <tr><td class="mono">C5</td><td>Share of the step-down a full loss of lanreotide would explain</td><td class="num">51.1 %</td><td class="mono">run-rate / step-down x 100</td>
+      <td class="mono" style="font-size:11px">C3, C4</td><td><a class="cite" href="#ev-F01" data-cite="F01">F01</a><a class="cite" href="#ev-F02" data-cite="F02">F02</a><a class="cite" href="#ev-F10" data-cite="F10">F10</a></td></tr>
+      
+      <tr><td class="mono">C6</td><td>Uplift needed from Q1FY27 run-rate to North America target</td><td class="num">54.3 %</td><td class="mono">target / (latest quarter x 4) - 1</td>
+      <td class="mono" style="font-size:11px">revenue_target_annualised[North America]@FY27, revenue_segment_annualised[North America]@Q1FY27</td><td><a class="cite" href="#ev-F07" data-cite="F07">F07</a><a class="cite" href="#ev-F08" data-cite="F08">F08</a></td></tr>
+      
+      <tr><td class="mono">C7</td><td>Share of the step-down not explained by the product</td><td class="num">48.9 %</td><td class="mono">100 - explained %</td>
+      <td class="mono" style="font-size:11px">C5</td><td><a class="cite" href="#ev-F01" data-cite="F01">F01</a><a class="cite" href="#ev-F02" data-cite="F02">F02</a><a class="cite" href="#ev-F10" data-cite="F10">F10</a></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+
+<section>
+  <h2>Hypothesis board: everything the agent tested</h2>
+  <div class="card scroll">
+    <table class="hyp">
+      <thead><tr><th>ID</th><th>Angle</th><th>Status</th><th>Hypothesis</th><th>Total</th><th>Grade</th></tr></thead>
+      <tbody>
+      
+      <tr><td class="mono">H1</td><td class="mono">counterparty_regulatory</td><td>selected</td><td>A plant the company does not own drove its sharpest North America decline: Pharmathen, maker of lanreotide (~15% of North America sales in FY25), closed an FDA inspection with observations on 21 Nov 2025, 54 days before the company&#39;s disclosure; North America revenue fell from $233M to $167M in Q3FY26, a quarter that closed 14 days before the company disclosed the problem, and has stayed at $155M–$167M since.</td><td class="num">0.80</td><td>Strong</td></tr>
+      
+      
+      <tr><td class="mono">–</td><td class="mono">replacement_concentration</td><td>planned · no hypothesis</td><td>evidence did not support this angle</td><td></td><td></td></tr>
+      
+      <tr><td class="mono">–</td><td class="mono">own_site_regulatory</td><td>planned · no hypothesis</td><td>no deterministic template; LLM mode only</td><td></td><td></td></tr>
+      
+      <tr><td class="mono">–</td><td class="mono">geo_mix_shift</td><td>planned · no hypothesis</td><td>evidence did not support this angle</td><td></td><td></td></tr>
+      
+      <tr><td class="mono">–</td><td class="mono">specialty_pivot</td><td>planned · no hypothesis</td><td>no deterministic template; LLM mode only</td><td></td><td></td></tr>
+      
+      <tr><td class="mono">–</td><td class="mono">working_capital_divergence</td><td>planned · no hypothesis</td><td>no deterministic template; LLM mode only</td><td></td><td></td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Quantitative scan (what moved)</h2>
+    <ul class="why"><li><span class="mono">segment_drop</span>: North America revenue -28.0% YoY in Q1FY27 (225 -&gt; 162 USD_mn)</li><li><span class="mono">segment_step_down</span>: North America fell -28.3% sequentially Q2FY26-&gt;Q3FY26 and has not recovered (latest 162 USD_mn)</li></ul>
+  </div>
+  <div class="card">
+    <h2>Research plan (angles chosen)</h2>
+    <ul class="why"><li><b>counterparty_regulatory</b> <span class="sub">[D2] priority 1.0</span><br><span class="sub">Did a regulatory action at a plant the company does NOT own (contract manufacturer, licensor, API supplier) hit its revenue before the company or the press explained it?</span></li><li><b>replacement_concentration</b> <span class="sub">[D1] priority 0.88</span><br><span class="sub">When a big product or market fades, is the business replacing it with something as concentrated or fragile as what it lost?</span></li><li><b>own_site_regulatory</b> <span class="sub">[D2] priority 0.7</span><br><span class="sub">Is an FDA/EU action at the company&#39;s own plants (OAI, warning letter, import alert) suppressing approvals or US revenue in a way the filings show before coverage does?</span></li><li><b>geo_mix_shift</b> <span class="sub">[D3] priority 0.64</span><br><span class="sub">How has geographic revenue exposure shifted over five years, and what drove it (organic vs acquired, one product vs portfolio)?</span></li><li><b>specialty_pivot</b> <span class="sub">[D1] priority 0.4</span><br><span class="sub">Has the mix quietly moved from generics to specialty/innovative, CDMO or domestic formulations, and when did the crossover happen?</span></li><li><b>working_capital_divergence</b> <span class="sub">[X] priority 0.4</span><br><span class="sub">Do receivable / inventory trends tell a different story from revenue growth?</span></li></ul>
+  </div>
+</section>
+
+<section>
+  <h2>Audit log: source conflicts and dropped reports</h2>
+  <div class="card">
+    <ul class="why">
+      
+      <li>No conflicting figures.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="no-print">
+  <details class="more"><summary>Agent trace (44 steps): searches, scan, skeptic, verifier</summary>
+    <div class="card" style="margin-top:8px">
+      <ol class="trace"><li><span class="stage">harvest</span><span class="mono">bundle-loaded</span> — 18 sources, 18 passages, 15 figures, 9 dated events from cipla.yaml</li><li><span class="stage">verify</span><span class="mono">growth-recompute:ok</span> — Business Standard revenue_segment_growth_yoy Q1FY27 -28.0% matches levels (-28.0%)</li><li><span class="stage">profile</span><span class="mono">archetype</span> — formulations (scores {&#39;formulations&#39;: 0.743, &#39;api_cdmo&#39;: 0.257, &#39;hospital&#39;: 0.0, &#39;diagnostics&#39;: 0.0}); segments [&#39;North America&#39;]; counterparties [&#39;Pharmathen&#39;]; peers [&#34;Dr. Reddy&#39;s&#34;, &#39;Sun Pharma&#39;]</li><li><span class="stage">scan</span><span class="mono">anomaly:segment_drop</span> — North America revenue -28.0% YoY in Q1FY27 (225 -&gt; 162 USD_mn)</li><li><span class="stage">scan</span><span class="mono">anomaly:segment_step_down</span> — North America fell -28.3% sequentially Q2FY26-&gt;Q3FY26 and has not recovered (latest 162 USD_mn)</li><li><span class="stage">plan</span><span class="mono">angle:counterparty_regulatory</span> — priority 1.0 [D2] Did a regulatory action at a plant the company does NOT own (contract manufacturer, licensor, API supplier) hit its revenue before the company or the press explained it?</li><li><span class="stage">plan</span><span class="mono">angle:replacement_concentration</span> — priority 0.88 [D1] When a big product or market fades, is the business replacing it with something as concentrated or fragile as what it lost?</li><li><span class="stage">plan</span><span class="mono">angle:own_site_regulatory</span> — priority 0.7 [D2] Is an FDA/EU action at the company&#39;s own plants (OAI, warning letter, import alert) suppressing approvals or US revenue in a way the filings show before coverage does?</li><li><span class="stage">plan</span><span class="mono">angle:geo_mix_shift</span> — priority 0.64 [D3] How has geographic revenue exposure shifted over five years, and what drove it (organic vs acquired, one product vs portfolio)?</li><li><span class="stage">plan</span><span class="mono">angle:specialty_pivot</span> — priority 0.4 [D1] Has the mix quietly moved from generics to specialty/innovative, CDMO or domestic formulations, and when did the crossover happen?</li><li><span class="stage">plan</span><span class="mono">angle:working_capital_divergence</span> — priority 0.4 [X] Do receivable / inventory trends tell a different story from revenue growth?</li><li><span class="stage">investigate</span><span class="mono">search:counterparty_regulatory</span> — &#34;Cipla exclusive manufacturing partner lanreotide&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:counterparty_regulatory</span> — &#34;Pharmathen FDA Form 483 inspection observations&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:counterparty_regulatory</span> — &#34;Pharmathen FDA official action indicated warning letter&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:counterparty_regulatory</span> — &#34;Cipla lanreotide recall&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:counterparty_regulatory</span> — &#34;Cipla stock exchange disclosure supply disruption partner&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:replacement_concentration</span> — &#34;Cipla North America revenue decline reason lanreotide&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:replacement_concentration</span> — &#34;Cipla growth drivers next fiscal new launches management commentary&#34; -&gt; 0 sources</li><li><span class="stage">investigate</span><span class="mono">search:replacement_concentration</span> — &#34;Cipla lanreotide launch delay regulatory notice&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:replacement_concentration</span> — &#34;Cipla lanreotide manufacturing partner supply&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:replacement_concentration</span> — &#34;Cipla provision inventory write-down quality issue&#34; -&gt; 4 sources</li><li><span class="stage">investigate</span><span class="mono">search:own_site_regulatory</span> — &#34;Cipla USFDA OAI warning letter import alert facility&#34; -&gt; 0 sources</li><li><span class="stage">investigate</span><span class="mono">search:own_site_regulatory</span> — &#34;Cipla USFDA inspection Form 483 observations&#34; -&gt; 2 sources</li><li><span class="stage">investigate</span><span class="mono">search:own_site_regulatory</span> — &#34;Cipla new product approvals US slowdown&#34; -&gt; 0 sources</li><li><span class="stage">investigate</span><span class="mono">search:geo_mix_shift</span> — &#34;Cipla revenue by geography North America Europe India emerging markets FY22 FY27&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:geo_mix_shift</span> — &#34;Cipla annual results segment revenue FY26&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:geo_mix_shift</span> — &#34;Cipla latest quarter results segment revenue Q1FY27&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:geo_mix_shift</span> — &#34;Cipla acquisition portfolio contribution revenue&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:specialty_pivot</span> — &#34;Cipla specialty innovative medicines revenue share of sales&#34; -&gt; 5 sources</li><li><span class="stage">investigate</span><span class="mono">search:specialty_pivot</span> — &#34;Cipla R&amp;D spend percent of sales specialty pipeline&#34; -&gt; 0 sources</li><li><span class="stage">investigate</span><span class="mono">search:working_capital_divergence</span> — &#34;Cipla trade receivables inventory annual report&#34; -&gt; 0 sources</li><li><span class="stage">hypothesis</span><span class="mono">proposed:H1</span> — [counterparty_regulatory] A plant the company does not own drove its sharpest North America decline: Pharmathen, maker of lanreotide (~15% of North America sales in FY25), closed an FDA inspection with observations on 21 Nov 2025, 54 days before the company&#39;s disclosure; North America revenue fell from $233M to $167M in Q3FY26, a quarter that closed 14 days before the company disclosed the problem, and has stayed at $155M–$167M since.</li><li><span class="stage">hypothesis</span><span class="mono">none:replacement_concentration</span> — evidence did not support this angle</li><li><span class="stage">hypothesis</span><span class="mono">skip:own_site_regulatory</span> — no deterministic template; LLM mode only</li><li><span class="stage">hypothesis</span><span class="mono">none:geo_mix_shift</span> — evidence did not support this angle</li><li><span class="stage">hypothesis</span><span class="mono">skip:specialty_pivot</span> — no deterministic template; LLM mode only</li><li><span class="stage">hypothesis</span><span class="mono">skip:working_capital_divergence</span> — no deterministic template; LLM mode only</li><li><span class="stage">skeptic</span><span class="mono">H1:sector_wide</span> — SURVIVES - North America Q1FY27: company -28.0% vs Dr. Reddy&#39;s -35.4%, Sun Pharma -9.7%. The decline itself is partly a sector-wide cliff, but the hypothesis rests on incidents tied to the company&#39;s own product / partner, which peers do not share.</li><li><span class="stage">skeptic</span><span class="mono">H1:temporary</span> — SURVIVES - Management itself now treats it as lasting: &#39;FY27 guidance includes no lanreotide contribution.&#39;</li><li><span class="stage">skeptic</span><span class="mono">H1:already_mainstream</span> — WEAKENS - A headline already carries the core terms: &#34;Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.&#34;. The finding must add something the headline lacks (timing, sizing or a cross-source link).</li><li><span class="stage">skeptic</span><span class="mono">H1:other_driver</span> — WEAKENS - A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion).</li><li><span class="stage">score</span><span class="mono">H1</span> — total 0.796 (novelty 0.8, evidence 0.8 [Strong], materiality 0.81, robustness 0.76)</li><li><span class="stage">verify</span><span class="mono">discovery</span> — numbers 28 checked, unmatched none; citations 17, broken none; families [&#39;aggregator:scanx&#39;, &#39;aggregator:tipranks&#39;, &#39;company&#39;, &#39;media:business standard&#39;, &#39;media:hmp global learning network&#39;, &#39;media:investing.com&#39;, &#39;media:medical dialogues&#39;]</li><li><span class="stage">select</span><span class="mono">done</span> — 1 discoveries from 1 hypotheses</li></ol>
+    </div>
+  </details>
+  <details class="more"><summary>Searches executed (20)</summary>
+    <div class="card scroll" style="margin-top:8px"><table><thead><tr><th>Angle</th><th>Query</th><th>Sources returned</th></tr></thead><tbody>
+    <tr><td class="mono">counterparty_regulatory</td><td>Cipla exclusive manufacturing partner lanreotide</td><td><a href="https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance" target="_blank" rel="noopener">HMP Global Learning Network</a>, <a href="https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6" target="_blank" rel="noopener">Multibagg</a>, <a href="https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier" target="_blank" rel="noopener">TipRanks</a></td></tr><tr><td class="mono">counterparty_regulatory</td><td>Pharmathen FDA Form 483 inspection observations</td><td><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Medical Dialogues</a>, <a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">BusinessToday</a></td></tr><tr><td class="mono">counterparty_regulatory</td><td>Pharmathen FDA official action indicated warning letter</td><td><a href="https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.investing.com/news/company-news/cipla-q1-fy27-slides-record-revenue-margins-under-pressure-93CH-4808629" target="_blank" rel="noopener">Investing.com</a>, <a href="https://scanx.trade/stock-market-news/companies/cipla-reports-record-q1-fy27-revenue-of-inr-7-100-crore-targets-1-billion-north-america-run-rate-by-fy27/46408065" target="_blank" rel="noopener">ScanX</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jul23-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">counterparty_regulatory</td><td>Cipla lanreotide recall</td><td><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Medical Dialogues</a>, <a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">BusinessToday</a></td></tr><tr><td class="mono">counterparty_regulatory</td><td>Cipla stock exchange disclosure supply disruption partner</td><td><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Medical Dialogues</a>, <a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">BusinessToday</a></td></tr><tr><td class="mono">replacement_concentration</td><td>Cipla North America revenue decline reason lanreotide</td><td><a href="https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/" target="_blank" rel="noopener">Upstox</a></td></tr><tr><td class="mono">replacement_concentration</td><td>Cipla growth drivers next fiscal new launches management commentary</td><td><span class="sub">none</span></td></tr><tr><td class="mono">replacement_concentration</td><td>Cipla lanreotide launch delay regulatory notice</td><td><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Medical Dialogues</a>, <a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">BusinessToday</a></td></tr><tr><td class="mono">replacement_concentration</td><td>Cipla lanreotide manufacturing partner supply</td><td><a href="https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance" target="_blank" rel="noopener">HMP Global Learning Network</a>, <a href="https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6" target="_blank" rel="noopener">Multibagg</a>, <a href="https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier" target="_blank" rel="noopener">TipRanks</a></td></tr><tr><td class="mono">replacement_concentration</td><td>Cipla provision inventory write-down quality issue</td><td><a href="https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance" target="_blank" rel="noopener">HMP Global Learning Network</a>, <a href="https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6" target="_blank" rel="noopener">Multibagg</a>, <a href="https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier" target="_blank" rel="noopener">TipRanks</a></td></tr><tr><td class="mono">own_site_regulatory</td><td>Cipla USFDA OAI warning letter import alert facility</td><td><span class="sub">none</span></td></tr><tr><td class="mono">own_site_regulatory</td><td>Cipla USFDA inspection Form 483 observations</td><td><a href="https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726" target="_blank" rel="noopener">Medical Dialogues</a>, <a href="https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16" target="_blank" rel="noopener">BusinessToday</a></td></tr><tr><td class="mono">own_site_regulatory</td><td>Cipla new product approvals US slowdown</td><td><span class="sub">none</span></td></tr><tr><td class="mono">geo_mix_shift</td><td>Cipla revenue by geography North America Europe India emerging markets FY22 FY27</td><td><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">geo_mix_shift</td><td>Cipla annual results segment revenue FY26</td><td><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">geo_mix_shift</td><td>Cipla latest quarter results segment revenue Q1FY27</td><td><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">geo_mix_shift</td><td>Cipla acquisition portfolio contribution revenue</td><td><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">specialty_pivot</td><td>Cipla specialty innovative medicines revenue share of sales</td><td><a href="https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html" target="_blank" rel="noopener">Business Standard</a>, <a href="https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf" target="_blank" rel="noopener">Cipla</a>, <a href="https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf" target="_blank" rel="noopener">Cipla</a></td></tr><tr><td class="mono">specialty_pivot</td><td>Cipla R&amp;D spend percent of sales specialty pipeline</td><td><span class="sub">none</span></td></tr><tr><td class="mono">working_capital_divergence</td><td>Cipla trade receivables inventory annual report</td><td><span class="sub">none</span></td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+
+<footer>
+  Generated by SignalRx from 18 public sources. Not investment advice; no recommendation is made.
+  Every figure links to a passage; every passage links to its source. Passages in replay mode are as retrieved by the search tool on 2026-10-16.
+</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  document.addEventListener('mousemove', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-tip]') : null;
+    if (!t) { tip.style.display = 'none'; return; }
+    tip.textContent = t.getAttribute('data-tip');
+    tip.style.display = 'block';
+    var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+    tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+  });
+  window.addEventListener('scroll', function () { tip.style.display = 'none'; }, { passive: true });
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest ? e.target.closest('a.cite') : null;
+    if (!c) return;
+    var el = document.getElementById('ev-' + c.getAttribute('data-cite'));
+    if (!el) return;
+    e.preventDefault();
+    showAll();
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1600);
+  });
+  var buttons = document.querySelectorAll('.filters button');
+  function apply(f) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+    document.querySelectorAll('#trail .ev').forEach(function (el) {
+      var ok = f === 'all' || el.getAttribute('data-stance') === f || ('type:' + el.getAttribute('data-type')) === f;
+      el.style.display = ok ? '' : 'none';
+    });
+    try { localStorage.setItem('signalrx-filter', f); } catch (err) {}
+  }
+  function showAll() { apply('all'); }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.getAttribute('data-f')); }); });
+  try { var saved = localStorage.getItem('signalrx-filter'); if (saved) apply(saved); } catch (err) {}
+})();
+</script>
+</body>
+</html>
