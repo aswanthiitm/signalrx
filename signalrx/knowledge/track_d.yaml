@@ -1,0 +1,259 @@
+# Track D knowledge pack: Pharma & Healthcare.
+#
+# This file is SECTOR knowledge, not company knowledge. It must never name a
+# listed company (tests/test_generality.py enforces this). Everything here is
+# what a senior pharma/healthcare analyst carries in their head before opening
+# a single filing: what kinds of businesses exist in the sector, which numbers
+# matter for each, which questions are worth asking, where the evidence lives,
+# how regulatory actions escalate, and the standard ways a finding can be wrong.
+
+universe:
+  # The agent resolves the track universe at run time from the official index
+  # files, so a reshuffle (e.g. a hospital entering the NIFTY 50) needs no code change.
+  index_files:
+    nifty50: https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv
+    nifty_healthcare: https://www.niftyindices.com/IndexConstituent/ind_niftyhealthcarelist.csv
+    nifty_pharma: https://www.niftyindices.com/IndexConstituent/ind_niftypharmalist.csv
+  industry_filter: ["Healthcare"]
+
+archetypes:
+  # Classified from the company's own business description and segment names.
+  formulations:
+    label: "Generic / specialty formulations"
+    keywords: [formulation, generic, ANDA, specialty, branded, prescription, "North America", "US generics", biosimilar, OTC, "emerging markets", "India business", injectable, "global generics"]
+    kpis: [segment_share, segment_growth, us_price_erosion, rnd_intensity, anda_pipeline, gross_margin, receivable_days, specialty_share]
+  api_cdmo:
+    label: "API / CDMO / CRAMS"
+    keywords: [API, "active pharmaceutical ingredient", CDMO, CRAMS, "custom synthesis", "contract development", "contract manufacturing", molecule, innovator, "custom synthesis", peptide, KSM, intermediates]
+    kpis: [customer_concentration, capacity_utilisation, capex_to_revenue, cwip_ageing, gross_margin, order_book, export_share]
+  hospital:
+    label: "Hospitals / integrated healthcare"
+    keywords: [hospital, beds, ARPOB, occupancy, "occupied bed", inpatient, outpatient, "bed days", pharmacy, clinic, healthcare services, "international patients", CGHS, insurance, cardiac, oncology]
+    kpis: [operational_beds, occupancy, arpob, alos, payor_mix, specialty_mix, new_unit_losses, bed_targets, capex_per_bed, net_debt]
+  diagnostics:
+    label: "Diagnostics / pathology"
+    keywords: [diagnostic, pathology, laboratory, tests, "patient touch points", "samples", radiology, "collection centres"]
+    kpis: [revenue_per_patient, tests_per_patient, volume_growth, b2b_share, network_count]
+
+# Angle library. "brief" maps to the Track D guidance questions in the
+# participant brief (D1 business-model drift, D2 regulatory-before-coverage,
+# D3 geographic shift); X-angles are additional questions the agent asks.
+angles:
+  - id: geo_mix_shift
+    brief: D3
+    archetypes: [formulations, api_cdmo]
+    question: "How has geographic revenue exposure shifted over five years, and what drove it (organic vs acquired, one product vs portfolio)?"
+    needs: [segment revenue by geography for >=3 fiscal years and latest quarters, acquisition events, management commentary on drivers]
+    queries:
+      - "{company} revenue by geography North America Europe India emerging markets FY{fy_minus5} FY{fy}"
+      - "{company} annual results segment revenue {fy_label}"
+      - "{company} latest quarter results segment revenue {q_label}"
+      - "{company} acquisition portfolio contribution revenue"
+    alternatives: [inorganic, one_off, fx, sector_wide, already_mainstream]
+
+  - id: replacement_concentration
+    brief: D1
+    archetypes: [formulations, api_cdmo]
+    question: "When a big product or market fades, is the business replacing it with something as concentrated or fragile as what it lost?"
+    needs: [loss-of-exclusivity or decline driver, named replacement products, incidents affecting the replacement (regulatory, quality, supply), guidance changes]
+    queries:
+      - "{company} {segment} revenue decline reason {product}"
+      - "{company} growth drivers next fiscal new launches management commentary"
+      - "{company} {product} launch delay regulatory notice"
+      - "{company} {product} manufacturing partner supply"
+      - "{company} provision inventory write-down quality issue"
+    alternatives: [temporary, one_off, already_mainstream, sector_wide]
+
+  - id: counterparty_regulatory
+    brief: D2
+    archetypes: [formulations, api_cdmo]
+    question: "Did a regulatory action at a plant the company does NOT own (contract manufacturer, licensor, API supplier) hit its revenue before the company or the press explained it?"
+    needs: [named third-party manufacturer for a material product, regulator record (483/OAI/WL/import alert/recall) at that site, company disclosure date, segment revenue around the event]
+    queries:
+      - "{company} exclusive manufacturing partner {product}"
+      - "{counterparty} FDA Form 483 inspection observations"
+      - "{counterparty} FDA official action indicated warning letter"
+      - "{company} {product} recall"
+      - "{company} stock exchange disclosure supply disruption partner"
+    alternatives: [sector_wide, temporary, already_mainstream, other_driver]
+
+  - id: own_site_regulatory
+    brief: D2
+    archetypes: [formulations, api_cdmo]
+    question: "Is an FDA/EU action at the company's own plants (OAI, warning letter, import alert) suppressing approvals or US revenue in a way the filings show before coverage does?"
+    needs: [site-level regulator records, approval counts from the regulator, US revenue / new launch counts]
+    queries:
+      - "{company} USFDA OAI warning letter import alert facility"
+      - "{company} USFDA inspection Form 483 observations"
+      - "{company} new product approvals US slowdown"
+    alternatives: [sector_wide, temporary, already_mainstream]
+
+  - id: specialty_pivot
+    brief: D1
+    archetypes: [formulations]
+    question: "Has the mix quietly moved from generics to specialty/innovative, CDMO or domestic formulations, and when did the crossover happen?"
+    needs: [specialty or branded revenue series, R&D intensity, clinical-trial sponsorship counts, generic approval counts]
+    queries:
+      - "{company} specialty innovative medicines revenue share of sales"
+      - "{company} R&D spend percent of sales specialty pipeline"
+    alternatives: [inorganic, fx, already_mainstream, policy_exposure]
+
+  - id: payor_policy
+    brief: D2
+    archetypes: [hospital, diagnostics]
+    question: "Did a government payor or price-control change (CGHS/ECHS, PM-JAY, NPPA caps, drug-billing rules) hit revenue per bed or a specialty before coverage connected the two?"
+    needs: [policy instrument with date, specialty or payor mix data, ARPOB series, management attribution, growth reported vs ex-affected-specialty]
+    queries:
+      - "{company} ARPOB decline reason institutional patients"
+      - "{company} {specialty} revenue decline reason"
+      - "CGHS order empanelled hospitals medicines billing"
+      - "CGHS package rates revision effective date"
+      - "{company} institutional CGHS ECHS revenue share"
+    alternatives: [mix, occupancy, new_capacity, one_off, temporary, sector_wide, already_mainstream]
+
+  - id: capacity_gap
+    brief: X
+    archetypes: [hospital, api_cdmo]
+    question: "Do announced capacity additions (beds, reactors, sites) differ materially from what is actually commissioned, and what run-rate would the target require?"
+    needs: [dated capacity targets, operational capacity series, project-level timelines and delays]
+    queries:
+      - "{company} bed expansion plan target beds by FY{fy_plus2}"
+      - "{company} operational beds {q_label}"
+      - "{company} project delay clearance commissioning"
+    alternatives: [inorganic, phasing, already_mainstream]
+
+  - id: working_capital_divergence
+    brief: X
+    archetypes: [formulations, api_cdmo, hospital, diagnostics]
+    question: "Do receivable / inventory trends tell a different story from revenue growth?"
+    needs: [receivables, inventory, revenue for >=4 years]
+    queries:
+      - "{company} trade receivables inventory annual report"
+    alternatives: [inorganic, sector_wide, one_off]
+
+  - id: narrative_gap
+    brief: X
+    archetypes: [formulations, api_cdmo, hospital, diagnostics]
+    question: "Is reported growth driven by something different from what management emphasises?"
+    needs: [management claims, the numbers those claims refer to]
+    queries:
+      - "{company} earnings call transcript {q_label} management commentary"
+    alternatives: [definition_mismatch, one_off]
+
+# The skeptic's library of standard alternative explanations. Each one is run
+# as a concrete test against the ledger (see agent/skeptic.py), and in LLM mode
+# also becomes an adversarial search.
+alternatives:
+  sector_wide:
+    question: "Is this a sector story? Do peers show the same move in the same period?"
+  inorganic:
+    question: "Is the shift explained by an acquisition or divestment rather than the underlying business?"
+  one_off:
+    question: "Is the driver labelled one-time (shelf-stock adjustment, provision, settlement) so it reverses next year?"
+  temporary:
+    question: "Has management given a dated remediation / resupply plan that would reverse the effect?"
+  fx:
+    question: "Could currency translation explain the change?"
+  already_mainstream:
+    question: "Would a reader of headlines already know this? (novelty test)"
+  other_driver:
+    question: "Is there a second driver (e.g. a product cliff) that explains part of the same move?"
+  mix:
+    question: "Is the change explained by case-mix / specialty mix rather than the claimed cause?"
+  occupancy:
+    question: "Is it an occupancy / volume effect rather than a price or payor effect?"
+  new_capacity:
+    question: "Is it dilution from newly commissioned (low-occupancy) capacity?"
+  phasing:
+    question: "Is the gap just phased commissioning that is on a published schedule?"
+  policy_exposure:
+    question: "Does the shift create a new exposure (tariffs, price caps) that offsets its benefit?"
+  definition_mismatch:
+    question: "Are management and the numbers using different definitions or periods?"
+
+# Regulatory ladders: used to order events by severity and to know which
+# records exist publicly, and how long each step usually takes.
+regulatory_ladders:
+  usfda_gmp:
+    steps: [inspection, form_483, eir, nai, vai, oai, warning_letter, import_alert, close_out]
+    severity: {inspection: 0, form_483: 1, eir: 0, nai: 0, vai: 1, oai: 3, warning_letter: 4, import_alert: 5, close_out: -2, recall_class_iii: 1, recall_class_ii: 2, recall_class_i: 4}
+    public_records:
+      - "FDA Data Dashboard: inspections, classifications, citations (datadashboard.fda.gov)"
+      - "Form 483 / EIR via FOIA electronic reading room (redacted; often 4-12 weeks after inspection close)"
+      - "Warning letters (fda.gov warning-letters listing)"
+      - "Import alerts 66-40 / 99-32 (accessdata.fda.gov/cms_ia)"
+      - "Recalls (openFDA drug enforcement API)"
+      - "Approvals (Drugs@FDA via openFDA drugsfda API)"
+  health_canada:
+    steps: [screening_deficiency, notice_of_non_compliance, notice_of_compliance]
+    public_records: ["Notice of Compliance database", "Drug Product Database"]
+  eu_gmp:
+    steps: [inspection, gmp_certificate, statement_of_non_compliance]
+    public_records: ["EudraGMDP non-compliance reports"]
+
+policy_watchlist:
+  - {id: cghs_rates, instrument: "CGHS package-rate revision / office memoranda", affects: [hospital, diagnostics], channel: "price per procedure and drug billing for central-government beneficiaries"}
+  - {id: cghs_drug_billing, instrument: "CGHS medicine-billing and reimbursement caps", affects: [hospital], channel: "high-cost drugs (oncology) for institutional patients"}
+  - {id: pmjay, instrument: "Ayushman Bharat PM-JAY package rates", affects: [hospital], channel: "price for scheme patients"}
+  - {id: nppa_dpco, instrument: "NPPA ceiling prices / NLEM / trade-margin rationalisation", affects: [formulations, hospital], channel: "domestic price caps"}
+  - {id: us_232, instrument: "US Section 232 tariffs on patented pharmaceuticals", affects: [formulations], channel: "branded/patented US imports; generics excluded"}
+  - {id: us_biosecure, instrument: "US BIOSECURE-type restrictions on certain foreign CDMOs", affects: [api_cdmo], channel: "customer migration to non-restricted CDMOs"}
+
+# Loss-of-exclusivity / generic-entry calendar for sector-moving molecules.
+# Public settlement and patent facts, not company facts.
+loe_calendar:
+  - {molecule: lenalidomide, market: US, date: "2026-01-31", note: "volume-limited generic licences end; unlimited generic entry"}
+  - {molecule: semaglutide, market: Canada, date: "2026-01", note: "data protection / patent expiry opens generic filings"}
+  - {molecule: semaglutide, market: India, date: "2026-03", note: "patent expiry; domestic generic launches"}
+
+# Where each evidence family lives (used by the planner to diversify sources).
+source_registry:
+  company: ["NSE/BSE corporate announcements (Reg 30)", "results press releases", "investor presentations", "earnings-call transcripts", "annual reports", "SEC 6-K / 20-F for ADR issuers"]
+  regulator: ["FDA Data Dashboard", "FDA warning letters", "FDA import alerts", "openFDA enforcement + drugsfda", "Health Canada NOC database", "EudraGMDP", "CGHS office memoranda", "NPPA notifications"]
+  counterparty: ["partner / supplier exchange filings and press releases", "acquirer or seller filings"]
+  industry: ["IPM data cited by press (IQVIA, Pharmarack)", "rating-agency rationales", "industry associations"]
+  media: ["business press", "trade press"]
+
+materiality:
+  # Thresholds the quantitative scan uses to call something an anomaly.
+  mix_shift_pp: 8.0          # share change (percentage points) worth investigating
+  segment_drop_pct: 20.0     # YoY decline in a segment worth investigating
+  growth_gap_pp: 3.0         # reported vs ex-item growth gap
+  capacity_acceleration: 2.0 # required run-rate / trailing run-rate
+
+# Controlled vocabulary for extracted figures. The investigator's record_figure
+# tool only accepts these metric names, so every live run produces data the
+# scan and the hypothesis templates understand. Units: INR_mn (1 crore = 10
+# INR_mn), USD_mn, "%", INR_k, beds. Periods: FY26, Q1FY27 (Indian fiscal year).
+metrics:
+  revenue_total: "Consolidated revenue from operations"
+  revenue_segment: "Revenue of one reported segment / geography (dims.segment)"
+  revenue_growth_yoy: "Reported YoY revenue growth, % (dims.basis: reported | ex_<item>)"
+  revenue_segment_growth_yoy: "Reported YoY growth of one segment, % (dims.segment)"
+  net_profit: "Profit after tax attributable to shareholders"
+  ebitda: "EBITDA"
+  ebitda_margin: "EBITDA margin, %"
+  provision: "One-time provision / write-down (dims.item names what it is for)"
+  one_off_adjustment: "One-time revenue adjustment inside a segment (dims.segment)"
+  product_revenue: "Revenue of a single product (dims.product); estimates allowed if labelled"
+  product_share_of_segment: "Share of a segment from one product, % (dims.product)"
+  revenue_target_annualised: "Management revenue target expressed as annual run-rate (dims.segment)"
+  rnd_expense: "R&D expense"
+  receivables: "Trade receivables"
+  inventory: "Inventories"
+  beds_operational: "Operational beds at period end"
+  beds_target: "Announced bed target (dims.by = target fiscal year, dims.bound = low | high | point)"
+  occupancy: "Bed occupancy, %"
+  arpob: "Average revenue per occupied bed (INR_k per day)"
+  arpob_growth_yoy: "ARPOB YoY growth, %"
+  specialty_share_ip: "Share of inpatient revenue from one specialty, % (dims.specialty)"
+  policy_benefit_annual: "Annual revenue effect of a payor-policy change (dims.policy)"
+  net_debt: "Net debt"
+  anda_approvals: "Number of new US approvals in the period (from FDA records)"
+  trials_started: "Number of sponsored clinical trials started in the period"
+
+event_kinds: [regulatory, disclosure, results, policy, acquisition, launch, loe, guidance, media, operations]
+event_tags_reserved:
+  incident: "a negative regulatory / quality / supply event"
+  future: "a dated plan or guidance that has not happened yet"
+  delay: "a project or approval that slipped"

@@ -1,0 +1,3616 @@
+{
+  "company": {
+    "name": "Max Healthcare Institute",
+    "symbol": "MAXHEALTH",
+    "ids": {
+      "nse": "MAXHEALTH",
+      "bse": "543220"
+    },
+    "as_of": "2026-10-16"
+  },
+  "mode": "replay",
+  "started": "2026-10-16T15:23:06+00:00",
+  "finished": "2026-10-16T15:23:06+00:00",
+  "profile": {
+    "name": "Max Healthcare Institute",
+    "symbol": "MAXHEALTH",
+    "archetype": "hospital",
+    "archetype_scores": {
+      "hospital": 0.868,
+      "formulations": 0.132,
+      "api_cdmo": 0.0,
+      "diagnostics": 0.0
+    },
+    "segments": [],
+    "counterparties": [
+      "CGHS"
+    ],
+    "peers": [
+      "Apollo Hospitals"
+    ]
+  },
+  "anomalies": [
+    {
+      "type": "growth_gap",
+      "subject": "ex_oncology",
+      "magnitude": 4,
+      "description": "Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)",
+      "periods": [
+        "Q1FY27"
+      ],
+      "calcs": [
+        "C1"
+      ],
+      "data": {
+        "basis": "ex_oncology",
+        "reported": 16,
+        "adjusted": 20
+      }
+    },
+    {
+      "type": "specialty_share_shift",
+      "subject": "oncology",
+      "magnitude": -4,
+      "description": "oncology share of specialty share ip moved 26% -> 22% (Q1FY26 -> Q1FY27)",
+      "periods": [
+        "Q1FY26",
+        "Q1FY27"
+      ],
+      "calcs": [
+        "C2"
+      ],
+      "data": {
+        "from": 26,
+        "to": 22
+      }
+    },
+    {
+      "type": "unit_price_stall",
+      "subject": "ARPOB",
+      "magnitude": 0.0,
+      "description": "ARPOB growth fell to +0.0% YoY in Q4FY26 (series: Q3FY26 +2.6%, Q4FY26 +0.0%, Q1FY27 +5.0%)",
+      "periods": [
+        "Q3FY26",
+        "Q4FY26",
+        "Q1FY27"
+      ],
+      "calcs": [],
+      "data": {
+        "series": {
+          "Q3FY26": 2.6,
+          "Q4FY26": 0.0,
+          "Q1FY27": 5.0
+        }
+      }
+    },
+    {
+      "type": "capacity_gap",
+      "subject": "beds by FY28",
+      "magnitude": 3.279148743491057,
+      "description": "Target 9,000 beds by FY28 needs 2,066/yr vs 630 added in the last 12 months (3.3x acceleration)",
+      "periods": [
+        "Q1FY26",
+        "Q1FY27",
+        "FY28"
+      ],
+      "calcs": [
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "data": {
+        "target": 9000,
+        "bound": "low",
+        "need": 2065.863708399366,
+        "trailing": 630,
+        "current": 5379,
+        "current_period": "Q1FY27",
+        "by": "FY28",
+        "months_left": 21.033333333333335
+      }
+    },
+    {
+      "type": "capacity_gap",
+      "subject": "beds by FY28",
+      "magnitude": 3.7319447588861214,
+      "description": "Target 9,500 beds by FY28 needs 2,351/yr vs 630 added in the last 12 months (3.7x acceleration)",
+      "periods": [
+        "Q1FY26",
+        "Q1FY27",
+        "FY28"
+      ],
+      "calcs": [
+        "C3",
+        "C6",
+        "C7"
+      ],
+      "data": {
+        "target": 9500,
+        "bound": "high",
+        "need": 2351.1251980982565,
+        "trailing": 630,
+        "current": 5379,
+        "current_period": "Q1FY27",
+        "by": "FY28",
+        "months_left": 21.033333333333335
+      }
+    }
+  ],
+  "plan": [
+    {
+      "angle": "payor_policy",
+      "brief": "D2",
+      "question": "Did a government payor or price-control change (CGHS/ECHS, PM-JAY, NPPA caps, drug-billing rules) hit revenue per bed or a specialty before coverage connected the two?",
+      "queries": [
+        "Max Healthcare Institute ARPOB decline reason institutional patients",
+        "Max Healthcare Institute oncology revenue decline reason",
+        "CGHS order empanelled hospitals medicines billing",
+        "CGHS package rates revision effective date",
+        "Max Healthcare Institute institutional CGHS ECHS revenue share"
+      ],
+      "priority": 1.0,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by growth_gap: Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)",
+        "triggered by specialty_share_shift: oncology share of specialty share ip moved 26% -> 22% (Q1FY26 -> Q1FY27)",
+        "triggered by unit_price_stall: ARPOB growth fell to +0.0% YoY in Q4FY26 (series: Q3FY26 +2.6%, Q4FY26 +0.0%, Q1FY27 +5.0%"
+      ]
+    },
+    {
+      "angle": "capacity_gap",
+      "brief": "X",
+      "question": "Do announced capacity additions (beds, reactors, sites) differ materially from what is actually commissioned, and what run-rate would the target require?",
+      "queries": [
+        "Max Healthcare Institute bed expansion plan target beds by FY29",
+        "Max Healthcare Institute operational beds Q1FY27",
+        "Max Healthcare Institute project delay clearance commissioning"
+      ],
+      "priority": 1.0,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by capacity_gap: Target 9,000 beds by FY28 needs 2,066/yr vs 630 added in the last 12 months (3.3x accelera",
+        "triggered by capacity_gap: Target 9,500 beds by FY28 needs 2,351/yr vs 630 added in the last 12 months (3.7x accelera"
+      ]
+    },
+    {
+      "angle": "narrative_gap",
+      "brief": "X",
+      "question": "Is reported growth driven by something different from what management emphasises?",
+      "queries": [
+        "Max Healthcare Institute earnings call transcript Q1FY27 management commentary"
+      ],
+      "priority": 0.58,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by growth_gap: Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)"
+      ]
+    },
+    {
+      "angle": "working_capital_divergence",
+      "brief": "X",
+      "question": "Do receivable / inventory trends tell a different story from revenue growth?",
+      "queries": [
+        "Max Healthcare Institute trade receivables inventory annual report"
+      ],
+      "priority": 0.4,
+      "reasons": [
+        "archetype fit 1.00"
+      ]
+    }
+  ],
+  "search_trace": [
+    {
+      "angle": "payor_policy",
+      "query": "Max Healthcare Institute ARPOB decline reason institutional patients",
+      "matched": "Max Healthcare Q1 FY27 oncology revenue decline reason excluding oncology growth",
+      "results": [
+        {
+          "id": "M01",
+          "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"
+        },
+        {
+          "id": "M02",
+          "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"
+        },
+        {
+          "id": "M03",
+          "title": "Max Healthcare Q1 FY27 Results: Revenue Rises 16%",
+          "publisher": "Kotak Neo",
+          "url": "https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/"
+        },
+        {
+          "id": "M21",
+          "title": "Max Health stock hits a 52-week low as margins face pressure",
+          "publisher": "ad-hoc-news (DSIJ)",
+          "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171"
+        }
+      ]
+    },
+    {
+      "angle": "payor_policy",
+      "query": "Max Healthcare Institute oncology revenue decline reason",
+      "matched": "Max Healthcare Q1 FY27 oncology revenue decline reason excluding oncology growth",
+      "results": [
+        {
+          "id": "M01",
+          "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"
+        },
+        {
+          "id": "M02",
+          "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"
+        },
+        {
+          "id": "M03",
+          "title": "Max Healthcare Q1 FY27 Results: Revenue Rises 16%",
+          "publisher": "Kotak Neo",
+          "url": "https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/"
+        },
+        {
+          "id": "M21",
+          "title": "Max Health stock hits a 52-week low as margins face pressure",
+          "publisher": "ad-hoc-news (DSIJ)",
+          "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171"
+        }
+      ]
+    },
+    {
+      "angle": "payor_policy",
+      "query": "CGHS order empanelled hospitals medicines billing",
+      "matched": "CGHS discontinued high-value chemotherapy drugs empanelled hospitals order oncology drugs",
+      "results": [
+        {
+          "id": "M11",
+          "title": "Govt tightens drug billing norm for CGHS claims; why private hospitals are pushing back",
+          "publisher": "ThePrint",
+          "url": "https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/"
+        }
+      ]
+    },
+    {
+      "angle": "payor_policy",
+      "query": "CGHS package rates revision effective date",
+      "matched": "CGHS package rates revised October 2025 effective date",
+      "results": [
+        {
+          "id": "M12",
+          "title": "CGHS rates revised: changes effective October 13, 2025",
+          "publisher": "Outlook Money",
+          "url": "https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025"
+        },
+        {
+          "id": "M13",
+          "title": "Centre revises CGHS rates; hospitals welcome tier-based structure",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html"
+        }
+      ]
+    },
+    {
+      "angle": "payor_policy",
+      "query": "Max Healthcare Institute institutional CGHS ECHS revenue share",
+      "matched": "Max Healthcare FY26 results operational beds ARPOB occupancy CGHS ECHS institutional revenue share",
+      "results": [
+        {
+          "id": "M07",
+          "title": "Max Healthcare Q4 FY26: brownfield expansions ramp up",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589"
+        }
+      ]
+    },
+    {
+      "angle": "capacity_gap",
+      "query": "Max Healthcare Institute bed expansion plan target beds by FY29",
+      "matched": "Max Healthcare bed expansion plan target beds by FY28 versus beds commissioned actual delays",
+      "results": [
+        {
+          "id": "M14",
+          "title": "Max Healthcare Institute company update, Dec 2025",
+          "publisher": "HDFC Securities",
+          "url": "https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf"
+        },
+        {
+          "id": "M15",
+          "title": "Max Healthcare builds growth runway with brownfield expansion push",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html"
+        },
+        {
+          "id": "M16",
+          "title": "Max Healthcare plans 10,000-bed expansion drive",
+          "publisher": "DistilINFO",
+          "url": "https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/"
+        },
+        {
+          "id": "M17",
+          "title": "Max Healthcare Q1 FY27 earnings call transcript summary",
+          "publisher": "Investywise",
+          "url": "https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/"
+        },
+        {
+          "id": "M18",
+          "title": "Max Healthcare Institute research report",
+          "publisher": "Way2Wealth",
+          "url": "https://www.way2wealth.com/Reports/RR26052025fa75e.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "capacity_gap",
+      "query": "Max Healthcare Institute operational beds Q1FY27",
+      "matched": "Max Healthcare Q1 FY27 results occupancy ARPOB bed additions operational beds",
+      "results": [
+        {
+          "id": "M01",
+          "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"
+        },
+        {
+          "id": "M02",
+          "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"
+        },
+        {
+          "id": "M04",
+          "title": "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr",
+          "publisher": "Healthcare Executive",
+          "url": "https://www.healthcareexecutive.in/blog/max-healthcare-q1"
+        },
+        {
+          "id": "M05",
+          "title": "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore",
+          "publisher": "Sahi",
+          "url": "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR"
+        },
+        {
+          "id": "M06",
+          "title": "Max Healthcare Q1 FY27: network absorbs new beds and acquisitions",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095"
+        }
+      ]
+    },
+    {
+      "angle": "capacity_gap",
+      "query": "Max Healthcare Institute project delay clearance commissioning",
+      "matched": "Max Healthcare Q1 FY27 results occupancy ARPOB bed additions operational beds",
+      "results": [
+        {
+          "id": "M01",
+          "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"
+        },
+        {
+          "id": "M02",
+          "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"
+        },
+        {
+          "id": "M04",
+          "title": "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr",
+          "publisher": "Healthcare Executive",
+          "url": "https://www.healthcareexecutive.in/blog/max-healthcare-q1"
+        },
+        {
+          "id": "M05",
+          "title": "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore",
+          "publisher": "Sahi",
+          "url": "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR"
+        },
+        {
+          "id": "M06",
+          "title": "Max Healthcare Q1 FY27: network absorbs new beds and acquisitions",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095"
+        }
+      ]
+    },
+    {
+      "angle": "narrative_gap",
+      "query": "Max Healthcare Institute earnings call transcript Q1FY27 management commentary",
+      "matched": "Max Healthcare Q3 FY26 results ARPOB oncology institutional CGHS impact earnings call",
+      "results": [
+        {
+          "id": "M08",
+          "title": "Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr",
+          "publisher": "Investywise",
+          "url": "https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/"
+        },
+        {
+          "id": "M09",
+          "title": "Max Healthcare Q3FY26 Result Update",
+          "publisher": "Axis Direct",
+          "url": "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental"
+        },
+        {
+          "id": "M10",
+          "title": "MAXHEALTH Q3 FY26 earnings call",
+          "publisher": "Alpha Spread (call transcript)",
+          "url": "https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026"
+        },
+        {
+          "id": "M20",
+          "title": "Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html"
+        }
+      ]
+    },
+    {
+      "angle": "working_capital_divergence",
+      "query": "Max Healthcare Institute trade receivables inventory annual report",
+      "matched": "Max Healthcare Q1 FY27 oncology revenue decline reason excluding oncology growth",
+      "results": [
+        {
+          "id": "M01",
+          "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836"
+        },
+        {
+          "id": "M02",
+          "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246"
+        },
+        {
+          "id": "M03",
+          "title": "Max Healthcare Q1 FY27 Results: Revenue Rises 16%",
+          "publisher": "Kotak Neo",
+          "url": "https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/"
+        },
+        {
+          "id": "M21",
+          "title": "Max Health stock hits a 52-week low as margins face pressure",
+          "publisher": "ad-hoc-news (DSIJ)",
+          "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171"
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "angle": "payor_policy",
+      "title": "A government payor rule, not demand, is behind the oncology drag",
+      "statement": "ARPOB growth slid to +2.6% (Q3FY26), +0.0% (Q4FY26), +5.0% (Q1FY27); the cause is a payor-policy change, not demand: after the CGHS order (Dec 2024), the company stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025; oncology fell from 26% to 22% of inpatient revenue, so reported growth (16%) understates the rest of the business (20%).",
+      "facts": {
+        "specialty": "oncology",
+        "gap_period": "Q1FY27",
+        "reported": 16,
+        "adjusted": 20,
+        "policies": [
+          {
+            "date": "2024-12",
+            "precision": "month",
+            "title": "CGHS order: empanelled hospitals must accept CGHS-supplied medicines or show purchase invoices; industry warns on cancer-care margins",
+            "short": "CGHS drug-billing order"
+          },
+          {
+            "date": "2025-10-13",
+            "precision": "day",
+            "title": "Revised CGHS package rates take effect (OM of 3-Oct); chemotherapy moves to revised rates",
+            "short": "CGHS package-rate revision"
+          }
+        ],
+        "action": {
+          "date": "2025-11",
+          "precision": "month",
+          "title": "Stopped administering high-value patented chemotherapy to institutional (CGHS) patients"
+        },
+        "share": {
+          "from": 26,
+          "to": 22,
+          "periods": [
+            "Q1FY26",
+            "Q1FY27"
+          ]
+        },
+        "implied_spec_growth": -1.846153846153853,
+        "implied_rest_growth": 22.270270270270267,
+        "arpob_series": {
+          "Q3FY26": 2.6,
+          "Q4FY26": 0.0,
+          "Q1FY27": 5.0
+        },
+        "benefit": {
+          "policy": "CGHS tariff revision",
+          "annual": 1400,
+          "unit": "INR_mn",
+          "pct_of_q_revenue": 1.1737089201877935
+        },
+        "arpob_core_growth": 3.8262910798122065,
+        "arpob_reported_growth": 5.0,
+        "peer_unit_price": [
+          {
+            "peer": "Apollo Hospitals",
+            "value": 8.0
+          }
+        ],
+        "core_terms": [
+          "oncology",
+          "cghs",
+          "arpob",
+          "policy"
+        ],
+        "strength": {
+          "grade": "Moderate",
+          "score": 0.614,
+          "reasons": [
+            "9 sources across 9 independent families (aggregator:sahi, broker:axis direct, company, media:business standard, media:gurufocus via investing.com, media:healthcare executive, media:investing.com, media:outlook money, media:theprint).",
+            "No primary filing in the support set: grade capped.",
+            "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+            "Skeptic: 4 checks survived, 3 weakened (temporary, low_margin, new_capacity), 0 refuted.",
+            "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).",
+            "1 source conflict(s) resolved by hierarchy; see audit log."
+          ]
+        },
+        "novelty_why": [
+          "joins 8 non-company source families to the company's own disclosures",
+          "a third-party record leads the company's own disclosure by 417 days",
+          "rests on 6 derived calculations no single source states"
+        ],
+        "policy_to_action_months": 11,
+        "action_to_normalisation_months": 13
+      },
+      "support": [
+        "H01",
+        "H02",
+        "H04",
+        "H05",
+        "H09",
+        "H10",
+        "H11",
+        "H12",
+        "H13"
+      ],
+      "contra": [
+        "H01",
+        "H09",
+        "H10"
+      ],
+      "calcs": [
+        "C1",
+        "C2",
+        "C8",
+        "C9",
+        "C10",
+        "C11"
+      ],
+      "events": [
+        0,
+        2,
+        3
+      ],
+      "checks": [
+        {
+          "name": "sector_wide",
+          "question": "Is this a sector story? Do peers show the same move in the same period?",
+          "verdict": "survives",
+          "detail": "Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%).",
+          "evidence": [
+            "H19"
+          ]
+        },
+        {
+          "name": "one_off",
+          "question": "Is the driver labelled one-time (shelf-stock adjustment, provision, settlement) so it reverses next year?",
+          "verdict": "survives",
+          "detail": "No one-time item is attached to the figures behind this hypothesis.",
+          "evidence": []
+        },
+        {
+          "name": "temporary",
+          "question": "Has management given a dated remediation / resupply plan that would reverse the effect?",
+          "verdict": "weakens",
+          "detail": "Management has a dated fix: 'Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27' (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test.",
+          "evidence": [
+            "H01",
+            "H10",
+            "H01"
+          ]
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "survives",
+          "detail": "None of 2 headlines in the ledger connects these facts (oncology, cghs, arpob).",
+          "evidence": [
+            "H22",
+            "H23"
+          ]
+        },
+        {
+          "name": "low_margin",
+          "question": "Does the revenue effect overstate the profit effect?",
+          "verdict": "weakens",
+          "detail": "The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. Source: \"Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management h...\"",
+          "evidence": [
+            "H10"
+          ]
+        },
+        {
+          "name": "occupancy",
+          "question": "Is it an occupancy / volume effect rather than a price or payor effect?",
+          "verdict": "survives",
+          "detail": "Occupancy held in a 74-75% band across Q3FY26-Q1FY27; a volume collapse does not explain the unit-price stall.",
+          "evidence": [
+            "H08",
+            "H07",
+            "H05"
+          ]
+        },
+        {
+          "name": "new_capacity",
+          "question": "Is it dilution from newly commissioned (low-occupancy) capacity?",
+          "verdict": "weakens",
+          "detail": "New-capacity costs are a second, smaller drag on margins cited in the same note. Source: Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after re...",
+          "evidence": [
+            "H09"
+          ]
+        }
+      ],
+      "scores": {
+        "materiality": 0.7,
+        "evidence": 0.614,
+        "novelty": 0.95,
+        "robustness": 0.64,
+        "total": 0.753
+      },
+      "status": "selected",
+      "rejection_reason": null
+    },
+    {
+      "id": "H2",
+      "angle": "capacity_gap",
+      "title": "Announced capacity is running well ahead of commissioned capacity",
+      "statement": "Operational beds rose by 630 in the 12 months to Q1FY27 (to 5,379); reaching the 9,000\u20139,500 target by FY28 needs 2,066\u20132,351 beds a year, 3.3\u20133.7x the current pace, while the headline target has been restated 3 times.",
+      "facts": {
+        "by": "FY28",
+        "target_low": 9000,
+        "target_high": 9500,
+        "current": 5379,
+        "current_period": "Q1FY27",
+        "trailing": 630,
+        "need_low": 2065.863708399366,
+        "need_high": 2351.1251980982565,
+        "accel_low": 3.279148743491057,
+        "accel_high": 3.7319447588861214,
+        "target_history": [
+          {
+            "date": "2025-11-21",
+            "title": "Chairman: about 9,500 beds by 2028"
+          },
+          {
+            "date": "2025-12-29",
+            "title": "Plan restated: 9,000-9,500 beds by FY28 (6,769 by end-FY27)"
+          },
+          {
+            "date": "2026-04-16",
+            "title": "Target raised again: 10,000+ beds within 2-4 years, Rs 6,000 cr capex"
+          }
+        ],
+        "delays": [
+          {
+            "date": "2025-05-26",
+            "title": "Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)"
+          }
+        ],
+        "months_left": 21.033333333333335,
+        "core_terms": [
+          "beds",
+          "target",
+          "capacity",
+          "commission"
+        ],
+        "strength": {
+          "grade": "Moderate",
+          "score": 0.633,
+          "reasons": [
+            "5 sources across 5 independent families (aggregator:sahi, broker:hdfc securities, broker:way2wealth, media:business standard, media:distilinfo).",
+            "No primary filing in the support set: grade capped.",
+            "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+            "Skeptic: 3 checks survived, 0 weakened (none), 0 refuted.",
+            "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).",
+            "1 source conflict(s) resolved by hierarchy; see audit log."
+          ]
+        },
+        "novelty_why": [
+          "joins 5 non-company source families to the company's own disclosures",
+          "rests on 5 derived calculations no single source states"
+        ],
+        "gap_low": 3621,
+        "gap_high": 4121,
+        "nine_month_path": 6928
+      },
+      "support": [
+        "H05",
+        "H14",
+        "H15",
+        "H16",
+        "H18"
+      ],
+      "contra": [
+        "H16"
+      ],
+      "calcs": [
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7"
+      ],
+      "events": [
+        4,
+        5,
+        7,
+        1
+      ],
+      "checks": [
+        {
+          "name": "inorganic",
+          "question": "Is the shift explained by an acquisition or divestment rather than the underlying business?",
+          "verdict": "survives",
+          "detail": "No acquisition or divestment in the ledger for the relevant segments.",
+          "evidence": []
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "survives",
+          "detail": "None of 2 headlines in the ledger connects these facts (beds, target, capacity).",
+          "evidence": [
+            "H22",
+            "H23"
+          ]
+        },
+        {
+          "name": "phasing",
+          "question": "Is the gap just phased commissioning that is on a published schedule?",
+          "verdict": "survives",
+          "detail": "Some of the gap is published phasing (4 project schedules), but 1 dated delay(s) are on record: Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)",
+          "evidence": [
+            "H05",
+            "H14",
+            "H17"
+          ]
+        }
+      ],
+      "scores": {
+        "materiality": 0.5697871858727642,
+        "evidence": 0.633,
+        "novelty": 0.8,
+        "robustness": 1.0,
+        "total": 0.734
+      },
+      "status": "supporting",
+      "rejection_reason": null
+    }
+  ],
+  "discoveries": [
+    {
+      "hypothesis": "H1",
+      "angle": "payor_policy",
+      "brief_question": "D2",
+      "brief_text": "Has a regulatory or compliance development hit its financials before mainstream coverage?",
+      "title": "A government payor rule, not demand, is behind the oncology drag",
+      "discovery": "Max Healthcare Institute's ARPOB stall (+2.6% in Q3FY26, +0.0% in Q4FY26) was a payor-policy shock, not weak demand: after the CGHS drug-billing order (Dec 2024) and CGHS package-rate revision (13 Oct 2025), it stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025, cutting oncology from 26% to 22% of inpatient revenue \u2014 so reported growth (16%) understates the rest of the business (20%), and the Q1FY27 ARPOB rebound (+5%) owes about 1.2pp to the CGHS tariff revision.",
+      "discovery_evidence": [
+        "H01",
+        "H02",
+        "H04",
+        "H05",
+        "H09",
+        "H10",
+        "H11",
+        "H12",
+        "H13"
+      ],
+      "why_it_matters": [
+        "The drag is policy-made, so it reverses on policy, not on demand: management calls it structural unless the payor's terms improve.",
+        "Headline growth understates core growth by 4pp. Cross-check: the share shift alone implies oncology revenue growth of -1.8% and non-oncology growth of 22.3%, close to the reported 20%.",
+        "Read the 'normalisation' guidance carefully: it falls 13 months after the change, i.e. when the base effect laps. Year-on-year growth normalises, but the lost oncology revenue does not come back unless terms change.",
+        "ARPOB optics: of the +5% in Q1FY27, about 1.2pp is the tariff revision (~\u20b9140 cr a year), leaving core ARPOB growth near 3.8%.",
+        "Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%). The exposure comes from the payor relationship on record: CGHS (large CGHS / institutional book; high-value chemo for institutional patients discontinued)."
+      ],
+      "key_numbers": [
+        {
+          "label": "Oncology share of IP revenue",
+          "value": "26% \u2192 22%",
+          "sub": "Q1FY26 \u2192 Q1FY27"
+        },
+        {
+          "label": "Growth: reported vs ex-oncology",
+          "value": "16% vs 20%",
+          "sub": "Q1FY27"
+        },
+        {
+          "label": "ARPOB growth Q1FY27",
+          "value": "+5%",
+          "sub": "~1.2pp from tariff revision; core ~3.8%"
+        },
+        {
+          "label": "Payor rule \u2192 company action",
+          "value": "11 months",
+          "sub": "effect quantified two quarters later"
+        }
+      ],
+      "evidence_trail": [
+        {
+          "evidence": [
+            "H10"
+          ],
+          "text": "Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management has been in ongoing discussions with the government over below-cost supply requirements and expects the impact to be structural unless terms improve.",
+          "source": "MAXHEALTH Q3 FY26 earnings call",
+          "publisher": "Alpha Spread (call transcript)",
+          "type": "transcript",
+          "family": "company",
+          "date": "2026-02",
+          "url": "https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H09"
+          ],
+          "text": "Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY.",
+          "source": "Max Healthcare Q3FY26 Result Update",
+          "publisher": "Axis Direct",
+          "type": "broker",
+          "family": "broker:axis direct",
+          "date": "2026-02-09",
+          "url": "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H11"
+          ],
+          "text": "The CGHS wing told empanelled hospitals to either accept medicines CGHS supplies or provide a purchase invoice for them (December 2024 order). AHPI planned to ask the government to withdraw the order, saying it squeezes hospital margins, particularly in high-cost cancer treatment.",
+          "source": "Govt tightens drug billing norm for CGHS claims; why private hospitals are pushing back",
+          "publisher": "ThePrint",
+          "type": "media",
+          "family": "media:theprint",
+          "date": "2025-01",
+          "url": "https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H13"
+          ],
+          "text": "Centre revises CGHS rates; first major revamp since 2014; hospitals welcome tier-based structure.",
+          "source": "Centre revises CGHS rates; hospitals welcome tier-based structure",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2025-10-05",
+          "url": "https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H12"
+          ],
+          "text": "The Ministry of Health and Family Welfare issued the office memorandum on October 3, 2025; revised CGHS package rates for nearly 2,000 procedures took effect October 13, 2025. Cancer surgeries continue under the old rules, but chemotherapy, radiotherapy and related tests now follow the revised rates.",
+          "source": "CGHS rates revised: changes effective October 13, 2025",
+          "publisher": "Outlook Money",
+          "type": "media",
+          "family": "media:outlook money",
+          "date": "2025-10",
+          "url": "https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H01"
+          ],
+          "text": "Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology's share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027.",
+          "source": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "type": "media",
+          "family": "media:investing.com",
+          "date": "2026-08",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H02"
+          ],
+          "text": "The company's large CGHS and institutional business made it more exposed than peers to the discontinuation of high-value chemotherapy drugs.",
+          "source": "Max Healthcare Q1 2027 Earnings Call Highlights",
+          "publisher": "GuruFocus via Investing.com",
+          "type": "media",
+          "family": "media:gurufocus via investing.com",
+          "date": "2026-08",
+          "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H04"
+          ],
+          "text": "Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27.",
+          "source": "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr",
+          "publisher": "Healthcare Executive",
+          "type": "media",
+          "family": "media:healthcare executive",
+          "date": "2026-08",
+          "url": "https://www.healthcareexecutive.in/blog/max-healthcare-q1",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H05"
+          ],
+          "text": "Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex.",
+          "source": "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore",
+          "publisher": "Sahi",
+          "type": "aggregator",
+          "family": "aggregator:sahi",
+          "date": "2026-08",
+          "url": "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H07"
+          ],
+          "text": "Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k.",
+          "source": "Max Healthcare Q4 FY26: brownfield expansions ramp up",
+          "publisher": "Multibagg",
+          "type": "aggregator",
+          "family": "aggregator:multibagg",
+          "date": "2026-05",
+          "url": "https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H08"
+          ],
+          "text": "Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year.",
+          "source": "Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr",
+          "publisher": "Investywise",
+          "type": "aggregator",
+          "family": "aggregator:investywise",
+          "date": "2026-02",
+          "url": "https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H19"
+          ],
+          "text": "Apollo Q1 FY27: occupancy rose to 70% from 65%; average revenue per patient rose 8% driven by favorable case mix and specialty growth.",
+          "source": "Apollo Hospitals Q1 FY27 slides: margins expand, digital losses narrow",
+          "publisher": "Investing.com",
+          "type": "media",
+          "family": "media:investing.com",
+          "date": "2026-08",
+          "url": "https://www.investing.com/news/company-news/apollo-hospitals-q1-fy27-slides-margins-expand-digital-losses-narrow-93CH-4857308",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H20"
+          ],
+          "text": "The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%.",
+          "source": "Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-02-05",
+          "url": "https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H22"
+          ],
+          "text": "Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk.",
+          "source": "Max Health stock hits a 52-week low as margins face pressure",
+          "publisher": "ad-hoc-news (DSIJ)",
+          "type": "media",
+          "family": "media:ad-hoc-news (dsij)",
+          "date": "2026-08",
+          "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H23"
+          ],
+          "text": "Apollo scores over Max with a strong revenue, margin outperformance in Q1.",
+          "source": "Apollo scores over Max with a strong revenue, margin outperformance in Q1",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-08-16",
+          "url": "https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        }
+      ],
+      "timeline": [
+        {
+          "date": "2024-12",
+          "label": "Dec 2024",
+          "kind": "policy",
+          "actor": "CGHS",
+          "title": "CGHS order: empanelled hospitals must accept CGHS-supplied medicines or show purchase invoices; industry warns on cancer-care margins",
+          "evidence": [
+            "H11"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2025-10-13",
+          "label": "13 Oct 2025",
+          "kind": "policy",
+          "actor": "CGHS",
+          "title": "Revised CGHS package rates take effect (OM of 3-Oct); chemotherapy moves to revised rates",
+          "evidence": [
+            "H12",
+            "H13"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2025-11",
+          "label": "Nov 2025",
+          "kind": "operations",
+          "actor": "company",
+          "title": "Stopped administering high-value patented chemotherapy to institutional (CGHS) patients",
+          "evidence": [
+            "H01",
+            "H09",
+            "H10"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-02-05",
+          "label": "5 Feb 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q3 FY26: ARPOB +2.6%, occupancy 74%, margin 26.1% (vs 27.3%); oncology drag attributed to CGHS pricing",
+          "evidence": [
+            "H08",
+            "H09",
+            "H20"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-05",
+          "label": "May 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q4 FY26: ARPOB flat at Rs 77.9k; FY26 operational beds 4,966 (+312)",
+          "evidence": [
+            "H07"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-08",
+          "label": "Aug 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q1 FY27: oncology 22% of IP revenue (26%); ex-oncology growth 20% vs 16%; ARPOB +5% incl. CGHS tariff benefit; beds 5,379",
+          "evidence": [
+            "H01",
+            "H04",
+            "H05",
+            "H09"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-12",
+          "label": "Dec 2026",
+          "kind": "guidance",
+          "actor": "company",
+          "title": "Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27",
+          "evidence": [
+            "H01"
+          ],
+          "future": true,
+          "in_hypothesis": false
+        }
+      ],
+      "numbers": [
+        {
+          "id": "C1",
+          "name": "Growth gap ex_oncology vs reported, Q1FY27",
+          "value": 4,
+          "unit": "pp",
+          "formula": "growth[ex_oncology] - growth[reported]",
+          "inputs": [
+            "revenue_growth_yoy[ex_oncology]@Q1FY27",
+            "revenue_growth_yoy[reported]@Q1FY27"
+          ],
+          "evidence": [
+            "H01",
+            "H04"
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "oncology share change Q1FY26->Q1FY27",
+          "value": -4,
+          "unit": "pp",
+          "formula": "share[t] - share[t0]",
+          "inputs": [
+            "specialty_share_ip[oncology]@Q1FY27",
+            "specialty_share_ip[oncology]@Q1FY26"
+          ],
+          "evidence": [
+            "H01"
+          ]
+        },
+        {
+          "id": "C8",
+          "name": "Implied oncology revenue growth, Q1FY27",
+          "value": -1.846153846153853,
+          "unit": "%",
+          "formula": "(share1 / share0) x (1 + g) - 1",
+          "inputs": [
+            "specialty_share_ip[oncology]@Q1FY26",
+            "specialty_share_ip[oncology]@Q1FY27",
+            "revenue_growth_yoy[reported]@Q1FY27"
+          ],
+          "evidence": [
+            "H01",
+            "H04"
+          ]
+        },
+        {
+          "id": "C9",
+          "name": "Implied non-oncology revenue growth, Q1FY27",
+          "value": 22.270270270270267,
+          "unit": "%",
+          "formula": "((1 - share1) / (1 - share0)) x (1 + g) - 1",
+          "inputs": [
+            "specialty_share_ip[oncology]@Q1FY26",
+            "specialty_share_ip[oncology]@Q1FY27",
+            "revenue_growth_yoy[reported]@Q1FY27"
+          ],
+          "evidence": [
+            "H01",
+            "H04"
+          ]
+        },
+        {
+          "id": "C10",
+          "name": "Policy tariff benefit as % of quarterly revenue",
+          "value": 1.1737089201877935,
+          "unit": "%",
+          "formula": "(annual benefit / 4) / quarterly revenue x 100",
+          "inputs": [
+            "policy_benefit_annual[CGHS tariff revision]@FY27",
+            "revenue_total[]@Q1FY27"
+          ],
+          "evidence": [
+            "H04",
+            "H09"
+          ]
+        },
+        {
+          "id": "C11",
+          "name": "ARPOB growth excluding the tariff benefit, Q1FY27",
+          "value": 3.8262910798122065,
+          "unit": "pp",
+          "formula": "ARPOB growth - benefit % (approx.)",
+          "inputs": [
+            "arpob_growth_yoy[]@Q1FY27",
+            "policy_benefit_pct[]@Q1FY27"
+          ],
+          "evidence": [
+            "H05",
+            "H09"
+          ]
+        }
+      ],
+      "counterargument": {
+        "text": "Management has a dated fix: 'Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27' (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test. Also: The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. New-capacity costs are a second, smaller drag on margins cited in the same note. Management's position: \"Impact is structural unless CGHS terms improve; in discussion with government on below-cost supply.\" \"Oncology growth to normalise from Q3 FY27, fully by Q4 FY27.\"",
+        "evidence": [
+          "H01",
+          "H09",
+          "H10"
+        ],
+        "check": "temporary"
+      },
+      "falsification": [
+        {
+          "condition": "Oncology back to \u226526% of inpatient revenue by Dec 2026 (management's own normalisation date) without a change in payor terms: that would point to case-mix, not policy.",
+          "monitor": "quarterly investor presentation (specialty mix)",
+          "evidence": [
+            "H01"
+          ]
+        },
+        {
+          "condition": "The payor relaxes its terms (a new order or memorandum) and the specialty share recovers: confirms the mechanism but ends the drag.",
+          "monitor": "CGHS orders and memoranda",
+          "evidence": []
+        },
+        {
+          "condition": "Ex-oncology growth converges to reported growth (gap under one percentage point) for two quarters: the policy effect has washed out of the base.",
+          "monitor": "quarterly results",
+          "evidence": []
+        }
+      ],
+      "strength": {
+        "grade": "Moderate",
+        "score": 0.614,
+        "reasons": [
+          "9 sources across 9 independent families (aggregator:sahi, broker:axis direct, company, media:business standard, media:gurufocus via investing.com, media:healthcare executive, media:investing.com, media:outlook money, media:theprint).",
+          "No primary filing in the support set: grade capped.",
+          "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+          "Skeptic: 4 checks survived, 3 weakened (temporary, low_margin, new_capacity), 0 refuted.",
+          "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).",
+          "1 source conflict(s) resolved by hierarchy; see audit log."
+        ]
+      },
+      "scores": {
+        "materiality": 0.7,
+        "evidence": 0.614,
+        "novelty": 0.95,
+        "robustness": 0.64,
+        "total": 0.753
+      },
+      "novelty_why": [
+        "joins 8 non-company source families to the company's own disclosures",
+        "a third-party record leads the company's own disclosure by 417 days",
+        "rests on 6 derived calculations no single source states"
+      ],
+      "checks": [
+        {
+          "name": "sector_wide",
+          "question": "Is this a sector story? Do peers show the same move in the same period?",
+          "verdict": "survives",
+          "detail": "Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%).",
+          "evidence": [
+            "H19"
+          ]
+        },
+        {
+          "name": "one_off",
+          "question": "Is the driver labelled one-time (shelf-stock adjustment, provision, settlement) so it reverses next year?",
+          "verdict": "survives",
+          "detail": "No one-time item is attached to the figures behind this hypothesis.",
+          "evidence": []
+        },
+        {
+          "name": "temporary",
+          "question": "Has management given a dated remediation / resupply plan that would reverse the effect?",
+          "verdict": "weakens",
+          "detail": "Management has a dated fix: 'Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27' (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test.",
+          "evidence": [
+            "H01",
+            "H10",
+            "H01"
+          ]
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "survives",
+          "detail": "None of 2 headlines in the ledger connects these facts (oncology, cghs, arpob).",
+          "evidence": [
+            "H22",
+            "H23"
+          ]
+        },
+        {
+          "name": "low_margin",
+          "question": "Does the revenue effect overstate the profit effect?",
+          "verdict": "weakens",
+          "detail": "The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. Source: \"Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management h...\"",
+          "evidence": [
+            "H10"
+          ]
+        },
+        {
+          "name": "occupancy",
+          "question": "Is it an occupancy / volume effect rather than a price or payor effect?",
+          "verdict": "survives",
+          "detail": "Occupancy held in a 74-75% band across Q3FY26-Q1FY27; a volume collapse does not explain the unit-price stall.",
+          "evidence": [
+            "H08",
+            "H07",
+            "H05"
+          ]
+        },
+        {
+          "name": "new_capacity",
+          "question": "Is it dilution from newly commissioned (low-occupancy) capacity?",
+          "verdict": "weakens",
+          "detail": "New-capacity costs are a second, smaller drag on margins cited in the same note. Source: Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after re...",
+          "evidence": [
+            "H09"
+          ]
+        }
+      ],
+      "verification": {
+        "numbers_checked": 28,
+        "numbers_unmatched": [],
+        "citations_checked": 15,
+        "citations_broken": [],
+        "families_for_discovery": [
+          "aggregator:sahi",
+          "broker:axis direct",
+          "company",
+          "media:business standard",
+          "media:gurufocus via investing.com",
+          "media:healthcare executive",
+          "media:investing.com",
+          "media:outlook money",
+          "media:theprint"
+        ],
+        "passed": true,
+        "notes": []
+      },
+      "role": "primary"
+    },
+    {
+      "hypothesis": "H2",
+      "angle": "capacity_gap",
+      "brief_question": "X",
+      "brief_text": "Additional angle chosen by the agent",
+      "title": "Announced capacity is running well ahead of commissioned capacity",
+      "discovery": "Max Healthcare Institute's bed plan is running far ahead of its builds: operational beds rose 630 in the year to Q1FY27 (to 5,379), but the 9,000\u20139,500 target for FY28 needs 2,066\u20132,351 a year, 3.3\u20133.7x the current pace, and the target has been restated 3 times.",
+      "discovery_evidence": [
+        "H05",
+        "H14",
+        "H15",
+        "H16",
+        "H18"
+      ],
+      "why_it_matters": [
+        "Hospital earnings follow commissioned beds, not announced ones; consensus built on the headline target overstates the near-term run-rate.",
+        "The gap leaves 21 months to add 3,621\u20134,121 beds.",
+        "Dated delays (clearances) are on record, so part of the gap is execution, not just phasing.",
+        "New beds start at low occupancy and carry pre-commissioning costs, so an accelerated build would dilute margins first."
+      ],
+      "key_numbers": [
+        {
+          "label": "Operational beds",
+          "value": "5,379",
+          "sub": "+630 in 12 months to Q1FY27"
+        },
+        {
+          "label": "Needed per year to FY28",
+          "value": "2,066\u20132,351",
+          "sub": "for 9,000\u20139,500 beds"
+        },
+        {
+          "label": "Acceleration required",
+          "value": "3.3\u20133.7x",
+          "sub": "vs trailing 12-month pace"
+        }
+      ],
+      "evidence_trail": [
+        {
+          "evidence": [
+            "H18"
+          ],
+          "text": "In Nagpur, a 170-bed expansion is in progress, with 12 beds already commissioned; the remaining beds are pending environmental clearance. The 550-bed Vikrant Saket project is awaiting forest department clearance, with completion expected by FY28.",
+          "source": "Max Healthcare Institute research report",
+          "publisher": "Way2Wealth",
+          "type": "broker",
+          "family": "broker:way2wealth",
+          "date": "2025-05-26",
+          "url": "https://www.way2wealth.com/Reports/RR26052025fa75e.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H14"
+          ],
+          "text": "The company is planning to scale up its bed capacity from 5,000 in FY25 to 9,000-9,500 by FY28; on track to add over 3,000 beds between FY26 and FY28 (~2,100 brownfield and 900 greenfield); about 6,769 beds projected at end-FY27.",
+          "source": "Max Healthcare Institute company update, Dec 2025",
+          "publisher": "HDFC Securities",
+          "type": "broker",
+          "family": "broker:hdfc securities",
+          "date": "2025-12-29",
+          "url": "https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H15"
+          ],
+          "text": "By 2028, it will go up to about 9,500, said Soi.",
+          "source": "Max Healthcare builds growth runway with brownfield expansion push",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2025-11-21",
+          "url": "https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H16"
+          ],
+          "text": "Max Healthcare has announced a Rs 6,000 crore plan to add over 10,000 beds across India within two to four years, funded entirely through internal cash.",
+          "source": "Max Healthcare plans 10,000-bed expansion drive",
+          "publisher": "DistilINFO",
+          "type": "media",
+          "family": "media:distilinfo",
+          "date": "2026-04-16",
+          "url": "https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H05"
+          ],
+          "text": "Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex.",
+          "source": "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore",
+          "publisher": "Sahi",
+          "type": "aggregator",
+          "family": "aggregator:sahi",
+          "date": "2026-08",
+          "url": "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H01"
+          ],
+          "text": "Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology's share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027.",
+          "source": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+          "publisher": "Investing.com",
+          "type": "media",
+          "family": "media:investing.com",
+          "date": "2026-08",
+          "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H04"
+          ],
+          "text": "Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27.",
+          "source": "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr",
+          "publisher": "Healthcare Executive",
+          "type": "media",
+          "family": "media:healthcare executive",
+          "date": "2026-08",
+          "url": "https://www.healthcareexecutive.in/blog/max-healthcare-q1",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H07"
+          ],
+          "text": "Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k.",
+          "source": "Max Healthcare Q4 FY26: brownfield expansions ramp up",
+          "publisher": "Multibagg",
+          "type": "aggregator",
+          "family": "aggregator:multibagg",
+          "date": "2026-05",
+          "url": "https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H08"
+          ],
+          "text": "Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year.",
+          "source": "Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr",
+          "publisher": "Investywise",
+          "type": "aggregator",
+          "family": "aggregator:investywise",
+          "date": "2026-02",
+          "url": "https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H09"
+          ],
+          "text": "Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY.",
+          "source": "Max Healthcare Q3FY26 Result Update",
+          "publisher": "Axis Direct",
+          "type": "broker",
+          "family": "broker:axis direct",
+          "date": "2026-02-09",
+          "url": "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H17"
+          ],
+          "text": "Project timelines: Max Smart 400-bed tower 50% operational, rest in current quarter; 100 beds Max Lucknow (next two quarters); 500 beds Sector 56 Gurgaon (phased by year-end); 250 beds Bhubaneswar (renovation within 12 months); 100 beds Nagpur (by FY28); 400 beds Zirakpur, Mohali (by FY28).",
+          "source": "Max Healthcare Q1 FY27 earnings call transcript summary",
+          "publisher": "Investywise",
+          "type": "aggregator",
+          "family": "aggregator:investywise",
+          "date": "2026-08",
+          "url": "https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H20"
+          ],
+          "text": "The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%.",
+          "source": "Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-02-05",
+          "url": "https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H22"
+          ],
+          "text": "Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk.",
+          "source": "Max Health stock hits a 52-week low as margins face pressure",
+          "publisher": "ad-hoc-news (DSIJ)",
+          "type": "media",
+          "family": "media:ad-hoc-news (dsij)",
+          "date": "2026-08",
+          "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "H23"
+          ],
+          "text": "Apollo scores over Max with a strong revenue, margin outperformance in Q1.",
+          "source": "Apollo scores over Max with a strong revenue, margin outperformance in Q1",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-08-16",
+          "url": "https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        }
+      ],
+      "timeline": [
+        {
+          "date": "2025-05-26",
+          "label": "26 May 2025",
+          "kind": "operations",
+          "actor": "company",
+          "title": "Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)",
+          "evidence": [
+            "H18"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2025-11-21",
+          "label": "21 Nov 2025",
+          "kind": "guidance",
+          "actor": "company",
+          "title": "Chairman: about 9,500 beds by 2028",
+          "evidence": [
+            "H15"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2025-12-29",
+          "label": "29 Dec 2025",
+          "kind": "guidance",
+          "actor": "broker",
+          "title": "Plan restated: 9,000-9,500 beds by FY28 (6,769 by end-FY27)",
+          "evidence": [
+            "H14"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-02-05",
+          "label": "5 Feb 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q3 FY26: ARPOB +2.6%, occupancy 74%, margin 26.1% (vs 27.3%); oncology drag attributed to CGHS pricing",
+          "evidence": [
+            "H08",
+            "H09",
+            "H20"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-04-16",
+          "label": "16 Apr 2026",
+          "kind": "guidance",
+          "actor": "company",
+          "title": "Target raised again: 10,000+ beds within 2-4 years, Rs 6,000 cr capex",
+          "evidence": [
+            "H16"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-05",
+          "label": "May 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q4 FY26: ARPOB flat at Rs 77.9k; FY26 operational beds 4,966 (+312)",
+          "evidence": [
+            "H07"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-08",
+          "label": "Aug 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q1 FY27: oncology 22% of IP revenue (26%); ex-oncology growth 20% vs 16%; ARPOB +5% incl. CGHS tariff benefit; beds 5,379",
+          "evidence": [
+            "H01",
+            "H04",
+            "H05",
+            "H09"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        }
+      ],
+      "numbers": [
+        {
+          "id": "C3",
+          "name": "Net beds added in 12 months to Q1FY27",
+          "value": 630,
+          "unit": "beds",
+          "formula": "beds[t] - beds[t-1y]",
+          "inputs": [
+            "beds_operational[]@Q1FY27",
+            "beds_operational[]@Q1FY26"
+          ],
+          "evidence": [
+            "H05"
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "Required net beds per year to reach 9,000 by FY28 (low)",
+          "value": 2065.863708399366,
+          "unit": "beds/yr",
+          "formula": "(target - current) x 12 / months_left",
+          "inputs": [
+            "beds_target[FY28,low]@Q3FY26",
+            "beds_operational[]@Q1FY27"
+          ],
+          "evidence": [
+            "H05",
+            "H14"
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "Acceleration needed vs trailing run-rate (low)",
+          "value": 3.279148743491057,
+          "unit": "x",
+          "formula": "required / trailing",
+          "inputs": [
+            "C4",
+            "C3"
+          ],
+          "evidence": [
+            "H05",
+            "H14"
+          ]
+        },
+        {
+          "id": "C6",
+          "name": "Required net beds per year to reach 9,500 by FY28 (high)",
+          "value": 2351.1251980982565,
+          "unit": "beds/yr",
+          "formula": "(target - current) x 12 / months_left",
+          "inputs": [
+            "beds_target[FY28,high]@Q3FY26",
+            "beds_operational[]@Q1FY27"
+          ],
+          "evidence": [
+            "H05",
+            "H14"
+          ]
+        },
+        {
+          "id": "C7",
+          "name": "Acceleration needed vs trailing run-rate (high)",
+          "value": 3.7319447588861214,
+          "unit": "x",
+          "formula": "required / trailing",
+          "inputs": [
+            "C6",
+            "C3"
+          ],
+          "evidence": [
+            "H05",
+            "H14"
+          ]
+        }
+      ],
+      "counterargument": {
+        "text": "No alternative explanation weakened the finding.",
+        "evidence": [],
+        "check": null
+      },
+      "falsification": [
+        {
+          "condition": "Operational beds reach 6,928 within 9 months (the run-rate the low target requires).",
+          "monitor": "quarterly operational bed count",
+          "evidence": []
+        },
+        {
+          "condition": "Management formally phases the target out beyond the stated year (which resolves the gap by moving the goalpost).",
+          "monitor": "investor presentations",
+          "evidence": []
+        }
+      ],
+      "strength": {
+        "grade": "Moderate",
+        "score": 0.633,
+        "reasons": [
+          "5 sources across 5 independent families (aggregator:sahi, broker:hdfc securities, broker:way2wealth, media:business standard, media:distilinfo).",
+          "No primary filing in the support set: grade capped.",
+          "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+          "Skeptic: 3 checks survived, 0 weakened (none), 0 refuted.",
+          "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept).",
+          "1 source conflict(s) resolved by hierarchy; see audit log."
+        ]
+      },
+      "scores": {
+        "materiality": 0.5697871858727642,
+        "evidence": 0.633,
+        "novelty": 0.8,
+        "robustness": 1.0,
+        "total": 0.734
+      },
+      "novelty_why": [
+        "joins 5 non-company source families to the company's own disclosures",
+        "rests on 5 derived calculations no single source states"
+      ],
+      "checks": [
+        {
+          "name": "inorganic",
+          "question": "Is the shift explained by an acquisition or divestment rather than the underlying business?",
+          "verdict": "survives",
+          "detail": "No acquisition or divestment in the ledger for the relevant segments.",
+          "evidence": []
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "survives",
+          "detail": "None of 2 headlines in the ledger connects these facts (beds, target, capacity).",
+          "evidence": [
+            "H22",
+            "H23"
+          ]
+        },
+        {
+          "name": "phasing",
+          "question": "Is the gap just phased commissioning that is on a published schedule?",
+          "verdict": "survives",
+          "detail": "Some of the gap is published phasing (4 project schedules), but 1 dated delay(s) are on record: Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)",
+          "evidence": [
+            "H05",
+            "H14",
+            "H17"
+          ]
+        }
+      ],
+      "verification": {
+        "numbers_checked": 15,
+        "numbers_unmatched": [],
+        "citations_checked": 14,
+        "citations_broken": [],
+        "families_for_discovery": [
+          "aggregator:sahi",
+          "broker:hdfc securities",
+          "broker:way2wealth",
+          "media:business standard",
+          "media:distilinfo"
+        ],
+        "passed": true,
+        "notes": []
+      },
+      "role": "secondary"
+    }
+  ],
+  "verification": [
+    {
+      "numbers_checked": 28,
+      "numbers_unmatched": [],
+      "citations_checked": 15,
+      "citations_broken": [],
+      "families_for_discovery": [
+        "aggregator:sahi",
+        "broker:axis direct",
+        "company",
+        "media:business standard",
+        "media:gurufocus via investing.com",
+        "media:healthcare executive",
+        "media:investing.com",
+        "media:outlook money",
+        "media:theprint"
+      ],
+      "passed": true,
+      "notes": []
+    },
+    {
+      "numbers_checked": 15,
+      "numbers_unmatched": [],
+      "citations_checked": 14,
+      "citations_broken": [],
+      "families_for_discovery": [
+        "aggregator:sahi",
+        "broker:hdfc securities",
+        "broker:way2wealth",
+        "media:business standard",
+        "media:distilinfo"
+      ],
+      "passed": true,
+      "notes": []
+    }
+  ],
+  "ledger": {
+    "company": "Max Healthcare Institute",
+    "sources": {
+      "M01": {
+        "id": "M01",
+        "url": "https://www.investing.com/news/company-news/max-healthcare-q1-fy27-slides-revenue-jumps-16-amid-expansion-93CH-4859836",
+        "title": "Max Healthcare Q1 FY27 slides: revenue jumps 16% amid expansion",
+        "publisher": "Investing.com",
+        "type": "media",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:investing.com",
+        "rank": 3
+      },
+      "M02": {
+        "id": "M02",
+        "url": "https://ca.investing.com/news/company-news/max-healthcare-institute-ltd-bom543220-q1-2027-earnings-call-highlights-revenue-surges--4801246",
+        "title": "Max Healthcare Q1 2027 Earnings Call Highlights",
+        "publisher": "GuruFocus via Investing.com",
+        "type": "media",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:gurufocus via investing.com",
+        "rank": 3
+      },
+      "M03": {
+        "id": "M03",
+        "url": "https://www.kotakneo.com/news/stocks/max-healthcare-q1-fy27-results-revenue-pat-kalinga-hospital/",
+        "title": "Max Healthcare Q1 FY27 Results: Revenue Rises 16%",
+        "publisher": "Kotak Neo",
+        "type": "aggregator",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:kotak neo",
+        "rank": 4
+      },
+      "M04": {
+        "id": "M04",
+        "url": "https://www.healthcareexecutive.in/blog/max-healthcare-q1",
+        "title": "Max Healthcare Q1 revenue rises 16% YoY to Rs 2,982 Cr",
+        "publisher": "Healthcare Executive",
+        "type": "media",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:healthcare executive",
+        "rank": 3
+      },
+      "M05": {
+        "id": "M05",
+        "url": "https://www.sahi.com/news/max-healthcare-anticipates-net-debt-rise-by-fy27-on-capex-currently-at-2-384-crore-3326-PE1_COR",
+        "title": "Max Healthcare anticipates net debt rise by FY27 on capex, currently at Rs 2,384 crore",
+        "publisher": "Sahi",
+        "type": "aggregator",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:sahi",
+        "rank": 4
+      },
+      "M06": {
+        "id": "M06",
+        "url": "https://www.multibagg.ai/market-pulse/articles/max-q1fy27-98095",
+        "title": "Max Healthcare Q1 FY27: network absorbs new beds and acquisitions",
+        "publisher": "Multibagg",
+        "type": "aggregator",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:multibagg",
+        "rank": 4
+      },
+      "M07": {
+        "id": "M07",
+        "url": "https://www.multibagg.ai/market-pulse/articles/max-q4fy26-94589",
+        "title": "Max Healthcare Q4 FY26: brownfield expansions ramp up",
+        "publisher": "Multibagg",
+        "type": "aggregator",
+        "published": "2026-05",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:multibagg",
+        "rank": 4
+      },
+      "M08": {
+        "id": "M08",
+        "url": "https://www.investywise.com/max-healthcare-reports-strong-q3-fy26-results/",
+        "title": "Max Healthcare Q3 FY26 Revenue Rises 10% to Rs 2,608 Cr",
+        "publisher": "Investywise",
+        "type": "aggregator",
+        "published": "2026-02",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:investywise",
+        "rank": 4
+      },
+      "M09": {
+        "id": "M09",
+        "url": "https://simplehai.axisdirect.in/app/index.php/insights/reports/downloadReport/file/Max+Healthcare+Institute+Ltd+-+Q3FY26+Result+Update+-+09022026_09-02-2026_10.pdf/type/fundamental",
+        "title": "Max Healthcare Q3FY26 Result Update",
+        "publisher": "Axis Direct",
+        "type": "broker",
+        "published": "2026-02-09",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "broker:axis direct",
+        "rank": 3
+      },
+      "M10": {
+        "id": "M10",
+        "url": "https://www.alphaspread.com/security/nse/maxhealth/investor-relations/earnings-call/q3-2026",
+        "title": "MAXHEALTH Q3 FY26 earnings call",
+        "publisher": "Alpha Spread (call transcript)",
+        "type": "transcript",
+        "published": "2026-02",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 2
+      },
+      "M11": {
+        "id": "M11",
+        "url": "https://theprint.in/health/govt-tightens-drug-billing-norm-for-cghs-claims-what-new-rule-is-why-pvt-hospitals-are-pushing-back/2654907/",
+        "title": "Govt tightens drug billing norm for CGHS claims; why private hospitals are pushing back",
+        "publisher": "ThePrint",
+        "type": "media",
+        "published": "2025-01",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:theprint",
+        "rank": 3
+      },
+      "M12": {
+        "id": "M12",
+        "url": "https://www.outlookmoney.com/personal-finance/cghs-rates-revised-know-changes-and-benefits-effective-october-13-2025",
+        "title": "CGHS rates revised: changes effective October 13, 2025",
+        "publisher": "Outlook Money",
+        "type": "media",
+        "published": "2025-10",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:outlook money",
+        "rank": 3
+      },
+      "M13": {
+        "id": "M13",
+        "url": "https://www.business-standard.com/india-news/centre-revises-cghs-rates-hospitals-welcome-tier-based-structure-125100500385_1.html",
+        "title": "Centre revises CGHS rates; hospitals welcome tier-based structure",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2025-10-05",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "M14": {
+        "id": "M14",
+        "url": "https://www.hdfcsec.com/hsl.docs//Max%20Healthcare%20-%20Update%20-%20Dec%2025%20-%20HSIE-202512291419140239694.pdf",
+        "title": "Max Healthcare Institute company update, Dec 2025",
+        "publisher": "HDFC Securities",
+        "type": "broker",
+        "published": "2025-12-29",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "broker:hdfc securities",
+        "rank": 3
+      },
+      "M15": {
+        "id": "M15",
+        "url": "https://www.business-standard.com/amp/markets/news/max-healthcare-expansion-gains-outlook-125112100962_1.html",
+        "title": "Max Healthcare builds growth runway with brownfield expansion push",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2025-11-21",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "M16": {
+        "id": "M16",
+        "url": "https://distilinfo.com/2026/04/16/max-healthcare-plans-10000-bed-expansion-drive/",
+        "title": "Max Healthcare plans 10,000-bed expansion drive",
+        "publisher": "DistilINFO",
+        "type": "media",
+        "published": "2026-04-16",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:distilinfo",
+        "rank": 3
+      },
+      "M17": {
+        "id": "M17",
+        "url": "https://www.investywise.com/max-healthcare-q1-fy27-earnings-call-transcript/",
+        "title": "Max Healthcare Q1 FY27 earnings call transcript summary",
+        "publisher": "Investywise",
+        "type": "aggregator",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:investywise",
+        "rank": 4
+      },
+      "M18": {
+        "id": "M18",
+        "url": "https://www.way2wealth.com/Reports/RR26052025fa75e.pdf",
+        "title": "Max Healthcare Institute research report",
+        "publisher": "Way2Wealth",
+        "type": "broker",
+        "published": "2025-05-26",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "broker:way2wealth",
+        "rank": 3
+      },
+      "M19": {
+        "id": "M19",
+        "url": "https://www.investing.com/news/company-news/apollo-hospitals-q1-fy27-slides-margins-expand-digital-losses-narrow-93CH-4857308",
+        "title": "Apollo Hospitals Q1 FY27 slides: margins expand, digital losses narrow",
+        "publisher": "Investing.com",
+        "type": "media",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:investing.com",
+        "rank": 3
+      },
+      "M20": {
+        "id": "M20",
+        "url": "https://www.business-standard.com/companies/quarterly-results/max-healthcare-q3-pat-up-26-revenue-rises-10-despite-margin-compression-126020501597_1.html",
+        "title": "Max Healthcare Q3 PAT up 26%, revenue rises 10% despite margin compression",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-02-05",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "M21": {
+        "id": "M21",
+        "url": "https://www.ad-hoc-news.de/boerse/news/corporate-news/max-health-stock-hits-a-52-week-low-as-margins-face-pressure/70254171",
+        "title": "Max Health stock hits a 52-week low as margins face pressure",
+        "publisher": "ad-hoc-news (DSIJ)",
+        "type": "media",
+        "published": "2026-08",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:ad-hoc-news (dsij)",
+        "rank": 3
+      },
+      "M22": {
+        "id": "M22",
+        "url": "https://www.business-standard.com/companies/quarterly-results/apollo-hospitals-max-healthcare-q1-revenue-margin-outperformance-126081600047_1.html",
+        "title": "Apollo scores over Max with a strong revenue, margin outperformance in Q1",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-08-16",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      }
+    },
+    "evidence": {
+      "H01": {
+        "id": "H01",
+        "source": "M01",
+        "kind": "quote",
+        "text": "Management attributed the oncology decline to the discontinuation of certain high-value chemotherapy drugs for institutional patients, a decision made in mid-Q3 of the prior fiscal year. Excluding oncology, gross revenue grew 20% year on year. Oncology's share of inpatient revenue fell to 22% from 26%. Management expects oncology growth to begin normalizing in Q3 FY2027 and be fully normalized by Q4 FY2027.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H02": {
+        "id": "H02",
+        "source": "M02",
+        "kind": "quote",
+        "text": "The company's large CGHS and institutional business made it more exposed than peers to the discontinuation of high-value chemotherapy drugs.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H03": {
+        "id": "H03",
+        "source": "M03",
+        "kind": "figure",
+        "text": "Excluding oncology, gross revenue grew 20% year on year.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H04": {
+        "id": "H04",
+        "source": "M04",
+        "kind": "figure",
+        "text": "Gross revenue was Rs 2,982 crore, up 16% year on year, and operating EBITDA was Rs 704 crore, up 15%. Occupied bed days grew 10%. At Max Smart, 202 beds in the new tower were operational, with the remaining 198 due in Q2 FY27.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H05": {
+        "id": "H05",
+        "source": "M05",
+        "kind": "figure",
+        "text": "Operational bed capacity increased by 630 net operational beds YoY to reach 5,379 operational beds by the end of June 2026. Bed occupancy was about 75%; ARPOB increased to Rs 81.9k, up 5% year on year. Net debt Rs 2,384 crore, expected to rise by FY27 on capex.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H06": {
+        "id": "H06",
+        "source": "M06",
+        "kind": "figure",
+        "text": "Profit after tax was Rs 357 crore, up 3%.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H07": {
+        "id": "H07",
+        "source": "M07",
+        "kind": "figure",
+        "text": "Operational bed capacity went up from 4,654 beds at end of FY25 to 4,966 beds at end of FY26. Overall occupancy stood at 76% in FY26 vs 74% in FY25. Q4: bed occupancy remained at 75%, occupied bed days grew 8%; ARPOB stayed broadly flat at INR 77.9k.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H08": {
+        "id": "H08",
+        "source": "M08",
+        "kind": "figure",
+        "text": "Revenue rose 10% YoY to Rs 2,608 Cr; network operating EBITDA grew 4% to Rs 648 Cr; occupancy 74% (down from 75% YoY and 77% QoQ); ARPOB Rs 77,900, up from Rs 75,900 in the same quarter last year.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H09": {
+        "id": "H09",
+        "source": "M09",
+        "kind": "quote",
+        "text": "Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after restrictive pricing guidelines from the Central Government Health Scheme (CGHS), and pre-commissioning expenses for new capacity. Recent revisions to CGHS tariffs are expected to have a sustained positive impact of approximately INR 140 crores annually, with the full benefit expected from Q1 FY27. ARPOB Rs 77,900, up 2.6% YoY.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H10": {
+        "id": "H10",
+        "source": "M10",
+        "kind": "claim",
+        "text": "Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management has been in ongoing discussions with the government over below-cost supply requirements and expects the impact to be structural unless terms improve.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H11": {
+        "id": "H11",
+        "source": "M11",
+        "kind": "event",
+        "text": "The CGHS wing told empanelled hospitals to either accept medicines CGHS supplies or provide a purchase invoice for them (December 2024 order). AHPI planned to ask the government to withdraw the order, saying it squeezes hospital margins, particularly in high-cost cancer treatment.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H12": {
+        "id": "H12",
+        "source": "M12",
+        "kind": "event",
+        "text": "The Ministry of Health and Family Welfare issued the office memorandum on October 3, 2025; revised CGHS package rates for nearly 2,000 procedures took effect October 13, 2025. Cancer surgeries continue under the old rules, but chemotherapy, radiotherapy and related tests now follow the revised rates.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H13": {
+        "id": "H13",
+        "source": "M13",
+        "kind": "context",
+        "text": "Centre revises CGHS rates; first major revamp since 2014; hospitals welcome tier-based structure.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H14": {
+        "id": "H14",
+        "source": "M14",
+        "kind": "figure",
+        "text": "The company is planning to scale up its bed capacity from 5,000 in FY25 to 9,000-9,500 by FY28; on track to add over 3,000 beds between FY26 and FY28 (~2,100 brownfield and 900 greenfield); about 6,769 beds projected at end-FY27.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H15": {
+        "id": "H15",
+        "source": "M15",
+        "kind": "quote",
+        "text": "By 2028, it will go up to about 9,500, said Soi.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H16": {
+        "id": "H16",
+        "source": "M16",
+        "kind": "claim",
+        "text": "Max Healthcare has announced a Rs 6,000 crore plan to add over 10,000 beds across India within two to four years, funded entirely through internal cash.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H17": {
+        "id": "H17",
+        "source": "M17",
+        "kind": "figure",
+        "text": "Project timelines: Max Smart 400-bed tower 50% operational, rest in current quarter; 100 beds Max Lucknow (next two quarters); 500 beds Sector 56 Gurgaon (phased by year-end); 250 beds Bhubaneswar (renovation within 12 months); 100 beds Nagpur (by FY28); 400 beds Zirakpur, Mohali (by FY28).",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H18": {
+        "id": "H18",
+        "source": "M18",
+        "kind": "event",
+        "text": "In Nagpur, a 170-bed expansion is in progress, with 12 beds already commissioned; the remaining beds are pending environmental clearance. The 550-bed Vikrant Saket project is awaiting forest department clearance, with completion expected by FY28.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H19": {
+        "id": "H19",
+        "source": "M19",
+        "kind": "figure",
+        "text": "Apollo Q1 FY27: occupancy rose to 70% from 65%; average revenue per patient rose 8% driven by favorable case mix and specialty growth.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H20": {
+        "id": "H20",
+        "source": "M20",
+        "kind": "figure",
+        "text": "The Delhi-based hospital chain posted a net profit of Rs 301 crore in Q3, up 26%.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H21": {
+        "id": "H21",
+        "source": "M08",
+        "kind": "figure",
+        "text": "PAT increased by 9% to Rs 344 Cr.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H22": {
+        "id": "H22",
+        "source": "M21",
+        "kind": "headline",
+        "text": "Max Health stock hits a 52-week low as margins face pressure; price caps listed as a risk.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H23": {
+        "id": "H23",
+        "source": "M22",
+        "kind": "headline",
+        "text": "Apollo scores over Max with a strong revenue, margin outperformance in Q1.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "H24": {
+        "id": "H24",
+        "source": "M09",
+        "kind": "context",
+        "text": "Reported PAT of Rs 344 crore included a one-time labour provision of Rs 55 crore; adjusted PAT Rs 399 crore.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      }
+    },
+    "observations": [
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_operational",
+        "period": "FY25",
+        "value": 4654,
+        "unit": "beds",
+        "evidence": "H07",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_operational",
+        "period": "FY26",
+        "value": 4966,
+        "unit": "beds",
+        "evidence": "H07",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_operational",
+        "period": "Q1FY27",
+        "value": 5379,
+        "unit": "beds",
+        "evidence": "H05",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_operational",
+        "period": "Q1FY26",
+        "value": 4749,
+        "unit": "beds",
+        "evidence": "H05",
+        "dims": {},
+        "derived": true,
+        "tolerance": 0.0,
+        "note": "5,379 less 630 net additions YoY"
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_target",
+        "period": "Q3FY26",
+        "value": 9000,
+        "unit": "beds",
+        "evidence": "H14",
+        "dims": {
+          "by": "FY28",
+          "bound": "low"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "beds_target",
+        "period": "Q3FY26",
+        "value": 9500,
+        "unit": "beds",
+        "evidence": "H14",
+        "dims": {
+          "by": "FY28",
+          "bound": "high"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "occupancy",
+        "period": "Q3FY26",
+        "value": 74,
+        "unit": "%",
+        "evidence": "H08",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "occupancy",
+        "period": "Q4FY26",
+        "value": 75,
+        "unit": "%",
+        "evidence": "H07",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "occupancy",
+        "period": "Q1FY27",
+        "value": 75,
+        "unit": "%",
+        "evidence": "H05",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob",
+        "period": "Q3FY25",
+        "value": 75.9,
+        "unit": "INR_k",
+        "evidence": "H08",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob",
+        "period": "Q3FY26",
+        "value": 77.9,
+        "unit": "INR_k",
+        "evidence": "H08",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob",
+        "period": "Q4FY26",
+        "value": 77.9,
+        "unit": "INR_k",
+        "evidence": "H07",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob",
+        "period": "Q1FY27",
+        "value": 81.9,
+        "unit": "INR_k",
+        "evidence": "H05",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob_growth_yoy",
+        "period": "Q3FY26",
+        "value": 2.6,
+        "unit": "%",
+        "evidence": "H09",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob_growth_yoy",
+        "period": "Q4FY26",
+        "value": 0.0,
+        "unit": "%",
+        "evidence": "H07",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "reported as broadly flat"
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "arpob_growth_yoy",
+        "period": "Q1FY27",
+        "value": 5.0,
+        "unit": "%",
+        "evidence": "H05",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "revenue_growth_yoy",
+        "period": "Q1FY27",
+        "value": 16,
+        "unit": "%",
+        "evidence": "H04",
+        "dims": {
+          "basis": "reported"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "revenue_growth_yoy",
+        "period": "Q1FY27",
+        "value": 20,
+        "unit": "%",
+        "evidence": "H01",
+        "dims": {
+          "basis": "ex_oncology"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "specialty_share_ip",
+        "period": "Q1FY26",
+        "value": 26,
+        "unit": "%",
+        "evidence": "H01",
+        "dims": {
+          "specialty": "oncology"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "specialty_share_ip",
+        "period": "Q1FY27",
+        "value": 22,
+        "unit": "%",
+        "evidence": "H01",
+        "dims": {
+          "specialty": "oncology"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "revenue_total",
+        "period": "Q1FY27",
+        "value": 29820,
+        "unit": "INR_mn",
+        "evidence": "H04",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "ebitda",
+        "period": "Q1FY27",
+        "value": 7040,
+        "unit": "INR_mn",
+        "evidence": "H04",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "net_profit",
+        "period": "Q1FY27",
+        "value": 3570,
+        "unit": "INR_mn",
+        "evidence": "H06",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "net_profit",
+        "period": "Q3FY26",
+        "value": 3010,
+        "unit": "INR_mn",
+        "evidence": "H20",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "ebitda_margin",
+        "period": "Q3FY26",
+        "value": 26.1,
+        "unit": "%",
+        "evidence": "H09",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "ebitda_margin",
+        "period": "Q3FY25",
+        "value": 27.3,
+        "unit": "%",
+        "evidence": "H09",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "policy_benefit_annual",
+        "period": "FY27",
+        "value": 1400,
+        "unit": "INR_mn",
+        "evidence": "H09",
+        "dims": {
+          "policy": "CGHS tariff revision"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Max Healthcare Institute",
+        "metric": "net_debt",
+        "period": "Q1FY27",
+        "value": 23840,
+        "unit": "INR_mn",
+        "evidence": "H05",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "peer:Apollo Hospitals",
+        "metric": "arpob_growth_yoy",
+        "period": "Q1FY27",
+        "value": 8.0,
+        "unit": "%",
+        "evidence": "H19",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "revenue per inpatient"
+      },
+      {
+        "entity": "peer:Apollo Hospitals",
+        "metric": "occupancy",
+        "period": "Q1FY27",
+        "value": 70,
+        "unit": "%",
+        "evidence": "H19",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      }
+    ],
+    "events": [
+      {
+        "date": "2024-12",
+        "kind": "policy",
+        "title": "CGHS order: empanelled hospitals must accept CGHS-supplied medicines or show purchase invoices; industry warns on cancer-care margins",
+        "evidence": [
+          "H11"
+        ],
+        "actor": "CGHS",
+        "subject": "medicine billing",
+        "tags": [
+          "CGHS",
+          "oncology",
+          "institutional"
+        ],
+        "date_precision": "month",
+        "short": "CGHS drug-billing order"
+      },
+      {
+        "date": "2025-05-26",
+        "kind": "operations",
+        "title": "Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)",
+        "evidence": [
+          "H18"
+        ],
+        "actor": "company",
+        "subject": "capacity",
+        "tags": [
+          "capacity",
+          "delay"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2025-10-13",
+        "kind": "policy",
+        "title": "Revised CGHS package rates take effect (OM of 3-Oct); chemotherapy moves to revised rates",
+        "evidence": [
+          "H12",
+          "H13"
+        ],
+        "actor": "CGHS",
+        "subject": "package rates",
+        "tags": [
+          "CGHS",
+          "oncology"
+        ],
+        "date_precision": "day",
+        "short": "CGHS package-rate revision"
+      },
+      {
+        "date": "2025-11",
+        "kind": "operations",
+        "title": "Stopped administering high-value patented chemotherapy to institutional (CGHS) patients",
+        "evidence": [
+          "H01",
+          "H09",
+          "H10"
+        ],
+        "actor": "company",
+        "subject": "oncology",
+        "tags": [
+          "oncology",
+          "institutional",
+          "CGHS",
+          "incident"
+        ],
+        "date_precision": "month",
+        "short": null
+      },
+      {
+        "date": "2025-11-21",
+        "kind": "guidance",
+        "title": "Chairman: about 9,500 beds by 2028",
+        "evidence": [
+          "H15"
+        ],
+        "actor": "company",
+        "subject": "capacity",
+        "tags": [
+          "capacity"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2025-12-29",
+        "kind": "guidance",
+        "title": "Plan restated: 9,000-9,500 beds by FY28 (6,769 by end-FY27)",
+        "evidence": [
+          "H14"
+        ],
+        "actor": "broker",
+        "subject": "capacity",
+        "tags": [
+          "capacity"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-02-05",
+        "kind": "results",
+        "title": "Q3 FY26: ARPOB +2.6%, occupancy 74%, margin 26.1% (vs 27.3%); oncology drag attributed to CGHS pricing",
+        "evidence": [
+          "H08",
+          "H09",
+          "H20"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "oncology",
+          "ARPOB"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-04-16",
+        "kind": "guidance",
+        "title": "Target raised again: 10,000+ beds within 2-4 years, Rs 6,000 cr capex",
+        "evidence": [
+          "H16"
+        ],
+        "actor": "company",
+        "subject": "capacity",
+        "tags": [
+          "capacity"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-05",
+        "kind": "results",
+        "title": "Q4 FY26: ARPOB flat at Rs 77.9k; FY26 operational beds 4,966 (+312)",
+        "evidence": [
+          "H07"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "ARPOB",
+          "capacity"
+        ],
+        "date_precision": "month",
+        "short": null
+      },
+      {
+        "date": "2026-08",
+        "kind": "results",
+        "title": "Q1 FY27: oncology 22% of IP revenue (26%); ex-oncology growth 20% vs 16%; ARPOB +5% incl. CGHS tariff benefit; beds 5,379",
+        "evidence": [
+          "H01",
+          "H04",
+          "H05",
+          "H09"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "oncology",
+          "ARPOB",
+          "CGHS",
+          "capacity"
+        ],
+        "date_precision": "month",
+        "short": null
+      },
+      {
+        "date": "2026-12",
+        "kind": "guidance",
+        "title": "Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27",
+        "evidence": [
+          "H01"
+        ],
+        "actor": "company",
+        "subject": "oncology",
+        "tags": [
+          "oncology",
+          "future"
+        ],
+        "date_precision": "quarter",
+        "short": null
+      }
+    ],
+    "links": [
+      {
+        "type": "payor",
+        "a": "company",
+        "b": "CGHS",
+        "evidence": [
+          "H02",
+          "H10"
+        ],
+        "product": "oncology",
+        "segment": null,
+        "note": "large CGHS / institutional book; high-value chemo for institutional patients discontinued"
+      }
+    ],
+    "claims": [
+      {
+        "speaker": "management",
+        "text": "Impact is structural unless CGHS terms improve; in discussion with government on below-cost supply.",
+        "evidence": "H10",
+        "topic": "oncology"
+      },
+      {
+        "speaker": "management",
+        "text": "Oncology growth to normalise from Q3 FY27, fully by Q4 FY27.",
+        "evidence": "H01",
+        "topic": "oncology"
+      },
+      {
+        "speaker": "broker",
+        "text": "CGHS tariff revision worth ~Rs 140 cr a year, full benefit from Q1 FY27.",
+        "evidence": "H09",
+        "topic": "cghs"
+      },
+      {
+        "speaker": "management",
+        "text": "Over 10,000 beds within two to four years, funded from internal cash.",
+        "evidence": "H16",
+        "topic": "capacity"
+      }
+    ],
+    "guidance": [],
+    "calcs": {
+      "C1": {
+        "id": "C1",
+        "name": "Growth gap ex_oncology vs reported, Q1FY27",
+        "formula": "growth[ex_oncology] - growth[reported]",
+        "inputs": [
+          "revenue_growth_yoy[ex_oncology]@Q1FY27",
+          "revenue_growth_yoy[reported]@Q1FY27"
+        ],
+        "value": 4,
+        "unit": "pp",
+        "evidence": [
+          "H01",
+          "H04"
+        ],
+        "note": null
+      },
+      "C2": {
+        "id": "C2",
+        "name": "oncology share change Q1FY26->Q1FY27",
+        "formula": "share[t] - share[t0]",
+        "inputs": [
+          "specialty_share_ip[oncology]@Q1FY27",
+          "specialty_share_ip[oncology]@Q1FY26"
+        ],
+        "value": -4,
+        "unit": "pp",
+        "evidence": [
+          "H01"
+        ],
+        "note": null
+      },
+      "C3": {
+        "id": "C3",
+        "name": "Net beds added in 12 months to Q1FY27",
+        "formula": "beds[t] - beds[t-1y]",
+        "inputs": [
+          "beds_operational[]@Q1FY27",
+          "beds_operational[]@Q1FY26"
+        ],
+        "value": 630,
+        "unit": "beds",
+        "evidence": [
+          "H05"
+        ],
+        "note": null
+      },
+      "C4": {
+        "id": "C4",
+        "name": "Required net beds per year to reach 9,000 by FY28 (low)",
+        "formula": "(target - current) x 12 / months_left",
+        "inputs": [
+          "beds_target[FY28,low]@Q3FY26",
+          "beds_operational[]@Q1FY27"
+        ],
+        "value": 2065.863708399366,
+        "unit": "beds/yr",
+        "evidence": [
+          "H05",
+          "H14"
+        ],
+        "note": null
+      },
+      "C5": {
+        "id": "C5",
+        "name": "Acceleration needed vs trailing run-rate (low)",
+        "formula": "required / trailing",
+        "inputs": [
+          "C4",
+          "C3"
+        ],
+        "value": 3.279148743491057,
+        "unit": "x",
+        "evidence": [
+          "H05",
+          "H14"
+        ],
+        "note": null
+      },
+      "C6": {
+        "id": "C6",
+        "name": "Required net beds per year to reach 9,500 by FY28 (high)",
+        "formula": "(target - current) x 12 / months_left",
+        "inputs": [
+          "beds_target[FY28,high]@Q3FY26",
+          "beds_operational[]@Q1FY27"
+        ],
+        "value": 2351.1251980982565,
+        "unit": "beds/yr",
+        "evidence": [
+          "H05",
+          "H14"
+        ],
+        "note": null
+      },
+      "C7": {
+        "id": "C7",
+        "name": "Acceleration needed vs trailing run-rate (high)",
+        "formula": "required / trailing",
+        "inputs": [
+          "C6",
+          "C3"
+        ],
+        "value": 3.7319447588861214,
+        "unit": "x",
+        "evidence": [
+          "H05",
+          "H14"
+        ],
+        "note": null
+      },
+      "C8": {
+        "id": "C8",
+        "name": "Implied oncology revenue growth, Q1FY27",
+        "formula": "(share1 / share0) x (1 + g) - 1",
+        "inputs": [
+          "specialty_share_ip[oncology]@Q1FY26",
+          "specialty_share_ip[oncology]@Q1FY27",
+          "revenue_growth_yoy[reported]@Q1FY27"
+        ],
+        "value": -1.846153846153853,
+        "unit": "%",
+        "evidence": [
+          "H01",
+          "H04"
+        ],
+        "note": null
+      },
+      "C9": {
+        "id": "C9",
+        "name": "Implied non-oncology revenue growth, Q1FY27",
+        "formula": "((1 - share1) / (1 - share0)) x (1 + g) - 1",
+        "inputs": [
+          "specialty_share_ip[oncology]@Q1FY26",
+          "specialty_share_ip[oncology]@Q1FY27",
+          "revenue_growth_yoy[reported]@Q1FY27"
+        ],
+        "value": 22.270270270270267,
+        "unit": "%",
+        "evidence": [
+          "H01",
+          "H04"
+        ],
+        "note": null
+      },
+      "C10": {
+        "id": "C10",
+        "name": "Policy tariff benefit as % of quarterly revenue",
+        "formula": "(annual benefit / 4) / quarterly revenue x 100",
+        "inputs": [
+          "policy_benefit_annual[CGHS tariff revision]@FY27",
+          "revenue_total[]@Q1FY27"
+        ],
+        "value": 1.1737089201877935,
+        "unit": "%",
+        "evidence": [
+          "H04",
+          "H09"
+        ],
+        "note": null
+      },
+      "C11": {
+        "id": "C11",
+        "name": "ARPOB growth excluding the tariff benefit, Q1FY27",
+        "formula": "ARPOB growth - benefit % (approx.)",
+        "inputs": [
+          "arpob_growth_yoy[]@Q1FY27",
+          "policy_benefit_pct[]@Q1FY27"
+        ],
+        "value": 3.8262910798122065,
+        "unit": "pp",
+        "evidence": [
+          "H05",
+          "H09"
+        ],
+        "note": null
+      }
+    },
+    "conflicts": [
+      {
+        "key": "net_profit[]@Q3FY26",
+        "reason": "kept 3010 from Business Standard (media, rank 3); dropped 3440 from Investywise (aggregator)",
+        "kept": {
+          "entity": "Max Healthcare Institute",
+          "metric": "net_profit",
+          "period": "Q3FY26",
+          "value": 3010,
+          "unit": "INR_mn",
+          "evidence": "H20",
+          "dims": {},
+          "derived": false,
+          "tolerance": 0.0,
+          "note": null
+        },
+        "dropped": [
+          {
+            "entity": "Max Healthcare Institute",
+            "metric": "net_profit",
+            "period": "Q3FY26",
+            "value": 3440,
+            "unit": "INR_mn",
+            "evidence": "H21",
+            "dims": {},
+            "derived": false,
+            "tolerance": 0.0,
+            "note": null
+          }
+        ]
+      }
+    ],
+    "trace": [
+      {
+        "stage": "harvest",
+        "action": "bundle-loaded",
+        "detail": "22 sources, 24 passages, 32 figures, 11 dated events from maxhealth.yaml",
+        "refs": []
+      },
+      {
+        "stage": "verify",
+        "action": "conflict-resolved",
+        "detail": "kept 3010 from Business Standard (media, rank 3); dropped 3440 from Investywise (aggregator)",
+        "refs": [
+          "H20",
+          "H21"
+        ]
+      },
+      {
+        "stage": "profile",
+        "action": "archetype",
+        "detail": "hospital (scores {'hospital': 0.868, 'formulations': 0.132, 'api_cdmo': 0.0, 'diagnostics': 0.0}); segments -; counterparties ['CGHS']; peers ['Apollo Hospitals']",
+        "refs": []
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:growth_gap",
+        "detail": "Growth ex oncology was 20% vs 16% reported in Q1FY27 (gap +4pp)",
+        "refs": [
+          "C1"
+        ]
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:specialty_share_shift",
+        "detail": "oncology share of specialty share ip moved 26% -> 22% (Q1FY26 -> Q1FY27)",
+        "refs": [
+          "C2"
+        ]
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:unit_price_stall",
+        "detail": "ARPOB growth fell to +0.0% YoY in Q4FY26 (series: Q3FY26 +2.6%, Q4FY26 +0.0%, Q1FY27 +5.0%)",
+        "refs": []
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:capacity_gap",
+        "detail": "Target 9,000 beds by FY28 needs 2,066/yr vs 630 added in the last 12 months (3.3x acceleration)",
+        "refs": [
+          "C3",
+          "C4",
+          "C5"
+        ]
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:capacity_gap",
+        "detail": "Target 9,500 beds by FY28 needs 2,351/yr vs 630 added in the last 12 months (3.7x acceleration)",
+        "refs": [
+          "C3",
+          "C6",
+          "C7"
+        ]
+      },
+      {
+        "stage": "plan",
+        "action": "angle:payor_policy",
+        "detail": "priority 1.0 [D2] Did a government payor or price-control change (CGHS/ECHS, PM-JAY, NPPA caps, drug-billing rules) hit revenue per bed or a specialty before coverage connected the two?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:capacity_gap",
+        "detail": "priority 1.0 [X] Do announced capacity additions (beds, reactors, sites) differ materially from what is actually commissioned, and what run-rate would the target require?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:narrative_gap",
+        "detail": "priority 0.58 [X] Is reported growth driven by something different from what management emphasises?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:working_capital_divergence",
+        "detail": "priority 0.4 [X] Do receivable / inventory trends tell a different story from revenue growth?",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:payor_policy",
+        "detail": "\"Max Healthcare Institute ARPOB decline reason institutional patients\" -> 4 sources",
+        "refs": [
+          "M01",
+          "M02",
+          "M03",
+          "M21"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:payor_policy",
+        "detail": "\"Max Healthcare Institute oncology revenue decline reason\" -> 4 sources",
+        "refs": [
+          "M01",
+          "M02",
+          "M03",
+          "M21"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:payor_policy",
+        "detail": "\"CGHS order empanelled hospitals medicines billing\" -> 1 sources",
+        "refs": [
+          "M11"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:payor_policy",
+        "detail": "\"CGHS package rates revision effective date\" -> 2 sources",
+        "refs": [
+          "M12",
+          "M13"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:payor_policy",
+        "detail": "\"Max Healthcare Institute institutional CGHS ECHS revenue share\" -> 1 sources",
+        "refs": [
+          "M07"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:capacity_gap",
+        "detail": "\"Max Healthcare Institute bed expansion plan target beds by FY29\" -> 5 sources",
+        "refs": [
+          "M14",
+          "M15",
+          "M16",
+          "M17",
+          "M18"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:capacity_gap",
+        "detail": "\"Max Healthcare Institute operational beds Q1FY27\" -> 5 sources",
+        "refs": [
+          "M01",
+          "M02",
+          "M04",
+          "M05",
+          "M06"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:capacity_gap",
+        "detail": "\"Max Healthcare Institute project delay clearance commissioning\" -> 5 sources",
+        "refs": [
+          "M01",
+          "M02",
+          "M04",
+          "M05",
+          "M06"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:narrative_gap",
+        "detail": "\"Max Healthcare Institute earnings call transcript Q1FY27 management commentary\" -> 4 sources",
+        "refs": [
+          "M08",
+          "M09",
+          "M10",
+          "M20"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:working_capital_divergence",
+        "detail": "\"Max Healthcare Institute trade receivables inventory annual report\" -> 4 sources",
+        "refs": [
+          "M01",
+          "M02",
+          "M03",
+          "M21"
+        ]
+      },
+      {
+        "stage": "hypothesis",
+        "action": "proposed:H1",
+        "detail": "[payor_policy] ARPOB growth slid to +2.6% (Q3FY26), +0.0% (Q4FY26), +5.0% (Q1FY27); the cause is a payor-policy change, not demand: after the CGHS order (Dec 2024), the company stopped administering high-value patented chemotherapy to institutional (CGHS) patients from Nov 2025; oncology fell from 26% to 22% of inpatient revenue, so reported growth (16%) understates the rest of the business (20%).",
+        "refs": [
+          "H01",
+          "H02",
+          "H04",
+          "H05",
+          "H09",
+          "H10"
+        ]
+      },
+      {
+        "stage": "hypothesis",
+        "action": "proposed:H2",
+        "detail": "[capacity_gap] Operational beds rose by 630 in the 12 months to Q1FY27 (to 5,379); reaching the 9,000\u20139,500 target by FY28 needs 2,066\u20132,351 beds a year, 3.3\u20133.7x the current pace, while the headline target has been restated 3 times.",
+        "refs": [
+          "H05",
+          "H14",
+          "H15",
+          "H16",
+          "H18"
+        ]
+      },
+      {
+        "stage": "hypothesis",
+        "action": "skip:narrative_gap",
+        "detail": "no deterministic template; LLM mode only",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "skip:working_capital_divergence",
+        "detail": "no deterministic template; LLM mode only",
+        "refs": []
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:sector_wide",
+        "detail": "SURVIVES - Company-specific: peers grew revenue per patient faster in the same quarter (Apollo Hospitals +8% vs +5%).",
+        "refs": [
+          "H19"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:one_off",
+        "detail": "SURVIVES - No one-time item is attached to the figures behind this hypothesis.",
+        "refs": []
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:temporary",
+        "detail": "WEAKENS - Management has a dated fix: 'Management expects oncology growth to normalise from Q3 FY27, fully by Q4 FY27' (Dec 2026). If it lands on time, the financial drag fades; this becomes a falsification test.",
+        "refs": [
+          "H01",
+          "H10",
+          "H01"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:already_mainstream",
+        "detail": "SURVIVES - None of 2 headlines in the ledger connects these facts (oncology, cghs, arpob).",
+        "refs": [
+          "H22",
+          "H23"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:low_margin",
+        "detail": "WEAKENS - The lost revenue is described as low-margin, so the earnings damage is smaller than the revenue damage. Source: \"Revenue from oncology declined because certain high-value, low-margin chemo drugs were discontinued after CGHS pricing changes. Management h...\"",
+        "refs": [
+          "H10"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:occupancy",
+        "detail": "SURVIVES - Occupancy held in a 74-75% band across Q3FY26-Q1FY27; a volume collapse does not explain the unit-price stall.",
+        "refs": [
+          "H08",
+          "H07",
+          "H05"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:new_capacity",
+        "detail": "WEAKENS - New-capacity costs are a second, smaller drag on margins cited in the same note. Source: Operating margin fell to 26.1% from 27.3%, driven by the discontinuation of high-value patented chemotherapy drugs for institutional patients after re...",
+        "refs": [
+          "H09"
+        ]
+      },
+      {
+        "stage": "score",
+        "action": "H1",
+        "detail": "total 0.753 (novelty 0.95, evidence 0.614 [Moderate], materiality 0.70, robustness 0.64)",
+        "refs": []
+      },
+      {
+        "stage": "skeptic",
+        "action": "H2:inorganic",
+        "detail": "SURVIVES - No acquisition or divestment in the ledger for the relevant segments.",
+        "refs": []
+      },
+      {
+        "stage": "skeptic",
+        "action": "H2:already_mainstream",
+        "detail": "SURVIVES - None of 2 headlines in the ledger connects these facts (beds, target, capacity).",
+        "refs": [
+          "H22",
+          "H23"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H2:phasing",
+        "detail": "SURVIVES - Some of the gap is published phasing (4 project schedules), but 1 dated delay(s) are on record: Project slippage visible: Nagpur (12 of 170 beds; environmental clearance) and Saket 550 beds (forest clearance)",
+        "refs": [
+          "H05",
+          "H14",
+          "H17"
+        ]
+      },
+      {
+        "stage": "score",
+        "action": "H2",
+        "detail": "total 0.734 (novelty 0.8, evidence 0.633 [Moderate], materiality 0.57, robustness 1.00)",
+        "refs": []
+      },
+      {
+        "stage": "verify",
+        "action": "discovery",
+        "detail": "numbers 28 checked, unmatched none; citations 15, broken none; families ['aggregator:sahi', 'broker:axis direct', 'company', 'media:business standard', 'media:gurufocus via investing.com', 'media:healthcare executive', 'media:investing.com', 'media:outlook money', 'media:theprint']",
+        "refs": []
+      },
+      {
+        "stage": "verify",
+        "action": "discovery",
+        "detail": "numbers 15 checked, unmatched none; citations 14, broken none; families ['aggregator:sahi', 'broker:hdfc securities', 'broker:way2wealth', 'media:business standard', 'media:distilinfo']",
+        "refs": []
+      },
+      {
+        "stage": "select",
+        "action": "done",
+        "detail": "2 discoveries from 2 hypotheses",
+        "refs": []
+      }
+    ]
+  }
+}

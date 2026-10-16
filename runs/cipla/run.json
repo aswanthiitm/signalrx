@@ -1,0 +1,2733 @@
+{
+  "company": {
+    "name": "Cipla",
+    "symbol": "CIPLA",
+    "ids": {
+      "nse": "CIPLA",
+      "bse": "500087"
+    },
+    "as_of": "2026-10-16"
+  },
+  "mode": "replay",
+  "started": "2026-10-16T15:23:05+00:00",
+  "finished": "2026-10-16T15:23:05+00:00",
+  "profile": {
+    "name": "Cipla",
+    "symbol": "CIPLA",
+    "archetype": "formulations",
+    "archetype_scores": {
+      "formulations": 0.743,
+      "api_cdmo": 0.257,
+      "hospital": 0.0,
+      "diagnostics": 0.0
+    },
+    "segments": [
+      "North America"
+    ],
+    "counterparties": [
+      "Pharmathen"
+    ],
+    "peers": [
+      "Dr. Reddy's",
+      "Sun Pharma"
+    ]
+  },
+  "anomalies": [
+    {
+      "type": "segment_drop",
+      "subject": "North America",
+      "magnitude": -28.0,
+      "description": "North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)",
+      "periods": [
+        "Q1FY26",
+        "Q1FY27"
+      ],
+      "calcs": [
+        "C1"
+      ],
+      "data": {
+        "unit": "USD_mn"
+      }
+    },
+    {
+      "type": "segment_step_down",
+      "subject": "North America",
+      "magnitude": -28.326180257510728,
+      "description": "North America fell -28.3% sequentially Q2FY26->Q3FY26 and has not recovered (latest 162 USD_mn)",
+      "periods": [
+        "Q1FY26",
+        "Q2FY26",
+        "Q3FY26",
+        "Q4FY26",
+        "Q1FY27"
+      ],
+      "calcs": [
+        "C2"
+      ],
+      "data": {
+        "unit": "USD_mn",
+        "before": 233,
+        "after": 167,
+        "step_period": "Q3FY26",
+        "latest": 162,
+        "latest_period": "Q1FY27"
+      }
+    }
+  ],
+  "plan": [
+    {
+      "angle": "counterparty_regulatory",
+      "brief": "D2",
+      "question": "Did a regulatory action at a plant the company does NOT own (contract manufacturer, licensor, API supplier) hit its revenue before the company or the press explained it?",
+      "queries": [
+        "Cipla exclusive manufacturing partner lanreotide",
+        "Pharmathen FDA Form 483 inspection observations",
+        "Pharmathen FDA official action indicated warning letter",
+        "Cipla lanreotide recall",
+        "Cipla stock exchange disclosure supply disruption partner"
+      ],
+      "priority": 1.0,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by segment_drop: North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)",
+        "triggered by segment_step_down: North America fell -28.3% sequentially Q2FY26->Q3FY26 and has not recovered (latest 162 US"
+      ]
+    },
+    {
+      "angle": "replacement_concentration",
+      "brief": "D1",
+      "question": "When a big product or market fades, is the business replacing it with something as concentrated or fragile as what it lost?",
+      "queries": [
+        "Cipla North America revenue decline reason lanreotide",
+        "Cipla growth drivers next fiscal new launches management commentary",
+        "Cipla lanreotide launch delay regulatory notice",
+        "Cipla lanreotide manufacturing partner supply",
+        "Cipla provision inventory write-down quality issue"
+      ],
+      "priority": 0.88,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by segment_drop: North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)",
+        "triggered by segment_step_down: North America fell -28.3% sequentially Q2FY26->Q3FY26 and has not recovered (latest 162 US"
+      ]
+    },
+    {
+      "angle": "own_site_regulatory",
+      "brief": "D2",
+      "question": "Is an FDA/EU action at the company's own plants (OAI, warning letter, import alert) suppressing approvals or US revenue in a way the filings show before coverage does?",
+      "queries": [
+        "Cipla USFDA OAI warning letter import alert facility",
+        "Cipla USFDA inspection Form 483 observations",
+        "Cipla new product approvals US slowdown"
+      ],
+      "priority": 0.7,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by segment_drop: North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)",
+        "triggered by segment_step_down: North America fell -28.3% sequentially Q2FY26->Q3FY26 and has not recovered (latest 162 US"
+      ]
+    },
+    {
+      "angle": "geo_mix_shift",
+      "brief": "D3",
+      "question": "How has geographic revenue exposure shifted over five years, and what drove it (organic vs acquired, one product vs portfolio)?",
+      "queries": [
+        "Cipla revenue by geography North America Europe India emerging markets FY22 FY27",
+        "Cipla annual results segment revenue FY26",
+        "Cipla latest quarter results segment revenue Q1FY27",
+        "Cipla acquisition portfolio contribution revenue"
+      ],
+      "priority": 0.64,
+      "reasons": [
+        "archetype fit 1.00",
+        "triggered by segment_drop: North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)"
+      ]
+    },
+    {
+      "angle": "specialty_pivot",
+      "brief": "D1",
+      "question": "Has the mix quietly moved from generics to specialty/innovative, CDMO or domestic formulations, and when did the crossover happen?",
+      "queries": [
+        "Cipla specialty innovative medicines revenue share of sales",
+        "Cipla R&D spend percent of sales specialty pipeline"
+      ],
+      "priority": 0.4,
+      "reasons": [
+        "archetype fit 1.00"
+      ]
+    },
+    {
+      "angle": "working_capital_divergence",
+      "brief": "X",
+      "question": "Do receivable / inventory trends tell a different story from revenue growth?",
+      "queries": [
+        "Cipla trade receivables inventory annual report"
+      ],
+      "priority": 0.4,
+      "reasons": [
+        "archetype fit 1.00"
+      ]
+    }
+  ],
+  "search_trace": [
+    {
+      "angle": "counterparty_regulatory",
+      "query": "Cipla exclusive manufacturing partner lanreotide",
+      "matched": "Cipla lanreotide supply disruption quality issue manufacturing partner site FDA revenue impact",
+      "results": [
+        {
+          "id": "C11",
+          "title": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html"
+        },
+        {
+          "id": "C13",
+          "title": "Cipla lanreotide injection recalled for lack of sterility assurance",
+          "publisher": "HMP Global Learning Network",
+          "url": "https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance"
+        },
+        {
+          "id": "C14",
+          "title": "Cipla stock slides after FDA action on lanreotide",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6"
+        },
+        {
+          "id": "C15",
+          "title": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier",
+          "publisher": "TipRanks",
+          "url": "https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier"
+        }
+      ]
+    },
+    {
+      "angle": "counterparty_regulatory",
+      "query": "Pharmathen FDA Form 483 inspection observations",
+      "matched": "Cipla stock exchange disclosure January 2026 lanreotide Pharmathen USFDA observations date",
+      "results": [
+        {
+          "id": "C10",
+          "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726"
+        },
+        {
+          "id": "C12",
+          "title": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16"
+        }
+      ]
+    },
+    {
+      "angle": "counterparty_regulatory",
+      "query": "Pharmathen FDA official action indicated warning letter",
+      "matched": "Cipla Q1 FY27 results North America revenue lanreotide supply partner Pharmathen FDA issue",
+      "results": [
+        {
+          "id": "C07",
+          "title": "Cipla's Q1 net falls 39% on US business; maintains FY27 margin guidance",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html"
+        },
+        {
+          "id": "C08",
+          "title": "Cipla Q1 FY27 slides: record revenue, margins under pressure",
+          "publisher": "Investing.com",
+          "url": "https://www.investing.com/news/company-news/cipla-q1-fy27-slides-record-revenue-margins-under-pressure-93CH-4808629"
+        },
+        {
+          "id": "C09",
+          "title": "Cipla posts record Q1FY27 revenue; targets $1 billion North America run-rate",
+          "publisher": "ScanX",
+          "url": "https://scanx.trade/stock-market-news/companies/cipla-reports-record-q1-fy27-revenue-of-inr-7-100-crore-targets-1-billion-north-america-run-rate-by-fy27/46408065"
+        },
+        {
+          "id": "C06",
+          "title": "Cipla Q1 FY27 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jul23-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "counterparty_regulatory",
+      "query": "Cipla lanreotide recall",
+      "matched": "Cipla stock exchange disclosure January 2026 lanreotide Pharmathen USFDA observations date",
+      "results": [
+        {
+          "id": "C10",
+          "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726"
+        },
+        {
+          "id": "C12",
+          "title": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16"
+        }
+      ]
+    },
+    {
+      "angle": "counterparty_regulatory",
+      "query": "Cipla stock exchange disclosure supply disruption partner",
+      "matched": "Cipla stock exchange disclosure January 2026 lanreotide Pharmathen USFDA observations date",
+      "results": [
+        {
+          "id": "C10",
+          "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726"
+        },
+        {
+          "id": "C12",
+          "title": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16"
+        }
+      ]
+    },
+    {
+      "angle": "replacement_concentration",
+      "query": "Cipla North America revenue decline reason lanreotide",
+      "matched": "peer US revenue Q1 FY27 Indian pharma North America decline",
+      "results": [
+        {
+          "id": "C16",
+          "title": "Dr Reddys Labs slides after Q1 PAT plunges 69% YoY",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html"
+        },
+        {
+          "id": "C17",
+          "title": "Sun Pharmaceutical Q1 FY27 result: US formulation sales decline to $427 million",
+          "publisher": "Upstox",
+          "url": "https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/"
+        }
+      ]
+    },
+    {
+      "angle": "replacement_concentration",
+      "query": "Cipla growth drivers next fiscal new launches management commentary",
+      "matched": null,
+      "results": []
+    },
+    {
+      "angle": "replacement_concentration",
+      "query": "Cipla lanreotide launch delay regulatory notice",
+      "matched": "Cipla stock exchange disclosure January 2026 lanreotide Pharmathen USFDA observations date",
+      "results": [
+        {
+          "id": "C10",
+          "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726"
+        },
+        {
+          "id": "C12",
+          "title": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16"
+        }
+      ]
+    },
+    {
+      "angle": "replacement_concentration",
+      "query": "Cipla lanreotide manufacturing partner supply",
+      "matched": "Cipla lanreotide supply disruption quality issue manufacturing partner site FDA revenue impact",
+      "results": [
+        {
+          "id": "C11",
+          "title": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html"
+        },
+        {
+          "id": "C13",
+          "title": "Cipla lanreotide injection recalled for lack of sterility assurance",
+          "publisher": "HMP Global Learning Network",
+          "url": "https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance"
+        },
+        {
+          "id": "C14",
+          "title": "Cipla stock slides after FDA action on lanreotide",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6"
+        },
+        {
+          "id": "C15",
+          "title": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier",
+          "publisher": "TipRanks",
+          "url": "https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier"
+        }
+      ]
+    },
+    {
+      "angle": "replacement_concentration",
+      "query": "Cipla provision inventory write-down quality issue",
+      "matched": "Cipla lanreotide supply disruption quality issue manufacturing partner site FDA revenue impact",
+      "results": [
+        {
+          "id": "C11",
+          "title": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html"
+        },
+        {
+          "id": "C13",
+          "title": "Cipla lanreotide injection recalled for lack of sterility assurance",
+          "publisher": "HMP Global Learning Network",
+          "url": "https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance"
+        },
+        {
+          "id": "C14",
+          "title": "Cipla stock slides after FDA action on lanreotide",
+          "publisher": "Multibagg",
+          "url": "https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6"
+        },
+        {
+          "id": "C15",
+          "title": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier",
+          "publisher": "TipRanks",
+          "url": "https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier"
+        }
+      ]
+    },
+    {
+      "angle": "own_site_regulatory",
+      "query": "Cipla USFDA OAI warning letter import alert facility",
+      "matched": null,
+      "results": []
+    },
+    {
+      "angle": "own_site_regulatory",
+      "query": "Cipla USFDA inspection Form 483 observations",
+      "matched": "Cipla stock exchange disclosure January 2026 lanreotide Pharmathen USFDA observations date",
+      "results": [
+        {
+          "id": "C10",
+          "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726"
+        },
+        {
+          "id": "C12",
+          "title": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16"
+        }
+      ]
+    },
+    {
+      "angle": "own_site_regulatory",
+      "query": "Cipla new product approvals US slowdown",
+      "matched": null,
+      "results": []
+    },
+    {
+      "angle": "geo_mix_shift",
+      "query": "Cipla revenue by geography North America Europe India emerging markets FY22 FY27",
+      "matched": "Cipla North America quarterly revenue trend FY26 US$ million",
+      "results": [
+        {
+          "id": "C01",
+          "title": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C02",
+          "title": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf"
+        },
+        {
+          "id": "C03",
+          "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html"
+        },
+        {
+          "id": "C04",
+          "title": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C05",
+          "title": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "geo_mix_shift",
+      "query": "Cipla annual results segment revenue FY26",
+      "matched": "Cipla North America quarterly revenue trend FY26 US$ million",
+      "results": [
+        {
+          "id": "C01",
+          "title": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C02",
+          "title": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf"
+        },
+        {
+          "id": "C03",
+          "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html"
+        },
+        {
+          "id": "C04",
+          "title": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C05",
+          "title": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "geo_mix_shift",
+      "query": "Cipla latest quarter results segment revenue Q1FY27",
+      "matched": "Cipla North America quarterly revenue trend FY26 US$ million",
+      "results": [
+        {
+          "id": "C01",
+          "title": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C02",
+          "title": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf"
+        },
+        {
+          "id": "C03",
+          "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html"
+        },
+        {
+          "id": "C04",
+          "title": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C05",
+          "title": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "geo_mix_shift",
+      "query": "Cipla acquisition portfolio contribution revenue",
+      "matched": "Cipla North America quarterly revenue trend FY26 US$ million",
+      "results": [
+        {
+          "id": "C01",
+          "title": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C02",
+          "title": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf"
+        },
+        {
+          "id": "C03",
+          "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html"
+        },
+        {
+          "id": "C04",
+          "title": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C05",
+          "title": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "specialty_pivot",
+      "query": "Cipla specialty innovative medicines revenue share of sales",
+      "matched": "Cipla North America quarterly revenue trend FY26 US$ million",
+      "results": [
+        {
+          "id": "C01",
+          "title": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C02",
+          "title": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf"
+        },
+        {
+          "id": "C03",
+          "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html"
+        },
+        {
+          "id": "C04",
+          "title": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf"
+        },
+        {
+          "id": "C05",
+          "title": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf"
+        }
+      ]
+    },
+    {
+      "angle": "specialty_pivot",
+      "query": "Cipla R&D spend percent of sales specialty pipeline",
+      "matched": null,
+      "results": []
+    },
+    {
+      "angle": "working_capital_divergence",
+      "query": "Cipla trade receivables inventory annual report",
+      "matched": null,
+      "results": []
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "angle": "counterparty_regulatory",
+      "title": "Third-party plant (Pharmathen) behind the North America decline",
+      "statement": "A plant the company does not own drove its sharpest North America decline: Pharmathen, maker of lanreotide (~15% of North America sales in FY25), closed an FDA inspection with observations on 21 Nov 2025, 54 days before the company's disclosure; North America revenue fell from $233M to $167M in Q3FY26, a quarter that closed 14 days before the company disclosed the problem, and has stayed at $155M\u2013$167M since.",
+      "facts": {
+        "partner": "Pharmathen",
+        "product": "lanreotide",
+        "segment": "North America",
+        "link_note": "exclusive manufacturing partner (Pharmathen International S.A., Rodopi, Greece)",
+        "regulator_events": [
+          {
+            "date": "2025-11-21",
+            "title": "FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)",
+            "actor": "US FDA"
+          },
+          {
+            "date": "2026-01-07",
+            "title": "Redacted Form 483 becomes public",
+            "actor": "US FDA"
+          },
+          {
+            "date": "2026-03-13",
+            "title": "Class II recall of lanreotide syringes (sterility assurance at contract site)",
+            "actor": "US FDA"
+          }
+        ],
+        "disclosure": {
+          "date": "2026-01-14",
+          "title": "Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production"
+        },
+        "lag_regulator_to_disclosure_days": 54,
+        "media_first": {
+          "date": "2026-01-16",
+          "title": "Mainstream coverage: 'FDA observation to hit Lanreotide supply'; stock falls ~5%"
+        },
+        "step": {
+          "from": 233,
+          "to": 167,
+          "period": "Q3FY26",
+          "unit": "USD_mn",
+          "pct": -28.326180257510728,
+          "latest": 162,
+          "latest_period": "Q1FY27"
+        },
+        "post_step_range": [
+          155,
+          167
+        ],
+        "post_step_evidence": [
+          "F02",
+          "F04",
+          "F07"
+        ],
+        "quarter_end_before_disclosure_days": 14,
+        "reg_inside_step_quarter": true,
+        "product_run_rate": 33.75,
+        "explained_pct": 51.13636363636363,
+        "product_share": {
+          "value": 15,
+          "period": "FY25",
+          "note": "broker estimate"
+        },
+        "target": {
+          "value": 1000,
+          "unit": "USD_mn",
+          "uplift_pct": 54.32098765432099
+        },
+        "guidance_claims": [
+          "FY27 guidance includes no lanreotide contribution."
+        ],
+        "core_terms": [
+          "pharmathen",
+          "lanreotide",
+          "fda"
+        ],
+        "strength": {
+          "grade": "Strong",
+          "score": 0.8,
+          "reasons": [
+            "12 sources across 7 independent families (aggregator:scanx, aggregator:tipranks, company, media:business standard, media:hmp global learning network, media:investing.com, media:medical dialogues).",
+            "2 primary documents (company filings / exchange filings / regulator).",
+            "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+            "Skeptic: 2 checks survived, 2 weakened (already_mainstream, other_driver), 0 refuted.",
+            "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept)."
+          ]
+        },
+        "novelty_why": [
+          "joins 6 non-company source families to the company's own disclosures",
+          "a third-party record leads the company's own disclosure by 54 days",
+          "links 4 separately reported incidents into one pattern",
+          "rests on 6 derived calculations no single source states",
+          "partly visible in headlines (penalised)"
+        ]
+      },
+      "support": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F12",
+        "F14"
+      ],
+      "contra": [
+        "F07",
+        "F08",
+        "F14",
+        "F17"
+      ],
+      "calcs": [
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7"
+      ],
+      "events": [
+        0,
+        1,
+        6,
+        2,
+        3,
+        4,
+        7,
+        8
+      ],
+      "checks": [
+        {
+          "name": "sector_wide",
+          "question": "Is this a sector story? Do peers show the same move in the same period?",
+          "verdict": "survives",
+          "detail": "North America Q1FY27: company -28.0% vs Dr. Reddy's -35.4%, Sun Pharma -9.7%. The decline itself is partly a sector-wide cliff, but the hypothesis rests on incidents tied to the company's own product / partner, which peers do not share.",
+          "evidence": [
+            "F15",
+            "F16"
+          ]
+        },
+        {
+          "name": "temporary",
+          "question": "Has management given a dated remediation / resupply plan that would reverse the effect?",
+          "verdict": "survives",
+          "detail": "Management itself now treats it as lasting: 'FY27 guidance includes no lanreotide contribution.'",
+          "evidence": [
+            "F05"
+          ]
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "weakens",
+          "detail": "A headline already carries the core terms: \"Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.\". The finding must add something the headline lacks (timing, sizing or a cross-source link).",
+          "evidence": [
+            "F14"
+          ]
+        },
+        {
+          "name": "other_driver",
+          "question": "Is there a second driver (e.g. a product cliff) that explains part of the same move?",
+          "verdict": "weakens",
+          "detail": "A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion).",
+          "evidence": [
+            "F17"
+          ]
+        }
+      ],
+      "scores": {
+        "materiality": 0.8093194359288779,
+        "evidence": 0.8,
+        "novelty": 0.8,
+        "robustness": 0.76,
+        "total": 0.796
+      },
+      "status": "selected",
+      "rejection_reason": null
+    }
+  ],
+  "discoveries": [
+    {
+      "hypothesis": "H1",
+      "angle": "counterparty_regulatory",
+      "brief_question": "D2",
+      "brief_text": "Has a regulatory or compliance development hit its financials before mainstream coverage?",
+      "title": "Third-party plant (Pharmathen) behind the North America decline",
+      "discovery": "Cipla's sharpest North America decline came from a plant it does not own: Pharmathen, the exclusive maker of lanreotide (~15% of US sales in FY25, broker estimate), closed an FDA inspection with observations on 21 Nov 2025; North America revenue then fell 28% quarter-on-quarter in Q3FY26 ($233M \u2192 $167M), a quarter that ended 14 days before the company disclosed the problem, and has stayed at $155M\u2013$167M a quarter since \u2014 with FY27 guidance now assuming zero lanreotide, the $1.0bn exit run-rate target needs 54% more than the latest quarter.",
+      "discovery_evidence": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F12",
+        "F14"
+      ],
+      "why_it_matters": [
+        "Third-party plant risk sits outside the company's own site list and FDA status: it appears first in the partner's inspection record, which is why a dashboard built on the company's filings misses it.",
+        "Timing: the inspection closed 21 Nov 2025; the hit landed inside the Q3FY26 quarter; the company disclosed on 14 Jan 2026 (54 days after the inspection) and mainstream coverage followed on 16 Jan 2026.",
+        "Sizing: a full loss of lanreotide (~$34M a quarter) explains about 51% of the Q3FY26 step-down; a second driver accounts for the rest (see counterargument).",
+        "Escalation went the wrong way after the inspection: 21 Nov 2025: FDA inspection at Pharmathen, Rodopi \u2192 7 Jan 2026: Redacted Form 483 becomes public \u2192 13 Mar 2026: Class II recall of lanreotide syringes.",
+        "Management has stopped counting on a fix: \"FY27 guidance includes no lanreotide contribution.\" \u2014 recovery now depends entirely on new launches."
+      ],
+      "key_numbers": [
+        {
+          "label": "North America quarterly revenue",
+          "value": "$233M \u2192 $167M",
+          "sub": "-28% QoQ in Q3FY26"
+        },
+        {
+          "label": "Inspection \u2192 disclosure",
+          "value": "54 days",
+          "sub": "quarter closed 14 days before disclosure"
+        },
+        {
+          "label": "Step-down explained by lanreotide",
+          "value": "~51%",
+          "sub": "if fully lost; rest is other drivers"
+        },
+        {
+          "label": "Uplift needed to target",
+          "value": "+54%",
+          "sub": "$1.0bn exit run-rate"
+        }
+      ],
+      "evidence_trail": [
+        {
+          "evidence": [
+            "F01"
+          ],
+          "text": "North America quarterly revenue of $ 233 Mn supported by traction in differentiated assets.",
+          "source": "Cipla Q2 FY26 press release",
+          "publisher": "Cipla",
+          "type": "company_filing",
+          "family": "company",
+          "date": "2025-11",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F04"
+          ],
+          "text": "North America revenue of $ 155 Mn supported by demand in differentiated portfolio ... North America delivered an annual revenue of $ 780 Mn.",
+          "source": "Cipla Q4 FY26 results press release",
+          "publisher": "Cipla",
+          "type": "company_filing",
+          "family": "company",
+          "date": "2026-05-13",
+          "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F02"
+          ],
+          "text": "North America revenue of $167 million for the quarter, which included a small contribution from Lenalidomide.",
+          "source": "Cipla Q3 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "type": "transcript",
+          "family": "company",
+          "date": "2026-01-23",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F05"
+          ],
+          "text": "Guidance does not include any contribution from Lanreotide in FY '27. Lenalidomide revenues will continue to taper off, but this would be offset by new launches.",
+          "source": "Cipla Q4 FY26 earnings conference call transcript",
+          "publisher": "Cipla",
+          "type": "transcript",
+          "family": "company",
+          "date": "2026-05-13",
+          "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F09"
+          ],
+          "text": "The US drug regulator conducted an inspection at Pharmathen's Rodopi manufacturing facility in Greece between November 10 and 21, 2025, and issued nine inspectional observations in a Form 483. A redacted version of the form became public on 7 January. Cipla's Regulation 30 update dated 14 January 2026 said Lanreotide supply in the US will stay temporarily limited.",
+          "source": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+          "publisher": "Medical Dialogues",
+          "type": "media",
+          "family": "media:medical dialogues",
+          "date": "2026-01-14",
+          "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F10"
+          ],
+          "text": "Supply of its key US drug Lanreotide injection will remain constrained in the near term after its exclusive manufacturing partner Pharmathen International S.A. temporarily paused production. Lanreotide injection contributed about $135 million, accounting for roughly 15 per cent, to Cipla's US sales in 2024-25 (JPMorgan estimate); among the top three products in the US basket with ~22% market share; a worst-case import alert could impact FY27-FY28 earnings by 4-6 per cent.",
+          "source": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-01-16",
+          "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F03"
+          ],
+          "text": "North America revenue Rs 1,485 crore, declining 22 per cent year-on-year due to ongoing lanreotide supply chain issues. Net profit slumps 57% to Rs 675 crore.",
+          "source": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-01-23",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F12"
+          ],
+          "text": "Class II FDA recall of Cipla's lanreotide syringes, initiated 13 March 2026, over lack of sterility assurance at the contract site.",
+          "source": "Cipla lanreotide injection recalled for lack of sterility assurance",
+          "publisher": "HMP Global Learning Network",
+          "type": "media",
+          "family": "media:hmp global learning network",
+          "date": "2026-03",
+          "url": "https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F06"
+          ],
+          "text": "The North America business was down 28 per cent year over year. Net profit fell 39% to Rs 789 crore; EBITDA margin 16.7% versus 25.6% a year earlier; FY27 EBITDA margin guidance of 18.5-20% maintained.",
+          "source": "Cipla's Q1 net falls 39% on US business; maintains FY27 margin guidance",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-07-23",
+          "url": "https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html",
+          "stance": "supports",
+          "verified": true,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F07"
+          ],
+          "text": "North America revenue $162 million, below market expectations of $173 million. The company had lost its lanreotide product due to quality issues and lost exclusivity on lenalidomide in the previous quarter (Q4FY26); management asked that the decline be compared sequentially.",
+          "source": "Cipla Q1 FY27 slides: record revenue, margins under pressure",
+          "publisher": "Investing.com",
+          "type": "media",
+          "family": "media:investing.com",
+          "date": "2026-07-23",
+          "url": "https://www.investing.com/news/company-news/cipla-q1-fy27-slides-record-revenue-margins-under-pressure-93CH-4808629",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F14"
+          ],
+          "text": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.",
+          "source": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier",
+          "publisher": "TipRanks",
+          "type": "aggregator",
+          "family": "aggregator:tipranks",
+          "date": "2026-01-14",
+          "url": "https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F08"
+          ],
+          "text": "Management expects significant movement in North America revenue in the coming quarters, with a target of a $1 billion exit run rate for the region.",
+          "source": "Cipla posts record Q1FY27 revenue; targets $1 billion North America run-rate",
+          "publisher": "ScanX",
+          "type": "aggregator",
+          "family": "aggregator:scanx",
+          "date": "2026-07-23",
+          "url": "https://scanx.trade/stock-market-news/companies/cipla-reports-record-q1-fy27-revenue-of-inr-7-100-crore-targets-1-billion-north-america-run-rate-by-fy27/46408065",
+          "stance": "supports",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F17"
+          ],
+          "text": "Settlements allowed volume-limited generic lenalidomide entry before unlimited entry on January 31, 2026.",
+          "source": "Celgene settles REVLIMID patent litigation",
+          "publisher": "Fierce Pharma",
+          "type": "media",
+          "family": "media:fierce pharma",
+          "date": "2015-12",
+          "url": "https://www.fiercepharma.com/pharma/celgene-settles-revlimid-patent-litigation",
+          "stance": "opposes",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F11"
+          ],
+          "text": "Cipla shares tank 5% after temporary halt of key drug production; resupply expected in the first half of FY2026-27.",
+          "source": "Cipla shares tank 5% after temporary halt of key drug production",
+          "publisher": "BusinessToday",
+          "type": "media",
+          "family": "media:businesstoday",
+          "date": "2026-01-16",
+          "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F15"
+          ],
+          "text": "Dr Reddy's North America revenue fell 35.38% YoY in Q1 FY27, mainly due to lower sales of Lenalidomide.",
+          "source": "Dr Reddys Labs slides after Q1 PAT plunges 69% YoY",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-07-23",
+          "url": "https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F16"
+          ],
+          "text": "Sun Pharma US formulation sales fell 9.7% to $427 million in Q1 FY27.",
+          "source": "Sun Pharmaceutical Q1 FY27 result: US formulation sales decline to $427 million",
+          "publisher": "Upstox",
+          "type": "media",
+          "family": "media:upstox",
+          "date": "2026-07-31",
+          "url": "https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        },
+        {
+          "evidence": [
+            "F18"
+          ],
+          "text": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk.",
+          "source": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+          "publisher": "Business Standard",
+          "type": "media",
+          "family": "media:business standard",
+          "date": "2026-01-16",
+          "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html",
+          "stance": "context",
+          "verified": null,
+          "note": null
+        }
+      ],
+      "timeline": [
+        {
+          "date": "2025-11-21",
+          "label": "21 Nov 2025",
+          "kind": "regulatory",
+          "actor": "US FDA",
+          "title": "FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)",
+          "evidence": [
+            "F09"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-01-07",
+          "label": "7 Jan 2026",
+          "kind": "regulatory",
+          "actor": "US FDA",
+          "title": "Redacted Form 483 becomes public",
+          "evidence": [
+            "F09"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-01-14",
+          "label": "14 Jan 2026",
+          "kind": "disclosure",
+          "actor": "company",
+          "title": "Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production",
+          "evidence": [
+            "F09",
+            "F10",
+            "F14"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-01-16",
+          "label": "16 Jan 2026",
+          "kind": "media",
+          "actor": "press",
+          "title": "Mainstream coverage: 'FDA observation to hit Lanreotide supply'; stock falls ~5%",
+          "evidence": [
+            "F11",
+            "F18"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-01-23",
+          "label": "23 Jan 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%",
+          "evidence": [
+            "F02",
+            "F03"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-01-31",
+          "label": "31 Jan 2026",
+          "kind": "loe",
+          "actor": "market",
+          "title": "US lenalidomide volume limits end: unlimited generic entry",
+          "evidence": [
+            "F17"
+          ],
+          "future": false,
+          "in_hypothesis": false
+        },
+        {
+          "date": "2026-03-13",
+          "label": "13 Mar 2026",
+          "kind": "regulatory",
+          "actor": "US FDA",
+          "title": "Class II recall of lanreotide syringes (sterility assurance at contract site)",
+          "evidence": [
+            "F12"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-05-13",
+          "label": "13 May 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide",
+          "evidence": [
+            "F04",
+            "F05"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        },
+        {
+          "date": "2026-07-23",
+          "label": "23 Jul 2026",
+          "kind": "results",
+          "actor": "company",
+          "title": "Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target",
+          "evidence": [
+            "F06",
+            "F07",
+            "F08"
+          ],
+          "future": false,
+          "in_hypothesis": true
+        }
+      ],
+      "numbers": [
+        {
+          "id": "C2",
+          "name": "North America sequential change, Q2FY26->Q3FY26",
+          "value": -28.326180257510728,
+          "unit": "%",
+          "formula": "(Qt / Qt-1 - 1) x 100",
+          "inputs": [
+            "revenue_segment[North America]@Q3FY26",
+            "revenue_segment[North America]@Q2FY26"
+          ],
+          "evidence": [
+            "F01",
+            "F02"
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "lanreotide quarterly run-rate (FY25 estimate / 4)",
+          "value": 33.75,
+          "unit": "USD_mn",
+          "formula": "annual / 4",
+          "inputs": [
+            "product_revenue[lanreotide]@FY25"
+          ],
+          "evidence": [
+            "F10"
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "North America step-down Q2FY26->Q3FY26",
+          "value": 66,
+          "unit": "USD_mn",
+          "formula": "before - after",
+          "inputs": [
+            "revenue_segment[North America]@Q2FY26",
+            "revenue_segment[North America]@Q3FY26"
+          ],
+          "evidence": [
+            "F01",
+            "F02"
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "Share of the step-down a full loss of lanreotide would explain",
+          "value": 51.13636363636363,
+          "unit": "%",
+          "formula": "run-rate / step-down x 100",
+          "inputs": [
+            "C3",
+            "C4"
+          ],
+          "evidence": [
+            "F01",
+            "F02",
+            "F10"
+          ]
+        },
+        {
+          "id": "C6",
+          "name": "Uplift needed from Q1FY27 run-rate to North America target",
+          "value": 54.32098765432099,
+          "unit": "%",
+          "formula": "target / (latest quarter x 4) - 1",
+          "inputs": [
+            "revenue_target_annualised[North America]@FY27",
+            "revenue_segment_annualised[North America]@Q1FY27"
+          ],
+          "evidence": [
+            "F07",
+            "F08"
+          ]
+        },
+        {
+          "id": "C7",
+          "name": "Share of the step-down not explained by the product",
+          "value": 48.86363636363637,
+          "unit": "%",
+          "formula": "100 - explained %",
+          "inputs": [
+            "C5"
+          ],
+          "evidence": [
+            "F01",
+            "F02",
+            "F10"
+          ]
+        }
+      ],
+      "counterargument": {
+        "text": "A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion). Also: A headline already carries the core terms: \"Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.\". Management's position: \"Compare the decline sequentially, not YoY (high base).\" \"Target a $1 billion North America exit run-rate.\"",
+        "evidence": [
+          "F07",
+          "F08",
+          "F17"
+        ],
+        "check": "other_driver"
+      },
+      "falsification": [
+        {
+          "condition": "Pharmathen's site is cleared (OAI lifted / re-inspection without observations) or an alternate site is approved, and lanreotide supply restarts.",
+          "monitor": "FDA Data Dashboard classification; company Reg-30 filings",
+          "evidence": []
+        },
+        {
+          "condition": "North America quarterly revenue returns above $233M (the pre-step level) within FY27 without lanreotide, which would show the business has outgrown the dependency.",
+          "monitor": "quarterly results",
+          "evidence": []
+        },
+        {
+          "condition": "Product-level data showing lanreotide still shipped normally during Q3FY26, which would move the step-down to the other driver and break the causal link.",
+          "monitor": "earnings-call disclosures, IQVIA-type data cited in press",
+          "evidence": []
+        }
+      ],
+      "strength": {
+        "grade": "Strong",
+        "score": 0.8,
+        "reasons": [
+          "12 sources across 7 independent families (aggregator:scanx, aggregator:tipranks, company, media:business standard, media:hmp global learning network, media:investing.com, media:medical dialogues).",
+          "2 primary documents (company filings / exchange filings / regulator).",
+          "No regulator or counterparty document of its own in the support set (third-party facts arrive via press).",
+          "Skeptic: 2 checks survived, 2 weakened (already_mainstream, other_driver), 0 refuted.",
+          "1 input figure(s) are back-computed from reported growth rates (tolerance bands kept)."
+        ]
+      },
+      "scores": {
+        "materiality": 0.8093194359288779,
+        "evidence": 0.8,
+        "novelty": 0.8,
+        "robustness": 0.76,
+        "total": 0.796
+      },
+      "novelty_why": [
+        "joins 6 non-company source families to the company's own disclosures",
+        "a third-party record leads the company's own disclosure by 54 days",
+        "links 4 separately reported incidents into one pattern",
+        "rests on 6 derived calculations no single source states",
+        "partly visible in headlines (penalised)"
+      ],
+      "checks": [
+        {
+          "name": "sector_wide",
+          "question": "Is this a sector story? Do peers show the same move in the same period?",
+          "verdict": "survives",
+          "detail": "North America Q1FY27: company -28.0% vs Dr. Reddy's -35.4%, Sun Pharma -9.7%. The decline itself is partly a sector-wide cliff, but the hypothesis rests on incidents tied to the company's own product / partner, which peers do not share.",
+          "evidence": [
+            "F15",
+            "F16"
+          ]
+        },
+        {
+          "name": "temporary",
+          "question": "Has management given a dated remediation / resupply plan that would reverse the effect?",
+          "verdict": "survives",
+          "detail": "Management itself now treats it as lasting: 'FY27 guidance includes no lanreotide contribution.'",
+          "evidence": [
+            "F05"
+          ]
+        },
+        {
+          "name": "already_mainstream",
+          "question": "Would a reader of headlines already know this? (novelty test)",
+          "verdict": "weakens",
+          "detail": "A headline already carries the core terms: \"Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.\". The finding must add something the headline lacks (timing, sizing or a cross-source link).",
+          "evidence": [
+            "F14"
+          ]
+        },
+        {
+          "name": "other_driver",
+          "question": "Is there a second driver (e.g. a product cliff) that explains part of the same move?",
+          "verdict": "weakens",
+          "detail": "A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion).",
+          "evidence": [
+            "F17"
+          ]
+        }
+      ],
+      "verification": {
+        "numbers_checked": 28,
+        "numbers_unmatched": [],
+        "citations_checked": 17,
+        "citations_broken": [],
+        "families_for_discovery": [
+          "aggregator:scanx",
+          "aggregator:tipranks",
+          "company",
+          "media:business standard",
+          "media:hmp global learning network",
+          "media:investing.com",
+          "media:medical dialogues"
+        ],
+        "passed": true,
+        "notes": []
+      },
+      "role": "primary"
+    }
+  ],
+  "verification": [
+    {
+      "numbers_checked": 28,
+      "numbers_unmatched": [],
+      "citations_checked": 17,
+      "citations_broken": [],
+      "families_for_discovery": [
+        "aggregator:scanx",
+        "aggregator:tipranks",
+        "company",
+        "media:business standard",
+        "media:hmp global learning network",
+        "media:investing.com",
+        "media:medical dialogues"
+      ],
+      "passed": true,
+      "notes": []
+    }
+  ],
+  "ledger": {
+    "company": "Cipla",
+    "sources": {
+      "C01": {
+        "id": "C01",
+        "url": "https://www.cipla.com/sites/default/files/Cipla_Q2FY26-Press-Release.pdf",
+        "title": "Cipla Q2 FY26 press release",
+        "publisher": "Cipla",
+        "type": "company_filing",
+        "published": "2025-11",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 1
+      },
+      "C02": {
+        "id": "C02",
+        "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jan23-2026_0.pdf",
+        "title": "Cipla Q3 FY26 earnings conference call transcript",
+        "publisher": "Cipla",
+        "type": "transcript",
+        "published": "2026-01-23",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 2
+      },
+      "C03": {
+        "id": "C03",
+        "url": "https://www.business-standard.com/companies/quarterly-results/cipla-q3-results-net-profit-slumps-57-to-675-crore-on-us-supply-issues-126012301390_1.html",
+        "title": "Cipla Q3 results: Net profit slumps 57% to Rs 675 crore on US supply issues",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-01-23",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "C04": {
+        "id": "C04",
+        "url": "https://www.cipla.com/sites/default/files/Cipla_Q4FY26-Press-Release.pdf",
+        "title": "Cipla Q4 FY26 results press release",
+        "publisher": "Cipla",
+        "type": "company_filing",
+        "published": "2026-05-13",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 1
+      },
+      "C05": {
+        "id": "C05",
+        "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-May13-2026.pdf",
+        "title": "Cipla Q4 FY26 earnings conference call transcript",
+        "publisher": "Cipla",
+        "type": "transcript",
+        "published": "2026-05-13",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 2
+      },
+      "C06": {
+        "id": "C06",
+        "url": "https://www.cipla.com/sites/default/files/Cipla-Earnings-Jul23-2026.pdf",
+        "title": "Cipla Q1 FY27 earnings conference call transcript",
+        "publisher": "Cipla",
+        "type": "transcript",
+        "published": "2026-07-23",
+        "entity": "company",
+        "retrieved_at": null,
+        "via": null,
+        "family": "company",
+        "rank": 2
+      },
+      "C07": {
+        "id": "C07",
+        "url": "https://www.business-standard.com/companies/quarterly-results/cipla-s-q1-net-falls-39-on-us-business-maintains-fy27-margin-guidance-126072301142_1.html",
+        "title": "Cipla's Q1 net falls 39% on US business; maintains FY27 margin guidance",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-07-23",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "C08": {
+        "id": "C08",
+        "url": "https://www.investing.com/news/company-news/cipla-q1-fy27-slides-record-revenue-margins-under-pressure-93CH-4808629",
+        "title": "Cipla Q1 FY27 slides: record revenue, margins under pressure",
+        "publisher": "Investing.com",
+        "type": "media",
+        "published": "2026-07-23",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:investing.com",
+        "rank": 3
+      },
+      "C09": {
+        "id": "C09",
+        "url": "https://scanx.trade/stock-market-news/companies/cipla-reports-record-q1-fy27-revenue-of-inr-7-100-crore-targets-1-billion-north-america-run-rate-by-fy27/46408065",
+        "title": "Cipla posts record Q1FY27 revenue; targets $1 billion North America run-rate",
+        "publisher": "ScanX",
+        "type": "aggregator",
+        "published": "2026-07-23",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:scanx",
+        "rank": 4
+      },
+      "C10": {
+        "id": "C10",
+        "url": "https://medicaldialogues.in/news/industry/pharma/ciplas-lanreotide-supply-in-us-hit-after-usfda-observations-at-pharmathen-facility-162726",
+        "title": "Cipla's Lanreotide supply in US hit after USFDA observations at Pharmathen facility",
+        "publisher": "Medical Dialogues",
+        "type": "media",
+        "published": "2026-01-14",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:medical dialogues",
+        "rank": 3
+      },
+      "C11": {
+        "id": "C11",
+        "url": "https://www.business-standard.com/companies/news/lanreotide-supply-disruption-raises-concerns-over-cipla-s-earnings-126011601198_1.html",
+        "title": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-01-16",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "C12": {
+        "id": "C12",
+        "url": "https://www.businesstoday.in/amp/markets/stocks/story/cipla-shares-tanks-5-after-temporary-halt-of-key-drug-production-check-fresh-targets-511125-2026-01-16",
+        "title": "Cipla shares tank 5% after temporary halt of key drug production",
+        "publisher": "BusinessToday",
+        "type": "media",
+        "published": "2026-01-16",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:businesstoday",
+        "rank": 3
+      },
+      "C13": {
+        "id": "C13",
+        "url": "https://www.hmpgloballearningnetwork.com/site/pln/news/cipla-lanreotide-injection-recalled-lack-sterility-assurance",
+        "title": "Cipla lanreotide injection recalled for lack of sterility assurance",
+        "publisher": "HMP Global Learning Network",
+        "type": "media",
+        "published": "2026-03",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:hmp global learning network",
+        "rank": 3
+      },
+      "C14": {
+        "id": "C14",
+        "url": "https://www.multibagg.ai/market-pulse/articles/cipla-fda-oai-lanreotide-cmocgjhtokmqcpl0jcalda0y6",
+        "title": "Cipla stock slides after FDA action on lanreotide",
+        "publisher": "Multibagg",
+        "type": "aggregator",
+        "published": "2026",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:multibagg",
+        "rank": 4
+      },
+      "C15": {
+        "id": "C15",
+        "url": "https://www.tipranks.com/news/company-announcements/cipla-warns-of-temporary-lanreotide-supply-disruption-after-usfda-observations-at-supplier",
+        "title": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier",
+        "publisher": "TipRanks",
+        "type": "aggregator",
+        "published": "2026-01-14",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "aggregator:tipranks",
+        "rank": 4
+      },
+      "C16": {
+        "id": "C16",
+        "url": "https://www.business-standard.com/markets/capital-market-news/dr-reddys-labs-slides-after-q1-pat-plunges-69-yoy-to-rs-444-crore-126072300240_1.html",
+        "title": "Dr Reddys Labs slides after Q1 PAT plunges 69% YoY",
+        "publisher": "Business Standard",
+        "type": "media",
+        "published": "2026-07-23",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:business standard",
+        "rank": 3
+      },
+      "C17": {
+        "id": "C17",
+        "url": "https://upstox.com/news/market-news/earnings/sun-pharmaceutical-q1-fy-27-result-net-profit-jumps-27-yo-y-us-formulation-sales-decline-to-427-million/article-197917/",
+        "title": "Sun Pharmaceutical Q1 FY27 result: US formulation sales decline to $427 million",
+        "publisher": "Upstox",
+        "type": "media",
+        "published": "2026-07-31",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:upstox",
+        "rank": 3
+      },
+      "C18": {
+        "id": "C18",
+        "url": "https://www.fiercepharma.com/pharma/celgene-settles-revlimid-patent-litigation",
+        "title": "Celgene settles REVLIMID patent litigation",
+        "publisher": "Fierce Pharma",
+        "type": "media",
+        "published": "2015-12",
+        "entity": null,
+        "retrieved_at": null,
+        "via": null,
+        "family": "media:fierce pharma",
+        "rank": 3
+      }
+    },
+    "evidence": {
+      "F01": {
+        "id": "F01",
+        "source": "C01",
+        "kind": "figure",
+        "text": "North America quarterly revenue of $ 233 Mn supported by traction in differentiated assets.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F02": {
+        "id": "F02",
+        "source": "C02",
+        "kind": "figure",
+        "text": "North America revenue of $167 million for the quarter, which included a small contribution from Lenalidomide.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F03": {
+        "id": "F03",
+        "source": "C03",
+        "kind": "figure",
+        "text": "North America revenue Rs 1,485 crore, declining 22 per cent year-on-year due to ongoing lanreotide supply chain issues. Net profit slumps 57% to Rs 675 crore.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F04": {
+        "id": "F04",
+        "source": "C04",
+        "kind": "figure",
+        "text": "North America revenue of $ 155 Mn supported by demand in differentiated portfolio ... North America delivered an annual revenue of $ 780 Mn.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F05": {
+        "id": "F05",
+        "source": "C05",
+        "kind": "quote",
+        "text": "Guidance does not include any contribution from Lanreotide in FY '27. Lenalidomide revenues will continue to taper off, but this would be offset by new launches.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F06": {
+        "id": "F06",
+        "source": "C07",
+        "kind": "figure",
+        "text": "The North America business was down 28 per cent year over year. Net profit fell 39% to Rs 789 crore; EBITDA margin 16.7% versus 25.6% a year earlier; FY27 EBITDA margin guidance of 18.5-20% maintained.",
+        "stance": "neutral",
+        "verified": true,
+        "note": null
+      },
+      "F07": {
+        "id": "F07",
+        "source": "C08",
+        "kind": "figure",
+        "text": "North America revenue $162 million, below market expectations of $173 million. The company had lost its lanreotide product due to quality issues and lost exclusivity on lenalidomide in the previous quarter (Q4FY26); management asked that the decline be compared sequentially.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F08": {
+        "id": "F08",
+        "source": "C09",
+        "kind": "claim",
+        "text": "Management expects significant movement in North America revenue in the coming quarters, with a target of a $1 billion exit run rate for the region.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F09": {
+        "id": "F09",
+        "source": "C10",
+        "kind": "event",
+        "text": "The US drug regulator conducted an inspection at Pharmathen's Rodopi manufacturing facility in Greece between November 10 and 21, 2025, and issued nine inspectional observations in a Form 483. A redacted version of the form became public on 7 January. Cipla's Regulation 30 update dated 14 January 2026 said Lanreotide supply in the US will stay temporarily limited.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F10": {
+        "id": "F10",
+        "source": "C11",
+        "kind": "quote",
+        "text": "Supply of its key US drug Lanreotide injection will remain constrained in the near term after its exclusive manufacturing partner Pharmathen International S.A. temporarily paused production. Lanreotide injection contributed about $135 million, accounting for roughly 15 per cent, to Cipla's US sales in 2024-25 (JPMorgan estimate); among the top three products in the US basket with ~22% market share; a worst-case import alert could impact FY27-FY28 earnings by 4-6 per cent.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F11": {
+        "id": "F11",
+        "source": "C12",
+        "kind": "headline",
+        "text": "Cipla shares tank 5% after temporary halt of key drug production; resupply expected in the first half of FY2026-27.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F12": {
+        "id": "F12",
+        "source": "C13",
+        "kind": "event",
+        "text": "Class II FDA recall of Cipla's lanreotide syringes, initiated 13 March 2026, over lack of sterility assurance at the contract site.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F13": {
+        "id": "F13",
+        "source": "C14",
+        "kind": "context",
+        "text": "The FDA designated Pharmathen's manufacturing facility in Rodopi, Greece, as 'Official Action Indicated' (OAI).",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F14": {
+        "id": "F14",
+        "source": "C15",
+        "kind": "headline",
+        "text": "Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F15": {
+        "id": "F15",
+        "source": "C16",
+        "kind": "figure",
+        "text": "Dr Reddy's North America revenue fell 35.38% YoY in Q1 FY27, mainly due to lower sales of Lenalidomide.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F16": {
+        "id": "F16",
+        "source": "C17",
+        "kind": "figure",
+        "text": "Sun Pharma US formulation sales fell 9.7% to $427 million in Q1 FY27.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F17": {
+        "id": "F17",
+        "source": "C18",
+        "kind": "context",
+        "text": "Settlements allowed volume-limited generic lenalidomide entry before unlimited entry on January 31, 2026.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      },
+      "F18": {
+        "id": "F18",
+        "source": "C11",
+        "kind": "headline",
+        "text": "FDA observation to hit Lanreotide supply; Cipla may face earnings risk.",
+        "stance": "neutral",
+        "verified": null,
+        "note": null
+      }
+    },
+    "observations": [
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "Q1FY26",
+        "value": 225,
+        "unit": "USD_mn",
+        "evidence": "F04",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": true,
+        "tolerance": 0.01,
+        "note": "FY26 $780M less Q2-Q4 ($233M + $167M + $155M)"
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "Q2FY26",
+        "value": 233,
+        "unit": "USD_mn",
+        "evidence": "F01",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "Q3FY26",
+        "value": 167,
+        "unit": "USD_mn",
+        "evidence": "F02",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "Q4FY26",
+        "value": 155,
+        "unit": "USD_mn",
+        "evidence": "F04",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "Q1FY27",
+        "value": 162,
+        "unit": "USD_mn",
+        "evidence": "F07",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment",
+        "period": "FY26",
+        "value": 780,
+        "unit": "USD_mn",
+        "evidence": "F04",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment_growth_yoy",
+        "period": "Q1FY27",
+        "value": -28.0,
+        "unit": "%",
+        "evidence": "F06",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_segment_growth_yoy",
+        "period": "Q3FY26",
+        "value": -22.0,
+        "unit": "%",
+        "evidence": "F03",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "INR basis"
+      },
+      {
+        "entity": "Cipla",
+        "metric": "product_revenue",
+        "period": "FY25",
+        "value": 135,
+        "unit": "USD_mn",
+        "evidence": "F10",
+        "dims": {
+          "product": "lanreotide"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "broker estimate"
+      },
+      {
+        "entity": "Cipla",
+        "metric": "product_share_of_segment",
+        "period": "FY25",
+        "value": 15,
+        "unit": "%",
+        "evidence": "F10",
+        "dims": {
+          "product": "lanreotide"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "broker estimate"
+      },
+      {
+        "entity": "Cipla",
+        "metric": "ebitda_margin",
+        "period": "Q1FY27",
+        "value": 16.7,
+        "unit": "%",
+        "evidence": "F06",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "ebitda_margin",
+        "period": "Q1FY26",
+        "value": 25.6,
+        "unit": "%",
+        "evidence": "F06",
+        "dims": {},
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "Cipla",
+        "metric": "revenue_target_annualised",
+        "period": "FY27",
+        "value": 1000,
+        "unit": "USD_mn",
+        "evidence": "F08",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": "exit run-rate target"
+      },
+      {
+        "entity": "peer:Dr. Reddy's",
+        "metric": "revenue_segment_growth_yoy",
+        "period": "Q1FY27",
+        "value": -35.38,
+        "unit": "%",
+        "evidence": "F15",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      },
+      {
+        "entity": "peer:Sun Pharma",
+        "metric": "revenue_segment_growth_yoy",
+        "period": "Q1FY27",
+        "value": -9.7,
+        "unit": "%",
+        "evidence": "F16",
+        "dims": {
+          "segment": "North America"
+        },
+        "derived": false,
+        "tolerance": 0.0,
+        "note": null
+      }
+    ],
+    "events": [
+      {
+        "date": "2025-11-21",
+        "kind": "regulatory",
+        "title": "FDA inspection at Pharmathen, Rodopi (Greece) closes with nine Form 483 observations (10-21 Nov)",
+        "evidence": [
+          "F09"
+        ],
+        "actor": "US FDA",
+        "subject": "Pharmathen Rodopi plant",
+        "tags": [
+          "lanreotide",
+          "Pharmathen",
+          "incident",
+          "inspection"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-01-07",
+        "kind": "regulatory",
+        "title": "Redacted Form 483 becomes public",
+        "evidence": [
+          "F09"
+        ],
+        "actor": "US FDA",
+        "subject": "Pharmathen Rodopi plant",
+        "tags": [
+          "lanreotide",
+          "Pharmathen",
+          "incident",
+          "form_483"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-01-14",
+        "kind": "disclosure",
+        "title": "Reg-30 update: lanreotide US supply constrained; exclusive partner pauses production",
+        "evidence": [
+          "F09",
+          "F10",
+          "F14"
+        ],
+        "actor": "company",
+        "subject": "lanreotide",
+        "tags": [
+          "lanreotide",
+          "Pharmathen",
+          "incident",
+          "North America"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-01-16",
+        "kind": "media",
+        "title": "Mainstream coverage: 'FDA observation to hit Lanreotide supply'; stock falls ~5%",
+        "evidence": [
+          "F11",
+          "F18"
+        ],
+        "actor": "press",
+        "subject": "lanreotide",
+        "tags": [
+          "lanreotide"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-01-23",
+        "kind": "results",
+        "title": "Q3 FY26: North America $167M (from $233M), -22% YoY on lanreotide supply; PAT -57%",
+        "evidence": [
+          "F02",
+          "F03"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "North America",
+          "lanreotide"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-01-31",
+        "kind": "loe",
+        "title": "US lenalidomide volume limits end: unlimited generic entry",
+        "evidence": [
+          "F17"
+        ],
+        "actor": "market",
+        "subject": "lenalidomide",
+        "tags": [
+          "North America",
+          "lenalidomide"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-03-13",
+        "kind": "regulatory",
+        "title": "Class II recall of lanreotide syringes (sterility assurance at contract site)",
+        "evidence": [
+          "F12"
+        ],
+        "actor": "US FDA",
+        "subject": "lanreotide",
+        "tags": [
+          "lanreotide",
+          "Pharmathen",
+          "incident",
+          "recall"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-05-13",
+        "kind": "results",
+        "title": "Q4 FY26: North America $155M; FY27 guidance assumes zero lanreotide",
+        "evidence": [
+          "F04",
+          "F05"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "North America",
+          "lanreotide",
+          "lenalidomide"
+        ],
+        "date_precision": "day",
+        "short": null
+      },
+      {
+        "date": "2026-07-23",
+        "kind": "results",
+        "title": "Q1 FY27: North America $162M (-28% YoY); EBITDA margin 16.7% vs 25.6%; $1B exit run-rate target",
+        "evidence": [
+          "F06",
+          "F07",
+          "F08"
+        ],
+        "actor": "company",
+        "subject": null,
+        "tags": [
+          "North America",
+          "lanreotide"
+        ],
+        "date_precision": "day",
+        "short": null
+      }
+    ],
+    "links": [
+      {
+        "type": "manufacturing_partner",
+        "a": "company",
+        "b": "Pharmathen",
+        "evidence": [
+          "F10",
+          "F09"
+        ],
+        "product": "lanreotide",
+        "segment": "North America",
+        "note": "exclusive manufacturing partner (Pharmathen International S.A., Rodopi, Greece)"
+      }
+    ],
+    "claims": [
+      {
+        "speaker": "management",
+        "text": "FY27 guidance includes no lanreotide contribution.",
+        "evidence": "F05",
+        "topic": "lanreotide"
+      },
+      {
+        "speaker": "management",
+        "text": "Compare the decline sequentially, not YoY (high base).",
+        "evidence": "F07",
+        "topic": "north_america"
+      },
+      {
+        "speaker": "management",
+        "text": "Target a $1 billion North America exit run-rate.",
+        "evidence": "F08",
+        "topic": "north_america"
+      }
+    ],
+    "guidance": [],
+    "calcs": {
+      "C1": {
+        "id": "C1",
+        "name": "North America revenue growth YoY, Q1FY27",
+        "formula": "(Q1FY27 / Q1FY26 - 1) x 100",
+        "inputs": [
+          "revenue_segment[North America]@Q1FY27",
+          "revenue_segment[North America]@Q1FY26"
+        ],
+        "value": -28.0,
+        "unit": "%",
+        "evidence": [
+          "F04",
+          "F07"
+        ],
+        "note": null
+      },
+      "C2": {
+        "id": "C2",
+        "name": "North America sequential change, Q2FY26->Q3FY26",
+        "formula": "(Qt / Qt-1 - 1) x 100",
+        "inputs": [
+          "revenue_segment[North America]@Q3FY26",
+          "revenue_segment[North America]@Q2FY26"
+        ],
+        "value": -28.326180257510728,
+        "unit": "%",
+        "evidence": [
+          "F01",
+          "F02"
+        ],
+        "note": null
+      },
+      "C3": {
+        "id": "C3",
+        "name": "lanreotide quarterly run-rate (FY25 estimate / 4)",
+        "formula": "annual / 4",
+        "inputs": [
+          "product_revenue[lanreotide]@FY25"
+        ],
+        "value": 33.75,
+        "unit": "USD_mn",
+        "evidence": [
+          "F10"
+        ],
+        "note": null
+      },
+      "C4": {
+        "id": "C4",
+        "name": "North America step-down Q2FY26->Q3FY26",
+        "formula": "before - after",
+        "inputs": [
+          "revenue_segment[North America]@Q2FY26",
+          "revenue_segment[North America]@Q3FY26"
+        ],
+        "value": 66,
+        "unit": "USD_mn",
+        "evidence": [
+          "F01",
+          "F02"
+        ],
+        "note": null
+      },
+      "C5": {
+        "id": "C5",
+        "name": "Share of the step-down a full loss of lanreotide would explain",
+        "formula": "run-rate / step-down x 100",
+        "inputs": [
+          "C3",
+          "C4"
+        ],
+        "value": 51.13636363636363,
+        "unit": "%",
+        "evidence": [
+          "F01",
+          "F02",
+          "F10"
+        ],
+        "note": null
+      },
+      "C6": {
+        "id": "C6",
+        "name": "Uplift needed from Q1FY27 run-rate to North America target",
+        "formula": "target / (latest quarter x 4) - 1",
+        "inputs": [
+          "revenue_target_annualised[North America]@FY27",
+          "revenue_segment_annualised[North America]@Q1FY27"
+        ],
+        "value": 54.32098765432099,
+        "unit": "%",
+        "evidence": [
+          "F07",
+          "F08"
+        ],
+        "note": null
+      },
+      "C7": {
+        "id": "C7",
+        "name": "Share of the step-down not explained by the product",
+        "formula": "100 - explained %",
+        "inputs": [
+          "C5"
+        ],
+        "value": 48.86363636363637,
+        "unit": "%",
+        "evidence": [
+          "F01",
+          "F02",
+          "F10"
+        ],
+        "note": null
+      }
+    },
+    "conflicts": [],
+    "trace": [
+      {
+        "stage": "harvest",
+        "action": "bundle-loaded",
+        "detail": "18 sources, 18 passages, 15 figures, 9 dated events from cipla.yaml",
+        "refs": []
+      },
+      {
+        "stage": "verify",
+        "action": "growth-recompute:ok",
+        "detail": "Business Standard revenue_segment_growth_yoy Q1FY27 -28.0% matches levels (-28.0%)",
+        "refs": [
+          "F06"
+        ]
+      },
+      {
+        "stage": "profile",
+        "action": "archetype",
+        "detail": "formulations (scores {'formulations': 0.743, 'api_cdmo': 0.257, 'hospital': 0.0, 'diagnostics': 0.0}); segments ['North America']; counterparties ['Pharmathen']; peers [\"Dr. Reddy's\", 'Sun Pharma']",
+        "refs": []
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:segment_drop",
+        "detail": "North America revenue -28.0% YoY in Q1FY27 (225 -> 162 USD_mn)",
+        "refs": [
+          "C1"
+        ]
+      },
+      {
+        "stage": "scan",
+        "action": "anomaly:segment_step_down",
+        "detail": "North America fell -28.3% sequentially Q2FY26->Q3FY26 and has not recovered (latest 162 USD_mn)",
+        "refs": [
+          "C2"
+        ]
+      },
+      {
+        "stage": "plan",
+        "action": "angle:counterparty_regulatory",
+        "detail": "priority 1.0 [D2] Did a regulatory action at a plant the company does NOT own (contract manufacturer, licensor, API supplier) hit its revenue before the company or the press explained it?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:replacement_concentration",
+        "detail": "priority 0.88 [D1] When a big product or market fades, is the business replacing it with something as concentrated or fragile as what it lost?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:own_site_regulatory",
+        "detail": "priority 0.7 [D2] Is an FDA/EU action at the company's own plants (OAI, warning letter, import alert) suppressing approvals or US revenue in a way the filings show before coverage does?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:geo_mix_shift",
+        "detail": "priority 0.64 [D3] How has geographic revenue exposure shifted over five years, and what drove it (organic vs acquired, one product vs portfolio)?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:specialty_pivot",
+        "detail": "priority 0.4 [D1] Has the mix quietly moved from generics to specialty/innovative, CDMO or domestic formulations, and when did the crossover happen?",
+        "refs": []
+      },
+      {
+        "stage": "plan",
+        "action": "angle:working_capital_divergence",
+        "detail": "priority 0.4 [X] Do receivable / inventory trends tell a different story from revenue growth?",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:counterparty_regulatory",
+        "detail": "\"Cipla exclusive manufacturing partner lanreotide\" -> 4 sources",
+        "refs": [
+          "C11",
+          "C13",
+          "C14",
+          "C15"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:counterparty_regulatory",
+        "detail": "\"Pharmathen FDA Form 483 inspection observations\" -> 2 sources",
+        "refs": [
+          "C10",
+          "C12"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:counterparty_regulatory",
+        "detail": "\"Pharmathen FDA official action indicated warning letter\" -> 4 sources",
+        "refs": [
+          "C07",
+          "C08",
+          "C09",
+          "C06"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:counterparty_regulatory",
+        "detail": "\"Cipla lanreotide recall\" -> 2 sources",
+        "refs": [
+          "C10",
+          "C12"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:counterparty_regulatory",
+        "detail": "\"Cipla stock exchange disclosure supply disruption partner\" -> 2 sources",
+        "refs": [
+          "C10",
+          "C12"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:replacement_concentration",
+        "detail": "\"Cipla North America revenue decline reason lanreotide\" -> 2 sources",
+        "refs": [
+          "C16",
+          "C17"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:replacement_concentration",
+        "detail": "\"Cipla growth drivers next fiscal new launches management commentary\" -> 0 sources",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:replacement_concentration",
+        "detail": "\"Cipla lanreotide launch delay regulatory notice\" -> 2 sources",
+        "refs": [
+          "C10",
+          "C12"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:replacement_concentration",
+        "detail": "\"Cipla lanreotide manufacturing partner supply\" -> 4 sources",
+        "refs": [
+          "C11",
+          "C13",
+          "C14",
+          "C15"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:replacement_concentration",
+        "detail": "\"Cipla provision inventory write-down quality issue\" -> 4 sources",
+        "refs": [
+          "C11",
+          "C13",
+          "C14",
+          "C15"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:own_site_regulatory",
+        "detail": "\"Cipla USFDA OAI warning letter import alert facility\" -> 0 sources",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:own_site_regulatory",
+        "detail": "\"Cipla USFDA inspection Form 483 observations\" -> 2 sources",
+        "refs": [
+          "C10",
+          "C12"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:own_site_regulatory",
+        "detail": "\"Cipla new product approvals US slowdown\" -> 0 sources",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:geo_mix_shift",
+        "detail": "\"Cipla revenue by geography North America Europe India emerging markets FY22 FY27\" -> 5 sources",
+        "refs": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:geo_mix_shift",
+        "detail": "\"Cipla annual results segment revenue FY26\" -> 5 sources",
+        "refs": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:geo_mix_shift",
+        "detail": "\"Cipla latest quarter results segment revenue Q1FY27\" -> 5 sources",
+        "refs": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:geo_mix_shift",
+        "detail": "\"Cipla acquisition portfolio contribution revenue\" -> 5 sources",
+        "refs": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:specialty_pivot",
+        "detail": "\"Cipla specialty innovative medicines revenue share of sales\" -> 5 sources",
+        "refs": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05"
+        ]
+      },
+      {
+        "stage": "investigate",
+        "action": "search:specialty_pivot",
+        "detail": "\"Cipla R&D spend percent of sales specialty pipeline\" -> 0 sources",
+        "refs": []
+      },
+      {
+        "stage": "investigate",
+        "action": "search:working_capital_divergence",
+        "detail": "\"Cipla trade receivables inventory annual report\" -> 0 sources",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "proposed:H1",
+        "detail": "[counterparty_regulatory] A plant the company does not own drove its sharpest North America decline: Pharmathen, maker of lanreotide (~15% of North America sales in FY25), closed an FDA inspection with observations on 21 Nov 2025, 54 days before the company's disclosure; North America revenue fell from $233M to $167M in Q3FY26, a quarter that closed 14 days before the company disclosed the problem, and has stayed at $155M\u2013$167M since.",
+        "refs": [
+          "F01",
+          "F02",
+          "F03",
+          "F04",
+          "F05",
+          "F06"
+        ]
+      },
+      {
+        "stage": "hypothesis",
+        "action": "none:replacement_concentration",
+        "detail": "evidence did not support this angle",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "skip:own_site_regulatory",
+        "detail": "no deterministic template; LLM mode only",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "none:geo_mix_shift",
+        "detail": "evidence did not support this angle",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "skip:specialty_pivot",
+        "detail": "no deterministic template; LLM mode only",
+        "refs": []
+      },
+      {
+        "stage": "hypothesis",
+        "action": "skip:working_capital_divergence",
+        "detail": "no deterministic template; LLM mode only",
+        "refs": []
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:sector_wide",
+        "detail": "SURVIVES - North America Q1FY27: company -28.0% vs Dr. Reddy's -35.4%, Sun Pharma -9.7%. The decline itself is partly a sector-wide cliff, but the hypothesis rests on incidents tied to the company's own product / partner, which peers do not share.",
+        "refs": [
+          "F15",
+          "F16"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:temporary",
+        "detail": "SURVIVES - Management itself now treats it as lasting: 'FY27 guidance includes no lanreotide contribution.'",
+        "refs": [
+          "F05"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:already_mainstream",
+        "detail": "WEAKENS - A headline already carries the core terms: \"Cipla warns of temporary lanreotide supply disruption after USFDA observations at supplier.\". The finding must add something the headline lacks (timing, sizing or a cross-source link).",
+        "refs": [
+          "F14"
+        ]
+      },
+      {
+        "stage": "skeptic",
+        "action": "H1:other_driver",
+        "detail": "WEAKENS - A second driver hit North America: US lenalidomide volume limits end: unlimited generic entry (31 Jan 2026). It lands after the Q3FY26 quarter closed, so it explains the failure to recover in later quarters rather than the step itself. A full loss of lanreotide (~$34M/quarter) explains about 51% of the Q3FY26 step-down; the remaining 49% needs another explanation (earlier erosion of the second driver, base-business price erosion).",
+        "refs": [
+          "F17"
+        ]
+      },
+      {
+        "stage": "score",
+        "action": "H1",
+        "detail": "total 0.796 (novelty 0.8, evidence 0.8 [Strong], materiality 0.81, robustness 0.76)",
+        "refs": []
+      },
+      {
+        "stage": "verify",
+        "action": "discovery",
+        "detail": "numbers 28 checked, unmatched none; citations 17, broken none; families ['aggregator:scanx', 'aggregator:tipranks', 'company', 'media:business standard', 'media:hmp global learning network', 'media:investing.com', 'media:medical dialogues']",
+        "refs": []
+      },
+      {
+        "stage": "select",
+        "action": "done",
+        "detail": "1 discoveries from 1 hypotheses",
+        "refs": []
+      }
+    ]
+  }
+}
