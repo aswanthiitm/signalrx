@@ -10,8 +10,8 @@
     "as_of": "2026-10-16"
   },
   "mode": "replay",
-  "started": "2026-10-16T15:23:04+00:00",
-  "finished": "2026-10-16T15:23:04+00:00",
+  "started": "2026-10-16T15:34:54+00:00",
+  "finished": "2026-10-16T15:34:54+00:00",
   "profile": {
     "name": "Dr. Reddy's Laboratories",
     "symbol": "DRREDDY",
@@ -40,9 +40,9 @@
   "anomalies": [
     {
       "type": "mix_shift",
-      "subject": "North America",
-      "magnitude": -10.833089156932331,
-      "description": "North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
+      "subject": "Europe",
+      "magnitude": 8.362375778842217,
+      "description": "Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
       "periods": [
         "FY21",
         "FY25",
@@ -57,11 +57,11 @@
         "freq": "A",
         "unit": "INR_mn",
         "series": {
-          "FY21": 37.82371466433465,
-          "FY25": 44.90587394809846,
-          "FY26": 34.07278479116613
+          "FY21": 8.264347527509376,
+          "FY25": 11.073998818592022,
+          "FY26": 16.626723306351593
         },
-        "peak_period": "FY25",
+        "peak_period": "FY21",
         "share_calc": {
           "FY21": "C2",
           "FY25": "C7",
@@ -71,32 +71,32 @@
     },
     {
       "type": "mix_shift",
-      "subject": "Europe",
-      "magnitude": 8.362375778842217,
-      "description": "Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
+      "subject": "North America",
+      "magnitude": -10.833089156932331,
+      "description": "North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
       "periods": [
         "FY21",
         "FY25",
         "FY26"
       ],
       "calcs": [
-        "C5",
-        "C10",
-        "C15"
+        "C4",
+        "C9",
+        "C14"
       ],
       "data": {
         "freq": "A",
         "unit": "INR_mn",
         "series": {
-          "FY21": 8.264347527509376,
-          "FY25": 11.073998818592022,
-          "FY26": 16.626723306351593
+          "FY21": 37.82371466433465,
+          "FY25": 44.90587394809846,
+          "FY26": 34.07278479116613
         },
-        "peak_period": "FY21",
+        "peak_period": "FY25",
         "share_calc": {
-          "FY21": "C5",
-          "FY25": "C10",
-          "FY26": "C15"
+          "FY21": "C4",
+          "FY25": "C9",
+          "FY26": "C14"
         }
       }
     },
@@ -110,8 +110,8 @@
         "Q1FY27"
       ],
       "calcs": [
-        "C17",
-        "C22"
+        "C19",
+        "C24"
       ],
       "data": {
         "freq": "Q",
@@ -122,8 +122,8 @@
         },
         "peak_period": "Q1FY26",
         "share_calc": {
-          "Q1FY26": "C17",
-          "Q1FY27": "C22"
+          "Q1FY26": "C19",
+          "Q1FY27": "C24"
         }
       }
     },
@@ -174,8 +174,8 @@
       "priority": 1.0,
       "reasons": [
         "archetype fit 1.00",
-        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
+        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: North America share moved 40.8% (Q1FY26) -> 40.8% (Q1FY26) -> 27.4% (Q1FY27) [Q, INR_mn]",
         "triggered by segment_drop: North America revenue -21.7% YoY in FY26 (145,200 -> 113,737 INR_mn)",
         "triggered by segment_drop: North America revenue -35.4% YoY in Q1FY27 (34,123 -> 22,048 INR_mn)"
@@ -195,8 +195,8 @@
       "priority": 0.88,
       "reasons": [
         "archetype fit 1.00",
-        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
+        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: North America share moved 40.8% (Q1FY26) -> 40.8% (Q1FY26) -> 27.4% (Q1FY27) [Q, INR_mn]",
         "triggered by segment_drop: North America revenue -21.7% YoY in FY26 (145,200 -> 113,737 INR_mn)",
         "triggered by segment_drop: North America revenue -35.4% YoY in Q1FY27 (34,123 -> 22,048 INR_mn)"
@@ -247,8 +247,8 @@
       "priority": 0.7,
       "reasons": [
         "archetype fit 1.00",
-        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
+        "triggered by mix_shift: North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "triggered by mix_shift: North America share moved 40.8% (Q1FY26) -> 40.8% (Q1FY26) -> 27.4% (Q1FY27) [Q, INR_mn]"
       ]
     },
@@ -708,11 +708,11 @@
         "E31"
       ],
       "calcs": [
-        "C2",
-        "C7",
-        "C12",
-        "C17",
-        "C22",
+        "C4",
+        "C9",
+        "C14",
+        "C19",
+        "C24",
         "C36",
         "C37",
         "C42"
@@ -894,11 +894,11 @@
         "E24"
       ],
       "calcs": [
-        "C2",
-        "C7",
-        "C12",
-        "C17",
-        "C22",
+        "C4",
+        "C9",
+        "C14",
+        "C19",
+        "C24",
         "C38",
         "C39",
         "C40",
@@ -1594,7 +1594,7 @@
       ],
       "numbers": [
         {
-          "id": "C2",
+          "id": "C4",
           "name": "North America share of revenue, FY21",
           "value": 37.82371466433465,
           "unit": "%",
@@ -1611,7 +1611,7 @@
           ]
         },
         {
-          "id": "C7",
+          "id": "C9",
           "name": "North America share of revenue, FY25",
           "value": 44.90587394809846,
           "unit": "%",
@@ -1629,7 +1629,7 @@
           ]
         },
         {
-          "id": "C12",
+          "id": "C14",
           "name": "North America share of revenue, FY26",
           "value": 34.07278479116613,
           "unit": "%",
@@ -1646,7 +1646,7 @@
           ]
         },
         {
-          "id": "C17",
+          "id": "C19",
           "name": "North America share of revenue, Q1FY26",
           "value": 40.75312608233509,
           "unit": "%",
@@ -1664,7 +1664,7 @@
           ]
         },
         {
-          "id": "C22",
+          "id": "C24",
           "name": "North America share of revenue, Q1FY27",
           "value": 27.384397550706097,
           "unit": "%",
@@ -2281,7 +2281,7 @@
       ],
       "numbers": [
         {
-          "id": "C2",
+          "id": "C4",
           "name": "North America share of revenue, FY21",
           "value": 37.82371466433465,
           "unit": "%",
@@ -2298,7 +2298,7 @@
           ]
         },
         {
-          "id": "C7",
+          "id": "C9",
           "name": "North America share of revenue, FY25",
           "value": 44.90587394809846,
           "unit": "%",
@@ -2316,7 +2316,7 @@
           ]
         },
         {
-          "id": "C12",
+          "id": "C14",
           "name": "North America share of revenue, FY26",
           "value": 34.07278479116613,
           "unit": "%",
@@ -2333,7 +2333,7 @@
           ]
         },
         {
-          "id": "C17",
+          "id": "C19",
           "name": "North America share of revenue, Q1FY26",
           "value": 40.75312608233509,
           "unit": "%",
@@ -2351,7 +2351,7 @@
           ]
         },
         {
-          "id": "C22",
+          "id": "C24",
           "name": "North America share of revenue, Q1FY27",
           "value": 27.384397550706097,
           "unit": "%",
@@ -3958,8 +3958,8 @@
       },
       "C2": {
         "id": "C2",
-        "name": "North America share of revenue, FY21",
-        "formula": "North America / sum(segments) x 100",
+        "name": "Europe share of revenue, FY21",
+        "formula": "Europe / sum(segments) x 100",
         "inputs": [
           "revenue_segment[Emerging Markets]@FY21",
           "revenue_segment[Europe]@FY21",
@@ -3967,7 +3967,7 @@
           "revenue_segment[North America]@FY21",
           "revenue_segment[PSAI]@FY21"
         ],
-        "value": 37.82371466433465,
+        "value": 8.264347527509376,
         "unit": "%",
         "evidence": [
           "E04"
@@ -3994,6 +3994,24 @@
       },
       "C4": {
         "id": "C4",
+        "name": "North America share of revenue, FY21",
+        "formula": "North America / sum(segments) x 100",
+        "inputs": [
+          "revenue_segment[Emerging Markets]@FY21",
+          "revenue_segment[Europe]@FY21",
+          "revenue_segment[India]@FY21",
+          "revenue_segment[North America]@FY21",
+          "revenue_segment[PSAI]@FY21"
+        ],
+        "value": 37.82371466433465,
+        "unit": "%",
+        "evidence": [
+          "E04"
+        ],
+        "note": null
+      },
+      "C5": {
+        "id": "C5",
         "name": "India share of revenue, FY21",
         "formula": "India / sum(segments) x 100",
         "inputs": [
@@ -4004,24 +4022,6 @@
           "revenue_segment[PSAI]@FY21"
         ],
         "value": 17.929513764076592,
-        "unit": "%",
-        "evidence": [
-          "E04"
-        ],
-        "note": null
-      },
-      "C5": {
-        "id": "C5",
-        "name": "Europe share of revenue, FY21",
-        "formula": "Europe / sum(segments) x 100",
-        "inputs": [
-          "revenue_segment[Emerging Markets]@FY21",
-          "revenue_segment[Europe]@FY21",
-          "revenue_segment[India]@FY21",
-          "revenue_segment[North America]@FY21",
-          "revenue_segment[PSAI]@FY21"
-        ],
-        "value": 8.264347527509376,
         "unit": "%",
         "evidence": [
           "E04"
@@ -4049,8 +4049,8 @@
       },
       "C7": {
         "id": "C7",
-        "name": "North America share of revenue, FY25",
-        "formula": "North America / sum(segments) x 100",
+        "name": "Europe share of revenue, FY25",
+        "formula": "Europe / sum(segments) x 100",
         "inputs": [
           "revenue_segment[Emerging Markets]@FY25",
           "revenue_segment[Europe]@FY25",
@@ -4058,7 +4058,7 @@
           "revenue_segment[North America]@FY25",
           "revenue_segment[PSAI]@FY25"
         ],
-        "value": 44.90587394809846,
+        "value": 11.073998818592022,
         "unit": "%",
         "evidence": [
           "E01",
@@ -4087,6 +4087,25 @@
       },
       "C9": {
         "id": "C9",
+        "name": "North America share of revenue, FY25",
+        "formula": "North America / sum(segments) x 100",
+        "inputs": [
+          "revenue_segment[Emerging Markets]@FY25",
+          "revenue_segment[Europe]@FY25",
+          "revenue_segment[India]@FY25",
+          "revenue_segment[North America]@FY25",
+          "revenue_segment[PSAI]@FY25"
+        ],
+        "value": 44.90587394809846,
+        "unit": "%",
+        "evidence": [
+          "E01",
+          "E05"
+        ],
+        "note": null
+      },
+      "C10": {
+        "id": "C10",
         "name": "India share of revenue, FY25",
         "formula": "India / sum(segments) x 100",
         "inputs": [
@@ -4097,25 +4116,6 @@
           "revenue_segment[PSAI]@FY25"
         ],
         "value": 16.579607413798968,
-        "unit": "%",
-        "evidence": [
-          "E01",
-          "E05"
-        ],
-        "note": null
-      },
-      "C10": {
-        "id": "C10",
-        "name": "Europe share of revenue, FY25",
-        "formula": "Europe / sum(segments) x 100",
-        "inputs": [
-          "revenue_segment[Emerging Markets]@FY25",
-          "revenue_segment[Europe]@FY25",
-          "revenue_segment[India]@FY25",
-          "revenue_segment[North America]@FY25",
-          "revenue_segment[PSAI]@FY25"
-        ],
-        "value": 11.073998818592022,
         "unit": "%",
         "evidence": [
           "E01",
@@ -4143,8 +4143,8 @@
       },
       "C12": {
         "id": "C12",
-        "name": "North America share of revenue, FY26",
-        "formula": "North America / sum(segments) x 100",
+        "name": "Europe share of revenue, FY26",
+        "formula": "Europe / sum(segments) x 100",
         "inputs": [
           "revenue_segment[Emerging Markets]@FY26",
           "revenue_segment[Europe]@FY26",
@@ -4152,7 +4152,7 @@
           "revenue_segment[North America]@FY26",
           "revenue_segment[PSAI]@FY26"
         ],
-        "value": 34.07278479116613,
+        "value": 16.626723306351593,
         "unit": "%",
         "evidence": [
           "E01"
@@ -4179,6 +4179,24 @@
       },
       "C14": {
         "id": "C14",
+        "name": "North America share of revenue, FY26",
+        "formula": "North America / sum(segments) x 100",
+        "inputs": [
+          "revenue_segment[Emerging Markets]@FY26",
+          "revenue_segment[Europe]@FY26",
+          "revenue_segment[India]@FY26",
+          "revenue_segment[North America]@FY26",
+          "revenue_segment[PSAI]@FY26"
+        ],
+        "value": 34.07278479116613,
+        "unit": "%",
+        "evidence": [
+          "E01"
+        ],
+        "note": null
+      },
+      "C15": {
+        "id": "C15",
         "name": "India share of revenue, FY26",
         "formula": "India / sum(segments) x 100",
         "inputs": [
@@ -4189,24 +4207,6 @@
           "revenue_segment[PSAI]@FY26"
         ],
         "value": 18.629383534148577,
-        "unit": "%",
-        "evidence": [
-          "E01"
-        ],
-        "note": null
-      },
-      "C15": {
-        "id": "C15",
-        "name": "Europe share of revenue, FY26",
-        "formula": "Europe / sum(segments) x 100",
-        "inputs": [
-          "revenue_segment[Emerging Markets]@FY26",
-          "revenue_segment[Europe]@FY26",
-          "revenue_segment[India]@FY26",
-          "revenue_segment[North America]@FY26",
-          "revenue_segment[PSAI]@FY26"
-        ],
-        "value": 16.626723306351593,
         "unit": "%",
         "evidence": [
           "E01"
@@ -4234,8 +4234,8 @@
       },
       "C17": {
         "id": "C17",
-        "name": "North America share of revenue, Q1FY26",
-        "formula": "North America / sum(segments) x 100",
+        "name": "Europe share of revenue, Q1FY26",
+        "formula": "Europe / sum(segments) x 100",
         "inputs": [
           "revenue_segment[Emerging Markets]@Q1FY26",
           "revenue_segment[Europe]@Q1FY26",
@@ -4243,7 +4243,7 @@
           "revenue_segment[North America]@Q1FY26",
           "revenue_segment[PSAI]@Q1FY26"
         ],
-        "value": 40.75312608233509,
+        "value": 15.220169351852958,
         "unit": "%",
         "evidence": [
           "E06",
@@ -4272,6 +4272,25 @@
       },
       "C19": {
         "id": "C19",
+        "name": "North America share of revenue, Q1FY26",
+        "formula": "North America / sum(segments) x 100",
+        "inputs": [
+          "revenue_segment[Emerging Markets]@Q1FY26",
+          "revenue_segment[Europe]@Q1FY26",
+          "revenue_segment[India]@Q1FY26",
+          "revenue_segment[North America]@Q1FY26",
+          "revenue_segment[PSAI]@Q1FY26"
+        ],
+        "value": 40.75312608233509,
+        "unit": "%",
+        "evidence": [
+          "E06",
+          "E07"
+        ],
+        "note": null
+      },
+      "C20": {
+        "id": "C20",
         "name": "India share of revenue, Q1FY26",
         "formula": "India / sum(segments) x 100",
         "inputs": [
@@ -4282,25 +4301,6 @@
           "revenue_segment[PSAI]@Q1FY26"
         ],
         "value": 17.533529994864505,
-        "unit": "%",
-        "evidence": [
-          "E06",
-          "E07"
-        ],
-        "note": null
-      },
-      "C20": {
-        "id": "C20",
-        "name": "Europe share of revenue, Q1FY26",
-        "formula": "Europe / sum(segments) x 100",
-        "inputs": [
-          "revenue_segment[Emerging Markets]@Q1FY26",
-          "revenue_segment[Europe]@Q1FY26",
-          "revenue_segment[India]@Q1FY26",
-          "revenue_segment[North America]@Q1FY26",
-          "revenue_segment[PSAI]@Q1FY26"
-        ],
-        "value": 15.220169351852958,
         "unit": "%",
         "evidence": [
           "E06",
@@ -4329,8 +4329,8 @@
       },
       "C22": {
         "id": "C22",
-        "name": "North America share of revenue, Q1FY27",
-        "formula": "North America / sum(segments) x 100",
+        "name": "Europe share of revenue, Q1FY27",
+        "formula": "Europe / sum(segments) x 100",
         "inputs": [
           "revenue_segment[Emerging Markets]@Q1FY27",
           "revenue_segment[Europe]@Q1FY27",
@@ -4338,7 +4338,7 @@
           "revenue_segment[North America]@Q1FY27",
           "revenue_segment[PSAI]@Q1FY27"
         ],
-        "value": 27.384397550706097,
+        "value": 17.93499186466782,
         "unit": "%",
         "evidence": [
           "E07",
@@ -4367,6 +4367,25 @@
       },
       "C24": {
         "id": "C24",
+        "name": "North America share of revenue, Q1FY27",
+        "formula": "North America / sum(segments) x 100",
+        "inputs": [
+          "revenue_segment[Emerging Markets]@Q1FY27",
+          "revenue_segment[Europe]@Q1FY27",
+          "revenue_segment[India]@Q1FY27",
+          "revenue_segment[North America]@Q1FY27",
+          "revenue_segment[PSAI]@Q1FY27"
+        ],
+        "value": 27.384397550706097,
+        "unit": "%",
+        "evidence": [
+          "E07",
+          "E09"
+        ],
+        "note": null
+      },
+      "C25": {
+        "id": "C25",
         "name": "India share of revenue, Q1FY27",
         "formula": "India / sum(segments) x 100",
         "inputs": [
@@ -4377,25 +4396,6 @@
           "revenue_segment[PSAI]@Q1FY27"
         ],
         "value": 21.334442884999937,
-        "unit": "%",
-        "evidence": [
-          "E07",
-          "E09"
-        ],
-        "note": null
-      },
-      "C25": {
-        "id": "C25",
-        "name": "Europe share of revenue, Q1FY27",
-        "formula": "Europe / sum(segments) x 100",
-        "inputs": [
-          "revenue_segment[Emerging Markets]@Q1FY27",
-          "revenue_segment[Europe]@Q1FY27",
-          "revenue_segment[India]@Q1FY27",
-          "revenue_segment[North America]@Q1FY27",
-          "revenue_segment[PSAI]@Q1FY27"
-        ],
-        "value": 17.93499186466782,
         "unit": "%",
         "evidence": [
           "E07",
@@ -4755,7 +4755,7 @@
       {
         "stage": "scan",
         "action": "anomaly:mix_shift",
-        "detail": "North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
+        "detail": "Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
         "refs": [
           "C2",
           "C7",
@@ -4765,11 +4765,11 @@
       {
         "stage": "scan",
         "action": "anomaly:mix_shift",
-        "detail": "Europe share moved 8.3% (FY21) -> 8.3% (FY21) -> 16.6% (FY26) [A, INR_mn]",
+        "detail": "North America share moved 37.8% (FY21) -> 44.9% (FY25) -> 34.1% (FY26) [A, INR_mn]",
         "refs": [
-          "C5",
-          "C10",
-          "C15"
+          "C4",
+          "C9",
+          "C14"
         ]
       },
       {
@@ -4777,8 +4777,8 @@
         "action": "anomaly:mix_shift",
         "detail": "North America share moved 40.8% (Q1FY26) -> 40.8% (Q1FY26) -> 27.4% (Q1FY27) [Q, INR_mn]",
         "refs": [
-          "C17",
-          "C22"
+          "C19",
+          "C24"
         ]
       },
       {

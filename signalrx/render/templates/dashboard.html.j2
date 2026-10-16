@@ -371,6 +371,7 @@ footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px
     var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
     tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
   });
+  window.addEventListener('scroll', function () { tip.style.display = 'none'; }, { passive: true });
   document.addEventListener('click', function (e) {
     var c = e.target.closest ? e.target.closest('a.cite') : null;
     if (!c) return;

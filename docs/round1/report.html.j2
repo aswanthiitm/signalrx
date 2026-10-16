@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>{{ team }} · Track D · Round 1</title>
+<style>
+@page { size: A4; margin: 11mm 11mm 10mm; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 8.35pt/1.34 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #111; background: #fff; }
+h1 { font-size: 16.5pt; margin: 0; letter-spacing: -.01em; line-height: 1.15; }
+h2 { break-after: avoid; font-size: 8.4pt; text-transform: uppercase; letter-spacing: .07em; color: #1c5cab; margin: 7px 0 3px; border-bottom: 1px solid #d7dbe2; padding-bottom: 1px; }
+p { margin: 0 0 4px; }
+ul, ol { margin: 0 0 4px; padding-left: 13px; } li { margin: 0 0 2px; }
+b { font-weight: 650; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #111; padding-bottom: 4px; }
+.meta { text-align: right; font-size: 8pt; color: #444; }
+.lede { font-size: 9.4pt; line-height: 1.4; margin: 6px 0 2px; }
+.cols { columns: 2; column-gap: 14px; }
+.cols ul, .cols ol, .cols .flow { break-inside: avoid-column; }
+table { border-collapse: collapse; width: 100%; font-size: 7.9pt; }
+th, td { text-align: left; vertical-align: top; padding: 3px 4px; border-bottom: 1px solid #e3e5e8; }
+th { background: #f3f5f8; font-weight: 650; }
+.pill { display: inline-block; font-size: 7pt; font-weight: 700; border-radius: 3px; padding: 0 4px; border: 1px solid #0ca30c; color: #006300; }
+.pill.m { border-color: #eda100; color: #7a5300; }
+.flow { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; font-size: 7.6pt; margin: 2px 0 4px; }
+.flow span { background: #eef3fb; border: 1px solid #cddcf2; border-radius: 3px; padding: 1px 4px; white-space: nowrap; }
+.flow span.l { background: #fff3ea; border-color: #f2cfb7; }
+.flow i { color: #888; font-style: normal; }
+.box { border: 1px solid #d7dbe2; border-radius: 5px; padding: 5px 7px; margin: 3px 0 0; background: #fafbfc; }
+html, body { height: auto; }
+.grid2 { margin-bottom: 0; }
+.small { font-size: 7.5pt; color: #444; }
+.thumb { width: 100%; border: 1px solid #d7dbe2; border-radius: 4px; display: block; }
+.page2 { break-before: page; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: 7.6pt; background: #f3f5f8; padding: 0 2px; border-radius: 2px; }
+.ms td:first-child { white-space: nowrap; font-weight: 650; }
+</style></head>
+<body>
+<div class="top">
+  <div><h1>SignalRx: finding what pharma filings don't say on their own</h1>
+    <div class="small">Autonomous financial research agent · <b>Track D: Pharma &amp; Healthcare</b> · Finding the Next Signal, ATMOS 2026</div></div>
+  <div class="meta"><b>{{ team }}</b><br>{{ members }}<br>MVP: {{ repo }}</div>
+</div>
+
+<p class="lede"><b>Idea.</b> In pharma and healthcare the important story usually sits <i>between</i> documents, not inside one:
+an FDA inspection at a contract plant the company doesn't own, a government payor's billing order, a loss-of-exclusivity date,
+a partner's filing, a peer's results for the same quarter. SignalRx builds a dated <b>evidence ledger</b> across these
+independent source families, lets the numbers say <i>where</i> something moved, sends an LLM investigator to find <i>why</i>, and
+then tries to <b>kill its own hypothesis</b> before reporting anything. A summariser reads one source; SignalRx reports only
+findings that need at least two independent families and calculations no single source states.</p>
+
+<h2>MVP pilot results (working code, replayable; all pass the output verifier)</h2>
+<table>
+<tr><th style="width:12%">Company</th><th>Discovery the agent produced (abridged)</th><th style="width:7%">Brief</th><th style="width:8%">Strength</th></tr>
+<tr><td><b>Dr. Reddy's</b></td><td>North America is down to <b>27.4%</b> of revenue (Q1FY27), <b>below even FY21's 37.8%</b>, while ex-NA revenue grew <b>+23.5%</b> in FY26. The lenalidomide cliff is already in the numbers, so <b>semaglutide is now the swing factor</b>, and it has slipped twice in 8 months: a Health Canada notice (Oct-25), then an out-of-spec API (Jul-26), leading to a ₹240 cr write-down (<b>54% of Q1 profit</b>) and a pen plan cut from 12M to 6–7M.</td><td>D1/D3</td><td><span class="pill">Strong</span></td></tr>
+<tr><td><b>Cipla</b></td><td>The sharpest US decline came from <b>a plant Cipla doesn't own</b>: the exclusive lanreotide maker (Pharmathen, Greece) closed an FDA inspection with 9 observations on 21-Nov-25. NA then fell <b>28% QoQ</b> ($233M→$167M) in a quarter that <b>closed 14 days before Cipla disclosed it</b>. The skeptic shows lanreotide explains only <b>~51%</b> of the step, and the $1bn exit-rate target needs <b>+54%</b> with zero lanreotide.</td><td>D2</td><td><span class="pill">Strong</span></td></tr>
+<tr><td><b>Max Healthcare</b></td><td>The H2-FY26 <b>ARPOB stall was a payor-policy shock, not demand</b>. After CGHS drug-billing rules, Max stopped high-value chemo for institutional patients, and oncology fell from <b>26% to 22%</b> of inpatient revenue. Reported growth (16%) understates the core (20%), ~1.2pp of the Q1 ARPOB rebound is the CGHS tariff revision, and the "normalisation" date is just the base effect lapping. <i>Secondary: the bed target needs 3.3–3.7× the current build pace.</i></td><td>D2</td><td><span class="pill m">Moderate</span></td></tr>
+</table>
+
+<div class="cols">
+<h2>Workflow: company → plan → evidence → discovery</h2>
+<div class="flow"><span>resolve</span><i>→</i><span>harvest</span><i>→</i><span>verify inputs</span><i>→</i><span>profile</span><i>→</i><span>scan</span><i>→</i><span>plan</span><i>→</i><span class="l">investigate</span><i>→</i><span class="l">expand 3rd parties</span><i>→</i><span>hypothesise</span><i>→</i><span>skeptic</span><i>→</i><span class="l">adversarial search</span><i>→</i><span>score</span><i>→</i><span class="l">write</span><i>→</i><span>verify output</span><i>→</i><span>render</span></div>
+<p class="small">Blue = deterministic code; orange = LLM. The LLM <b>proposes</b>; code <b>disposes</b> (it computes, checks and scores).</p>
+<ol>
+<li><b>Harvest</b>: 5–10 years of statements and quarterly results, Reg-30 filings, FDA recalls/approvals, dated headlines.</li>
+<li><b>Scan</b>: where the numbers moved: mix shifts, segment step-downs, reported-vs-adjusted growth gaps, ARPOB stalls, announced-vs-commissioned capacity.</li>
+<li><b>Plan</b>: ranks the Track D angle library (D1 model drift, D2 regulatory-before-coverage, D3 geography, plus third-party plants, payor policy, capacity, narrative gap) by archetype fit × anomalies, with one open LLM-proposed slot.</li>
+<li><b>Investigate</b>: a Claude tool loop per angle (search, fetch, PDF search, FDA/NSE/news). Each record needs a verbatim quote from a fetched document <b>with exactly matching numbers</b>, or it is rejected.</li>
+<li><b>Expand</b>: each third party found (contract maker, supplier, payor) gets its own regulator probe. This is how the Cipla finding is reached.</li>
+<li><b>Hypothesise → challenge → score → write</b>, then the verifier re-traces every number in the prose.</li>
+</ol>
+<h2>Generalises across the track, with no company tuning</h2>
+<ul>
+<li><b>Universe from NSE index files</b> at run time (today Sun, Cipla, Dr. Reddy's, Apollo, Max): reshuffles need no code.</li>
+<li><b>Archetype from the company's own text and segments</b> (formulations / API-CDMO / hospital / diagnostics) routes to the right KPIs. The pilots cover two archetypes on one code path, which the tie-break pool (Divi's, Lupin, Fortis, Syngene…) shares.</li>
+<li><b>Sector knowledge pack, not company knowledge</b>: FDA/Health Canada/EU escalation ladders, a CGHS/NPPA/Sec-232/BIOSECURE watchlist, an LOE calendar and a controlled metric vocabulary. A test fails the build if any company name appears in code.</li>
+</ul>
+<h2>Triangulation and contradiction detection</h2>
+<ul>
+<li><b>Source families</b> (company · each regulator · each counterparty · each publisher): a discovery needs ≥2, and the strength grade counts them.</li>
+<li><b>Recompute, don't trust</b>: reported growth is recomputed from filed levels. In the pilot, one outlet printed Dr. Reddy's Q1 at <b>+6%</b> and NA at <b>+35%</b>; the filings give <b>−5.6%</b> and <b>−35.4%</b>, so both were dropped and logged.</li>
+<li><b>Hierarchy</b>: regulator = filing &gt; transcript/counterparty &gt; broker/press &gt; aggregator &gt; blog. Overruled figures go to an audit log; derived values carry tolerance bands. Peers are compared for the same quarter.</li>
+</ul>
+<h2>Self-falsification and temporal reasoning</h2>
+<p>The skeptic is code that <b>re-runs the numbers</b> for each alternative: sector-wide · acquired · one-off (adds it back) · temporary (dated fix becomes a falsifier) · second driver <i>with timing</i> · breadth · low-margin · already-in-headlines · data conflicts. Live runs also send an <b>adversarial investigator</b> after the leading hypothesis. Each event carries a date and a precision; the agent measures regulator → disclosure → headline → results lags. From the pilots:</p>
+<ul>
+<li>Cipla: the lenalidomide LOE (31-Jan-26) lands <i>after</i> the step quarter, so the finding was resized to "~51% explained".</li>
+<li>Dr. Reddy's: broad ex-NA growth reframed "concentrated replacement" into "semaglutide is the swing factor".</li>
+<li>Max: "normalisation by Q3–Q4 FY27" falls 13 months after the change, which the agent flags as base-effect lapping, not recovery.</li>
+</ul>
+</div>
+<div class="grid2">
+<div>
+<h2>Output: interactive dashboard plus PDF research note (same content)</h2>
+<img class="thumb" src="data:image/png;base64,{{ thumb }}" alt="SignalRx dashboard, Cipla run">
+<p class="small" style="margin-top:3px">Top to bottom: the discovery (one sentence, citation chips), key-number tiles, a chart with dated event markers, why it matters, the strongest counterargument, falsification conditions, a timeline, evidence strength with reasons, the skeptic table, the full evidence trail (stance, family, passage, link; filterable), every calculation with formula and inputs, the hypothesis board including rejected ideas, the audit log and the agent trace. <b>Every claim is one click from its passage and URL.</b> The PDF is the same page printed to A4.</p>
+
+<h2>Evidence strength rubric (shown with its reasons)</h2>
+<ul>
+<li><b>Strong</b>: ≥4–6 independent families incl. a primary filing, most skeptic tests survived, no refutation, all conflicts resolved.</li>
+<li><b>Moderate</b>: ≥3 families incl. a primary filing, but key attribution rests on management commentary or the press.</li>
+<li><b>Weak</b>: thin or single-family support, or a refuting test. A weak finding is still shown, with that label.</li>
+</ul>
+<p>The ranking score is 0.35 novelty + 0.30 evidence + 0.20 materiality + 0.15 robustness. Novelty rewards non-company families, a third-party record that <i>leads</i> the company's disclosure, and derived calculations; it is penalised when headlines already carry the core terms.</p>
+
+<h2>Readiness across the track: leads for the other two NIFTY 50 names</h2>
+<p class="small" style="margin-bottom:2px">From the same research protocol; not yet run end to end. These are the angles the planner would pick first.</p>
+<table>
+<tr><td style="width:17%"><b>Sun Pharma</b></td><td>D1 + policy: innovative medicines reached 21.9% of sales (+12.8% to $351M) while US formulations fell 9.7% to $427M (Q1FY27), with three US-facing plants under FDA warning letters. Test whether the specialty pivot raises exposure to the 100% Sec-232 tariff on patented imports (Sep-26).</td></tr>
+<tr><td><b>Apollo Hospitals</b></td><td>Capacity gap: the FY26 plan of six facilities and ~1,400 beds narrowed to four hospitals, with ~855 beds commissioned by May-26 against a 4,400-bed five-year target. Narrative gap: HealthCo's first profitable year vs the slipping Keimed merger timeline.</td></tr>
+</table></div>
+<div>
+<h2>Tools and stack</h2>
+<table>
+<tr><th style="width:27%">Layer</th><th>Choice</th></tr>
+<tr><td>Reasoning model</td><td>Claude Opus 5.5 (<code>claude-opus-5-5</code>): adaptive thinking, JSON-schema structured outputs, strict tool schemas, server-side refusal fallbacks. Swappable behind one wrapper.</td></tr>
+<tr><td>Agent loop</td><td>Our own manual tool loop (handles <code>pause_turn</code>; parallel tool results). No framework lock-in, and every step is logged to the trace.</td></tr>
+<tr><td>Search / retrieval</td><td>Anthropic server-side web search; our own fetcher with an on-disk cache; HTML/PDF to text (BeautifulSoup, pypdf); BM25 inside long filings; fuzzy quote grounding with exact numbers.</td></tr>
+<tr><td>Public data</td><td>NSE/BSE Reg-30 filings · results releases, investor decks, transcripts, annual reports · SEC EDGAR 6-K/20-F for ADR issuers · Screener statements · openFDA recalls &amp; Drugs@FDA approvals · FDA Data Dashboard, warning letters, import alerts, Form 483 FOIA · Health Canada NOC · CGHS/NPPA orders · ClinicalTrials.gov v2 · news RSS (first-coverage dating). No paid data.</td></tr>
+<tr><td>Analytics</td><td>Python calculators (shares, growth, implied priors, required run-rate, decomposition); every derived number is a recorded calculation with its inputs.</td></tr>
+<tr><td>Output</td><td>Jinja2 + inline SVG (no JS libraries; works offline, light and dark), Chromium to PDF; <code>run.json</code> holds the full ledger and trace.</td></tr>
+<tr><td>Quality</td><td>25 pytest tests: calculators, verifier, grounding (rejects a quote with a changed number), parsers, the LLM loop against a fake client, and the generality guard.</td></tr>
+</table>
+
+<h2>Build plan to the finals (25 Oct)</h2>
+<table class="ms">
+<tr><td>16–19 Oct</td><td><b>Done:</b> full replay pipeline, three pilot discoveries across two archetypes, dashboard + PDF, 25 tests; Round 1 submission.</td></tr>
+<tr><td>20–21 Oct</td><td>Live connectors smoke-tested on an open network (<code>scripts/smoke_live.py</code>); live runs on all five NIFTY 50 track companies, each frozen into a replayable bundle.</td></tr>
+<tr><td>22 Oct</td><td>Tie-break pool dry runs (Divi's, Lupin, Zydus, Torrent, Aurobindo, Fortis, Narayana, Syngene). Track verifier pass rate, families per discovery, time to discovery (target &lt;12 min), and false-claim rate from a manual audit of 20 citations.</td></tr>
+<tr><td>23–24 Oct</td><td>Harden against what the dry runs reveal (parser drift, new angles such as specialty-pivot and own-site OAI templates); rehearse the 10-minute demo: a live run on the judges' pick with a replay fallback, plus Q&amp;A.</td></tr>
+<tr><td>25 Oct</td><td>Finals: live run on the company the judges choose; dashboard walk-through from claim to source; counterargument and falsification on screen.</td></tr>
+</table>
+<div class="box small"><b>Limits we state up front.</b> Replay bundles were collected with a search tool, so passages are search-result snippets; live runs replace them with full-document quotes. Third-party facts (FDA 483 details) currently arrive via the press; the live regulator probes add the primary record. No investment recommendation is made.</div>
+</div>
+</div>
+</body></html>

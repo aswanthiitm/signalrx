@@ -147,7 +147,7 @@ footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px
 <header class="top">
   <div><b>SignalRx</b> · autonomous research agent · Track D: Pharma &amp; Healthcare</div>
   <div class="chips">
-    <span class="chip">run 2026-10-16 15:23 UTC</span>
+    <span class="chip">run 2026-10-16 15:34 UTC</span>
     <span class="chip">mode: replay</span>
     <span class="chip">evidence as of 2026-10-16</span>
   </div>
@@ -567,6 +567,7 @@ footer { margin-top: 40px; font-size: 12px; color: var(--muted); border-top: 1px
     var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
     tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
   });
+  window.addEventListener('scroll', function () { tip.style.display = 'none'; }, { passive: true });
   document.addEventListener('click', function (e) {
     var c = e.target.closest ? e.target.closest('a.cite') : null;
     if (!c) return;
